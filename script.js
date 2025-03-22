@@ -1,9 +1,10 @@
+// Class list with register numbers
 const classmates = [
   "Bhat Shreyas",
   "Chan Zhi Bin",
   "Cheah Wei Heng",
   "Darsh Singhal",
-  "Dong Linteng",
+  "Dong LinTeng",
   "Eyan Naim Koh Bin Dhahrulsalam",
   "Fan Jiarui",
   "Guan Xuhui",
@@ -34,20 +35,28 @@ const classmates = [
 const listElement = document.getElementById("class-list");
 const searchInput = document.getElementById("search");
 
+// Adds number filtering and name filtering
 function updateList(filter = "") {
   listElement.innerHTML = "";
-  const filtered = classmates.filter(name =>
-    name.toLowerCase().includes(filter.toLowerCase())
-  );
+
+  const filtered = classmates
+    .map((name, index) => ({ number: index + 1, name }))
+    .filter(student => {
+      const query = filter.toLowerCase();
+      return (
+        student.name.toLowerCase().includes(query) ||
+        student.number.toString().startsWith(query)
+      );
+    });
 
   if (filtered.length === 0) {
     listElement.innerHTML = "<li>No matches found.</li>";
     return;
   }
 
-  filtered.forEach(name => {
+  filtered.forEach(student => {
     const li = document.createElement("li");
-    li.textContent = name;
+    li.textContent = `${student.number}. ${student.name}`;
     listElement.appendChild(li);
   });
 }
@@ -56,5 +65,4 @@ searchInput.addEventListener("input", () => {
   updateList(searchInput.value);
 });
 
-// Initial display
-updateList();
+updateList(); // initial load
