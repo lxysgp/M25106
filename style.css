@@ -28,3 +28,30 @@ footer {
   text-align: center;
   padding: 10px;
 }
+.student-finder {
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 1rem;
+  max-width: 500px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.student-finder input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+}
+
+#class-list {
+  list-style: none;
+  padding: 0;
+}
+
+#class-list li {
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
