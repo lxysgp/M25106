@@ -14,20 +14,23 @@ const historyDiv = document.getElementById("history");
 
 const todayKey = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
 
+// Display student list with checkboxes
 function updateList(filter = "") {
 	listElement.innerHTML = "";
 	const filtered = classmates
-	.map((name, index) => ({ number: index + 1, name }))
-	.filter(student => {
-		const query = filter.toLowerCase();
-		return student.name.toLowerCase().includes(query) ||
-			student.number.toString().startsWith(query);
-	});
+		.map((name, index) => ({ number: index + 1, name }))
+		.filter(student => {
+			const query = filter.toLowerCase();
+			return student.name.toLowerCase().includes(query) ||
+				student.number.toString().startsWith(query);
+		});
 
 	if (filtered.length === 0) {
 		listElement.innerHTML = "<li>No matches found.</li>";
 		return;
 	}
+
+	const todayData = JSON.parse(localStorage.getItem("attendance") || "{}");
 
 	filtered.forEach(student => {
 		const li = document.createElement("li");
@@ -36,8 +39,6 @@ function updateList(filter = "") {
 		checkbox.id = `student-${student.number}`;
 		checkbox.value = student.number;
 
-		// Pre-check if already marked present today
-		const todayData = JSON.parse(localStorage.getItem("attendance") || "{}");
 		if (todayData[todayKey]?.includes(student.number)) {
 			checkbox.checked = true;
 		}
@@ -48,6 +49,7 @@ function updateList(filter = "") {
 	});
 }
 
+// Save today's attendance
 function finalizeAttendance() {
 	const checkboxes = listElement.querySelectorAll("input[type=checkbox]");
 	const present = [];
@@ -56,7 +58,7 @@ function finalizeAttendance() {
 		if (cb.checked) present.push(parseInt(cb.value));
 	});
 
-	// Save today's data
+	// Save to localStorage
 	let allData = JSON.parse(localStorage.getItem("attendance") || "{}");
 	allData[todayKey] = present;
 	localStorage.setItem("attendance", JSON.stringify(allData));
@@ -65,12 +67,16 @@ function finalizeAttendance() {
 	renderHistory();
 }
 
+// Show attendance history
 function renderHistory() {
 	const data = JSON.parse(localStorage.getItem("attendance") || "{}");
 	historyDiv.innerHTML = "<h3>📅 Past Attendance</h3>";
 	Object.keys(data).sort().reverse().forEach(date => {
 		const count = data[date].length;
-		const list = data[date].sort((a, b) => a - b).map(n => `${n}. ${classmates[n - 1]}`).join("<br>");
+		const list = data[date]
+			.sort((a, b) => a - b)
+			.map(n => `${n}. ${classmates[n - 1]}`)
+			.join("<br>");
 		historyDiv.innerHTML += `
 			<details>
 				<summary>${date} - ${count}/${classmates.length} present</summary>
@@ -80,8 +86,9 @@ function renderHistory() {
 	});
 }
 
+// Live search
 searchInput.addEventListener("input", () => updateList(searchInput.value));
 
-// Init
+// Initialize
 updateList();
 renderHistory();
