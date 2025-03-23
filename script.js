@@ -182,3 +182,40 @@ searchInput.addEventListener("input", () => updateList(searchInput.value));
 // Init
 updateList();
 renderHistory();
+document.getElementById("chat-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const name = localStorage.getItem("loggedInUser") || "anonymous";
+  const text = document.getElementById("chat-message").value.trim();
+
+  if (!text) return;
+
+  const entry = {
+    name,
+    text,
+    time: new Date().toLocaleTimeString()
+  };
+
+  let chatData = JSON.parse(localStorage.getItem("chatMessages") || "[]");
+  chatData.push(entry);
+  localStorage.setItem("chatMessages", JSON.stringify(chatData));
+
+  document.getElementById("chat-message").value = "";
+  renderChat();
+});
+
+function renderChat() {
+  const chatBox = document.getElementById("chat-box");
+  const chatData = JSON.parse(localStorage.getItem("chatMessages") || "[]");
+  chatBox.innerHTML = "";
+
+  chatData.forEach(entry => {
+    chatBox.innerHTML += `
+      <div style="margin-bottom: 10px;">
+        <strong>${entry.name}</strong> <span style="font-size: 0.8rem;">(${entry.time})</span><br>
+        ${entry.text}
+      </div>
+    `;
+  });
+
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
