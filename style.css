@@ -65,11 +65,13 @@ input[type="checkbox"] {
   transform: scale(1.4);
   margin-right: 12px;
 }
+
+ 
 #login-screen input {
-  margin: 10px 0;
-  padding: 8px;
-  width: 100%;
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 90%;
   border-radius: 6px;
   box-sizing: border-box;
 }
- 
