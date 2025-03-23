@@ -128,7 +128,7 @@ function toggleAttendance() {
 	updateList(searchInput.value);
 	listElement.style.fontSize = isTakingAttendance
 	? "2rem"
-	: "1rem"
+	: "1rem";
 }
 
 // Save today's attendance
