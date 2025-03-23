@@ -34,3 +34,11 @@ dd {
   cursor: pointer;
   font-weight: bold;
 }
+#history details {
+  margin-bottom: 10px;
+}
+#history summary {
+  font-weight: bold;
+  cursor: pointer;
+}
+
