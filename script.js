@@ -3,6 +3,7 @@ const validUsers = {
   "xinyuan": { password: "MTIzNA==", role: "student" },
   "lin": { password: "YWJj", role: "student" },
   "admin": { password: "YWRtaW4=", role: "teacher" }
+ "nzx.21106" : {password: "NjAxNTJNc3NsYWM=", role: "teacher" } // 60152Msslac
 };
 
 let currentUserRole = null;
@@ -182,15 +183,18 @@ searchInput.addEventListener("input", () => updateList(searchInput.value));
 // Init
 updateList();
 renderHistory();
+// --- CHAT SYSTEM ONLY ---
 document.getElementById("chat-form").addEventListener("submit", function (e) {
   e.preventDefault();
-  const name = localStorage.getItem("loggedInUser") || "anonymous";
-  const text = document.getElementById("chat-message").value.trim();
 
+  const name = localStorage.getItem("loggedInUser") || "anonymous";
+  const role = localStorage.getItem("userRole") || "student";
+  const text = document.getElementById("chat-message").value.trim();
   if (!text) return;
 
   const entry = {
     name,
+    role,
     text,
     time: new Date().toLocaleTimeString()
   };
@@ -209,13 +213,19 @@ function renderChat() {
   chatBox.innerHTML = "";
 
   chatData.forEach(entry => {
+    const isTeacher = entry.role === "teacher";
+    const nameStyle = isTeacher ? "font-weight: bold;" : "";
+    const msgStyle = isTeacher ? "font-weight: bold;" : "";
+
     chatBox.innerHTML += `
       <div style="margin-bottom: 10px;">
-        <strong>${entry.name}</strong> <span style="font-size: 0.8rem;">(${entry.time})</span><br>
-        ${entry.text}
+        <span style="${nameStyle}">${entry.name}</span>
+        <span style="font-size: 0.8rem;">(${entry.time})</span><br>
+        <span style="${msgStyle}">${entry.text}</span>
       </div>
     `;
   });
 
   chatBox.scrollTop = chatBox.scrollHeight;
 }
+

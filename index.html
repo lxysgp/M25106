@@ -159,7 +159,47 @@
         <h2>Class Logo, Motto and Mascot</h2>
         <h3>Class mascot (pi):</h3>
         <img src="clsmas.png" alt="M25106 Class Logo" width="300" class="mascot">
+
+        
       </section>
+      <section id="chat" style="display: none;">
+  <h2>💬 Class Chat</h2>
+
+  <!-- Optional: Show current user -->
+  <p id="chat-user" style="font-weight: bold; color: #2d70b6;"></p>
+
+  <!-- Chat message display -->
+  <div id="chat-box" style="
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fefefe;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  "></div>
+
+  <!-- Chat form -->
+  <form id="chat-form" style="display: flex; gap: 10px; max-width: 600px;">
+    <input type="text" id="chat-message" placeholder="Type your message..." required style="
+      flex: 1;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    ">
+    <button type="submit" style="
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 8px;
+      background-color: #2d70b6;
+      color: white;
+      border: none;
+      cursor: pointer;
+    ">Send</button>
+  </form>
+</section>
+
       <section id="projects">
         <h2>Cool Projects</h2>
         <p>Coming soon!</p>
