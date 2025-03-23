@@ -42,3 +42,16 @@ dd {
   cursor: pointer;
 }
 
+#clear-btn {
+  margin-top: 10px;
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#clear-btn:hover {
+  background-color: #c9302c;
+}
