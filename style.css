@@ -66,26 +66,59 @@ input[type="checkbox"] {
   margin-right: 12px;
 }
 
+/* Page container */
 #login-screen {
-  max-width: 300px;
-  margin: 100px auto;
-  text-align: center;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  height: 100vh;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  background-color: #f5f5f5;
 }
 
-#login-screen input,
-#login-screen button {
-  display: block;
+/* White box */
+.login-box {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 90%;
+  max-width: 350px;
+}
+
+/* Logo image */
+.logo {
+  height: 32px;
+  vertical-align: middle;
+  margin: 0 6px;
+}
+
+/* Inputs and button */
+.login-box input,
+.login-box button {
   width: 100%;
-  margin: 10px 0;
   padding: 10px;
+  margin: 10px 0;
   font-size: 1rem;
   border-radius: 6px;
   box-sizing: border-box;
+  border: 1px solid #ccc;
 }
+
+.login-box button {
+  background-color: #2d70b6;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+}
+
+.login-box button:hover {
+  background-color: #195693;
+}
+
+#login-msg {
+  color: red;
+  margin-top: 10px;
+}
+
