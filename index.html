@@ -89,6 +89,9 @@
       padding: 8px;
       width: 100%;
     }
+		img {
+			border-radius: 1rem;
+		}
     @media (prefers-color-scheme: dark) {
       body { background-color: #0a0a0a }
       header { background-color: #002762 }
@@ -117,65 +120,65 @@
   </style>
 </head>
 <body>
-<div id="login-screen">
-  <h2>Login to M25106 Wiki</h2>
-  <input type="text" id="username" placeholder="Enter your name">
-  <input type="password" id="password" placeholder="Password">
-  <button onclick="login()">Login</button>
-  <p id="login-msg" style="color: red;"></p>
-</div>
-<div id="main-content" style="display: none;">
-  <header>
-    <h1>M25106 ClassWeb</h1>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#people">Classmates</a>
-      <a href="#logo">Logo</a>
-      <a href="#projects">Projects</a>
-    </nav>
-    <button id="logout-btn" onclick="logout()">Logout</button>
-  </header>
-  <main>
-    <section id="home">
-      <h2>Welcome to the M25106 ClassWeb!</h2>
-      <p>This is the place to find everything about our class!</p>
-    </section>
-    <section id="people">
-      <h1>Our People</h1>
-      <h2>Classmates - 30</h2>
-      <div class="student-finder">
-        <input type="text" id="search" placeholder="Search by name or reg. no.">
-        <button onclick="toggleAttendance()" id="attend">Take Attendance</button>
-        <ul id="class-list"></ul>
-        <button onclick="finalizeAttendance()" id="done-btn">Done</button>
-        <button onclick="clearHistory()" id="clear-btn">Clear Attendance History</button>
-        <p id="summary"></p>
-        <div id="history"></div>
-      </div>
-      <h2>Class Committee</h2>
-      <h3>Class Reps</h3>
-      <ul><li>21. Ng Zheng Xian</li><li>20. Natalie Chay Yun Xi</li></ul>
-      <h3>Well-Being Rep</h3>
-      <ul><li>18. Mao Yusu</li></ul>
-      <h3>IT Rep</h3>
-      <ul><li>1. Bhat Shreyas</li></ul>
-      <h3>Environmental Rep</h3>
-      <ul><li>4. Darsh Singhal</li></ul>
-    </section>
-    <section id="logo">
-      <h2>Class Logo, Motto and Mascot</h2>
-      <h3>Class mascot (pi):</h3>
-      <img src="clsmas.png" alt="M25106 Class Logo" width="300">
-    </section>
-    <section id="projects">
-      <h2>Cool Projects</h2>
-      <p>Coming soon!</p>
-    </section>
-  </main>
-  <footer>
-    <p>Made by Li Xinyuan and Dong LinTeng</p>
-  </footer>
-</div>
-<script src="script.js"></script>
+  <div id="login-screen">
+    <h2>Login to M25106 Wiki</h2>
+    <input type="text" id="username" placeholder="Enter your name">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="login-msg" style="color: red;"></p>
+  </div>
+  <div id="main-content" style="display: none;">
+    <header>
+      <h1>M25106 ClassWeb</h1>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#people">Classmates</a>
+        <a href="#logo">Logo</a>
+        <a href="#projects">Projects</a>
+      </nav>
+      <button id="logout-btn" onclick="logout()">Logout</button>
+    </header>
+    <main>
+      <section id="home">
+        <h2>Welcome to the M25106 ClassWeb!</h2>
+        <p>This is the place to find everything about our class!</p>
+      </section>
+      <section id="people">
+        <h1>Our People</h1>
+        <h2>Classmates - 30</h2>
+        <div class="student-finder">
+          <input type="text" id="search" placeholder="Search by name or reg. no.">
+          <button onclick="toggleAttendance()" id="attend">Take Attendance</button>
+          <ul id="class-list"></ul>
+          <button onclick="finalizeAttendance()" id="done-btn">Done</button>
+          <button onclick="clearHistory()" id="clear-btn">Clear Attendance History</button>
+          <p id="summary"></p>
+          <div id="history"></div>
+        </div>
+        <h2>Class Committee</h2>
+        <h3>Class Reps</h3>
+        <ul><li>21. Ng Zheng Xian</li><li>20. Natalie Chay Yun Xi</li></ul>
+        <h3>Well-Being Rep</h3>
+        <ul><li>18. Mao Yusu</li></ul>
+        <h3>IT Rep</h3>
+        <ul><li>1. Bhat Shreyas</li></ul>
+        <h3>Environmental Rep</h3>
+        <ul><li>4. Darsh Singhal</li></ul>
+      </section>
+      <section id="logo">
+        <h2>Class Logo, Motto and Mascot</h2>
+        <h3>Class mascot (pi):</h3>
+        <img src="clsmas.png" alt="M25106 Class Logo" width="300" class="mascot">
+      </section>
+      <section id="projects">
+        <h2>Cool Projects</h2>
+        <p>Coming soon!</p>
+      </section>
+    </main>
+    <footer>
+      <p>Made by Li Xinyuan and Dong LinTeng</p>
+    </footer>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
