@@ -37,9 +37,7 @@
       border-radius: 6px;
       transition: background-color 0.3s;
     }
-    nav a:hover {
-      background-color: #195693;
-    }
+    nav a:hover {background-color: #195693;}
     #logout-btn {
       background-color: #fff;
       color: #2d70b6;
@@ -66,17 +64,17 @@
       padding: 10px;
       margin-top: 30px;
     }
-    li {
-      list-style-type: none;
-    }
+    li {list-style-type: none;}
     button {
       background-color: #002762;
       color: white;
     }
-   
-		img {
-			border-radius: 1rem;
-		}
+		img {border-radius: 1rem;}
+    #login-screen {
+      text-align: center;
+      font-size: 2rem;
+    }
+    #login-screen input {font-size: 2rem;}
     @media (prefers-color-scheme: dark) {
       body { background-color: #0a0a0a }
       header { background-color: #002762 }
@@ -106,10 +104,10 @@
 </head>
 <body>
   <div id="login-screen">
-    <h2>Login to M25106 Wiki</h2>
+    <h2>Login to M25106 Classweb</h2>
     <input type="text" id="username" placeholder="Enter your name">
     <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Login</button>
+    <button onclick="login()" style="height: 2.5rem;">Login</button>
     <p id="login-msg" style="color: red;"></p>
   </div>
   <div id="main-content" style="display: none;">
@@ -160,9 +158,7 @@
         <p>Coming soon!</p>
       </section>
     </main>
-    <footer>
-      <p>Made by Li Xinyuan and Dong LinTeng</p>
-    </footer>
+    <footer><p>Made by Li Xinyuan and Dong LinTeng</p></footer>
   </div>
   <script src="script.js"></script>
 </body>
