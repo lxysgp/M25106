@@ -1,1 +1,1 @@
-#readme.md
+admin:skibidi
