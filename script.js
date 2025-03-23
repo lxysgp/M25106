@@ -183,12 +183,11 @@ searchInput.addEventListener("input", () => updateList(searchInput.value));
 updateList();
 renderHistory();
 // --- CHAT SYSTEM ONLY ---
-
 document.getElementById("chat-form").addEventListener("submit", function (e) {
   e.preventDefault();
 
-  const name = document.getElementById("chat-name").value.trim() || "anonymous";
-  const role = document.getElementById("chat-role")?.value || "student"; // optional role input
+  const name = localStorage.getItem("loggedInUser") || "anonymous";
+  const role = localStorage.getItem("userRole") || "student";
   const text = document.getElementById("chat-message").value.trim();
   if (!text) return;
 
@@ -228,7 +227,4 @@ function renderChat() {
 
   chatBox.scrollTop = chatBox.scrollHeight;
 }
-
-// Load messages on page load
-window.onload = renderChat;
 
