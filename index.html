@@ -68,13 +68,17 @@
     button {
       background-color: #002762;
       color: white;
+      border-radius: 1rem;
     }
 		img {border-radius: 1rem;}
     #login-screen {
       text-align: center;
       font-size: 2rem;
     }
-    #login-screen input {font-size: 2rem;}
+    #login-screen input {
+      font-size: 2rem;
+      border-radius: 1rem;
+    }
     @media (prefers-color-scheme: dark) {
       body { background-color: #0a0a0a }
       header { background-color: #002762 }
@@ -88,16 +92,16 @@
       }
       button {
         background-color: #2d70b6;
-        color: black;
+        color: white;
       }
       #login-screen {
         background: #111;
         color: white;
       }
       #login-screen input {
-        background-color: #222;
+        background-color: #faf7ff;
         color: white;
-        border: 1px solid #555;
+        border: 1px solid #3f4756;
       }
     }
   </style>
@@ -105,9 +109,9 @@
 <body>
   <div id="login-screen">
     <h2>Login to M25106 Classweb</h2>
-    <input type="text" id="username" placeholder="Enter your name">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()" style="height: 2.5rem;">Login</button>
+    <input type="text" id="username" placeholder="Enter your name"><br><br>
+    <input type="password" id="password" placeholder="Password"><br><br>
+    <button onclick="login()" style="height: 3rem;width: 25rem;font-size: 2rem;">Login</button>
     <p id="login-msg" style="color: red;"></p>
   </div>
   <div id="main-content" style="display: none;">
