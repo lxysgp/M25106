@@ -1,18 +1,24 @@
+// --- Obfuscated login system with logout and role-based access ---
 const validUsers = {
-  "xinyuan": "MTIzNA==",      // "1234"
-  "admin": "YWJj",              // "abc"
-  "teacher": "YWRtaW4="       // "admin"
+  "xinyuan": { password: "MTIzNA==", role: "student" },
+  "lin": { password: "YWJj", role: "student" },
+  "admin": { password: "YWJj", role: "teacher" }
 };
+
+let currentUserRole = null;
 
 function login() {
   const name = document.getElementById("username").value.toLowerCase();
   const pass = document.getElementById("password").value;
-  const stored = validUsers[name];
+  const user = validUsers[name];
 
-  if (stored && atob(stored) === pass) {
+  if (user && atob(user.password) === pass) {
     localStorage.setItem("loggedInUser", name);
+    localStorage.setItem("userRole", user.role);
+    currentUserRole = user.role;
     document.getElementById("login-screen").style.display = "none";
     document.getElementById("main-content").style.display = "block";
+    applyRoleVisibility();
   } else {
     document.getElementById("login-msg").textContent = "Incorrect login.";
   }
@@ -20,16 +26,41 @@ function login() {
 
 function logout() {
   localStorage.removeItem("loggedInUser");
+  localStorage.removeItem("userRole");
+  currentUserRole = null;
   document.getElementById("main-content").style.display = "none";
   document.getElementById("login-screen").style.display = "block";
+}
+
+function applyRoleVisibility() {
+  currentUserRole = localStorage.getItem("userRole");
+
+  const clearBtn = document.getElementById("clear-btn");
+  const attendBtn = document.getElementById("attend");
+  const doneBtn = document.getElementById("done-btn");
+
+  if (clearBtn) {
+    clearBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
+  }
+
+  if (attendBtn) {
+    attendBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
+  }
+
+  if (doneBtn) {
+    doneBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
+  }
 }
 
 window.onload = function () {
   if (localStorage.getItem("loggedInUser")) {
     document.getElementById("login-screen").style.display = "none";
     document.getElementById("main-content").style.display = "block";
+    applyRoleVisibility();
   }
 };
+
+
 // --- Class attendance logic ---
 const classmates = [
 "Bhat Shreyas", "Chan Zhi Bin", "Cheah Wei Heng", "Darsh Singhal", "Dong LinTeng",
