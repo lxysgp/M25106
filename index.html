@@ -57,7 +57,7 @@
       border-bottom: 2px solid #ddd;
       padding-bottom: 4px;
       margin-top: 40px;
-      font-size: 2rem;
+      font-size: 3rem;
     }
     footer {
       background-color: #ddd;
@@ -73,10 +73,16 @@
     }
     input{border-radius: 0.5rem;}
     #login-logo {
-      height: 1.5rem;
+      height: 3rem;
       border-radius: 1rem;
       position: relative;
       right: 0%;
+    }
+    #login-screen{
+      text-align: center;
+    }
+    .logini{
+      font-size: 3rem;
     }
     @media (prefers-color-scheme: dark) {
       body { background-color: #0a0a0a }
@@ -104,9 +110,9 @@
   <div id="login-screen">
     <h2>Login to M25106 <img src="classweblogogris.png" alt="Class Logo" id="login-logo"></h2>
     <div class="login-box">
-      <input type="text" id="username" placeholder="Enter your name">
-      <input type="password" id="password" placeholder="Password">
-      <button onclick="login()">Login</button>
+      <input type="text" id="username" placeholder="Enter your name" class="logini"><br><br>
+      <input type="password" id="password" placeholder="Password" class="logini"><br><br>
+      <button onclick="login()" style="width:37rem;height:3rem;font-size:2rem;">Login</button>
       <p id="login-msg"></p>
     </div>
   </div>
