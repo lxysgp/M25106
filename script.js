@@ -1,15 +1,14 @@
-// --- Obfuscated login system (Base64) ---
 const validUsers = {
   "xinyuan": "MTIzNA==",      // "1234"
-  "Linteng": "YWJj",              // "abc"
+  "lin": "YWJj",              // "abc"
   "teacher": "YWRtaW4="       // "admin"
 };
 
 function login() {
   const name = document.getElementById("username").value.toLowerCase();
   const pass = document.getElementById("password").value;
-
   const stored = validUsers[name];
+
   if (stored && atob(stored) === pass) {
     localStorage.setItem("loggedInUser", name);
     document.getElementById("login-screen").style.display = "none";
@@ -19,13 +18,18 @@ function login() {
   }
 }
 
+function logout() {
+  localStorage.removeItem("loggedInUser");
+  document.getElementById("main-content").style.display = "none";
+  document.getElementById("login-screen").style.display = "block";
+}
+
 window.onload = function () {
   if (localStorage.getItem("loggedInUser")) {
     document.getElementById("login-screen").style.display = "none";
     document.getElementById("main-content").style.display = "block";
   }
 };
-
 // --- Class attendance logic ---
 const classmates = [
   "Bhat Shreyas", "Chan Zhi Bin", "Cheah Wei Heng", "Darsh Singhal", "Dong LinTeng",
