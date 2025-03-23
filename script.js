@@ -105,6 +105,7 @@ function updateList(filter = "") {
 			checkbox.type = "checkbox";
 			checkbox.id = `student-${student.number}`;
 			checkbox.value = student.number;
+      checkbox.style.scale=2
 			if (todayData[todayKey]?.includes(student.number)) {
 				checkbox.checked = true;
 			}
