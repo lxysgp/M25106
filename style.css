@@ -42,3 +42,27 @@ dd {
   cursor: pointer;
 }
 
+#clear-btn {
+  margin-top: 10px;
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#clear-btn:hover {
+  background-color: #c9302c;
+}
+#class-list.attendance-mode {
+  font-size: 1.5rem;
+}
+.student-entry {
+  margin-bottom: 10px;
+}
+input[type="checkbox"] {
+  transform: scale(1.4);
+  margin-right: 12px;
+}
+
