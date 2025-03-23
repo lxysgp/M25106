@@ -1,6 +1,6 @@
 const validUsers = {
   "xinyuan": "MTIzNA==",      // "1234"
-  "lin": "YWJj",              // "abc"
+  "admin": "YWJj",              // "abc"
   "teacher": "YWRtaW4="       // "admin"
 };
 
