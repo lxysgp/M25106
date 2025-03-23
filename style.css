@@ -93,21 +93,22 @@ input[type="checkbox"] {
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   width: 90%;
-  max-width: 350px;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
 .login-box input,
 .login-box button {
-  padding: 12px;
-  font-size: 1rem;
-  border-radius: 6px;
+  padding: 20px;
+  font-size: 1.5rem;
+  border-radius: 12px;
   border: 1px solid #ccc;
   width: 100%;
   box-sizing: border-box;
 }
+
 
 .login-box button {
   background-color: #2d70b6;
