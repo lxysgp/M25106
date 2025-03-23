@@ -2,7 +2,7 @@
 const validUsers = {
   "xinyuan": { password: "MTIzNA==", role: "student" },
   "lin": { password: "YWJj", role: "student" },
-  "teacher": { password: "YWRtaW4=", role: "teacher" }
+  "admin": { password: "YWRtaW4=", role: "teacher" }
 };
 
 let currentUserRole = null;
@@ -38,7 +38,6 @@ function applyRoleVisibility() {
   const clearBtn = document.getElementById("clear-btn");
   const attendBtn = document.getElementById("attend");
   const doneBtn = document.getElementById("done-btn");
-  const historyDiv = document.getElementById("history");
 
   if (clearBtn) {
     clearBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
@@ -50,17 +49,6 @@ function applyRoleVisibility() {
 
   if (doneBtn) {
     doneBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
-  }
-
-  // Add banner
-  if (historyDiv) {
-    const banner = document.createElement("p");
-    banner.textContent = currentUserRole === "teacher"
-      ? "You are in class rep mode."
-      : "You are viewing attendance history only.";
-    banner.style.fontWeight = "bold";
-    banner.style.marginBottom = "1rem";
-    historyDiv.prepend(banner);
   }
 }
 
