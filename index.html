@@ -57,6 +57,7 @@
       border-bottom: 2px solid #ddd;
       padding-bottom: 4px;
       margin-top: 40px;
+      font-size: 2rem;
     }
     footer {
       background-color: #ddd;
@@ -70,7 +71,13 @@
       color: white;
       border-radius: 1rem;
     }
-    #login-logo {border-radius: 1rem;}
+    input{border-radius: 0.5rem;}
+    #login-logo {
+      height: 1.5rem;
+      border-radius: 1rem;
+      position: relative;
+      right: 0%;
+    }
     @media (prefers-color-scheme: dark) {
       body { background-color: #0a0a0a }
       header { background-color: #002762 }
@@ -94,18 +101,15 @@
   </style>
 </head>
 <body>
- <div id="login-screen">
-  <h2>Login to M25106 ClassWeb</h2>
-  <img src="classweblogo.png" alt="Class Logo" id="login-logo">
-
-  <div class="login-box">
-    <input type="text" id="username" placeholder="Enter your name">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Login</button>
-    <p id="login-msg"></p>
+  <div id="login-screen">
+    <h2>Login to M25106 <img src="classweblogogris.png" alt="Class Logo" id="login-logo"></h2>
+    <div class="login-box">
+      <input type="text" id="username" placeholder="Enter your name">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="login()">Login</button>
+      <p id="login-msg"></p>
+    </div>
   </div>
-</div>
-
   <div id="main-content" style="display: none;">
     <header>
       <h1>M25106 ClassWeb</h1>
