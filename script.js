@@ -3,7 +3,7 @@ const validUsers = {
   "xinyuan": { password: "MTIzNA==", role: "student" },
   "lin": { password: "YWJj", role: "student" },
   "admin": { password: "YWRtaW4=", role: "teacher" },
- "zx.ngzhengxian": {password: "Ym9va0AxMjEw", role: "teacher" }
+ "nzx.21106": {password: "Ym9va0AxMjEw", role: "teacher" }
 };
 
 let currentUserRole = null;
