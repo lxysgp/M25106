@@ -14,7 +14,8 @@ const historyDiv = document.getElementById("history");
 
 const todayKey = new Date().toISOString().slice(0, 10); // "YYYY-MM-DD"
 
-// Display student list with checkboxes
+let isTakingAttendance = false;
+
 function updateList(filter = "") {
 	listElement.innerHTML = "";
 	const filtered = classmates
@@ -34,20 +35,47 @@ function updateList(filter = "") {
 
 	filtered.forEach(student => {
 		const li = document.createElement("li");
-		const checkbox = document.createElement("input");
-		checkbox.type = "checkbox";
-		checkbox.id = `student-${student.number}`;
-		checkbox.value = student.number;
+		li.classList.add("student-entry");
 
-		if (todayData[todayKey]?.includes(student.number)) {
-			checkbox.checked = true;
+		if (isTakingAttendance) {
+			const checkbox = document.createElement("input");
+			checkbox.type = "checkbox";
+			checkbox.id = `student-${student.number}`;
+			checkbox.value = student.number;
+
+			if (todayData[todayKey]?.includes(student.number)) {
+				checkbox.checked = true;
+			}
+
+			li.appendChild(checkbox);
 		}
 
-		li.appendChild(checkbox);
-		li.appendChild(document.createTextNode(` ${student.number}. ${student.name}`));
+		const label = document.createElement("span");
+		label.textContent = ` ${student.number}. ${student.name}`;
+		li.appendChild(label);
+
 		listElement.appendChild(li);
 	});
 }
+
+function toggleAttendance() {
+	isTakingAttendance = !isTakingAttendance;
+
+	// Toggle button text
+	document.getElementById("attend").textContent = isTakingAttendance
+		? "Stop Attendance"
+		: "Take Attendance";
+
+	// Toggle class for scaling
+	if (isTakingAttendance) {
+		listElement.classList.add("attendance-mode");
+	} else {
+		listElement.classList.remove("attendance-mode");
+	}
+
+	updateList(searchInput.value);
+}
+
 
 // Save today's attendance
 function finalizeAttendance() {
