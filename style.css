@@ -55,3 +55,14 @@ dd {
 #clear-btn:hover {
   background-color: #c9302c;
 }
+#class-list.attendance-mode {
+  font-size: 1.5rem;
+}
+.student-entry {
+  margin-bottom: 10px;
+}
+input[type="checkbox"] {
+  transform: scale(1.4);
+  margin-right: 12px;
+}
+
