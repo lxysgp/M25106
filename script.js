@@ -85,6 +85,14 @@ function renderHistory() {
 		`;
 	});
 }
+function clearHistory() {
+	if (confirm("Are you sure you want to clear all attendance history?")) {
+		localStorage.removeItem("attendance");
+		renderHistory();
+		updateList();
+		summary.textContent = "🗑️ Attendance history cleared.";
+	}
+}
 
 // Live search
 searchInput.addEventListener("input", () => updateList(searchInput.value));
