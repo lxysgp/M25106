@@ -66,51 +66,56 @@ input[type="checkbox"] {
   margin-right: 12px;
 }
 
-/* Page container */
 #login-screen {
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #f5f5f5;
+  text-align: center;
 }
 
-/* White box */
+#login-screen h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+#login-logo {
+  height: 150px;
+  margin-bottom: 30px;
+  border-radius: 1rem;
+}
+
 .login-box {
   background: white;
   padding: 30px 20px;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  text-align: center;
   width: 90%;
   max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-/* Logo image */
-.logo {
-  height: 32px;
-  vertical-align: middle;
-  margin: 0 6px;
-}
-
-/* Inputs and button */
 .login-box input,
 .login-box button {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
+  padding: 12px;
   font-size: 1rem;
   border-radius: 6px;
-  box-sizing: border-box;
   border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .login-box button {
   background-color: #2d70b6;
   color: white;
   font-weight: bold;
-  cursor: pointer;
   border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .login-box button:hover {
@@ -119,6 +124,7 @@ input[type="checkbox"] {
 
 #login-msg {
   color: red;
-  margin-top: 10px;
+  font-size: 0.9rem;
+  min-height: 20px;
 }
 
