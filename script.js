@@ -1,63 +1,63 @@
 // --- Obfuscated login system with logout and role-based access ---
 const validUsers = {
-  "xinyuan": { password: "MTIzNA==", role: "student" },
-  "lin": { password: "YWJj", role: "student" },
-  "admin": { password: "YWJj", role: "teacher" }
+	"xinyuan": { password: "MTIzNA==", role: "student" },
+	"lin": { password: "YWJj", role: "student" },
+	"admin": { password: "YWJj", role: "teacher" }
 };
 
 let currentUserRole = null;
 
 function login() {
-  const name = document.getElementById("username").value.toLowerCase();
-  const pass = document.getElementById("password").value;
-  const user = validUsers[name];
-
-  if (user && atob(user.password) === pass) {
-    localStorage.setItem("loggedInUser", name);
-    localStorage.setItem("userRole", user.role);
-    currentUserRole = user.role;
-    document.getElementById("login-screen").style.display = "none";
-    document.getElementById("main-content").style.display = "block";
-    applyRoleVisibility();
-  } else {
-    document.getElementById("login-msg").textContent = "Incorrect login.";
-  }
+	const name = document.getElementById("username").value.toLowerCase();
+	const pass = document.getElementById("password").value;
+	const user = validUsers[name];
+	
+	if (user && atob(user.password) === pass) {
+		localStorage.setItem("loggedInUser", name);
+		localStorage.setItem("userRole", user.role);
+		currentUserRole = user.role;
+		document.getElementById("login-screen").style.display = "none";
+		document.getElementById("main-content").style.display = "block";
+		applyRoleVisibility();
+	} else {
+		document.getElementById("login-msg").textContent = "Incorrect login.";
+	}
 }
 
 function logout() {
-  localStorage.removeItem("loggedInUser");
-  localStorage.removeItem("userRole");
-  currentUserRole = null;
-  document.getElementById("main-content").style.display = "none";
-  document.getElementById("login-screen").style.display = "block";
+	localStorage.removeItem("loggedInUser");
+	localStorage.removeItem("userRole");
+	currentUserRole = null;
+	document.getElementById("main-content").style.display = "none";
+	document.getElementById("login-screen").style.display = "block";
 }
 
 function applyRoleVisibility() {
-  currentUserRole = localStorage.getItem("userRole");
-
-  const clearBtn = document.getElementById("clear-btn");
-  const attendBtn = document.getElementById("attend");
-  const doneBtn = document.getElementById("done-btn");
-
-  if (clearBtn) {
-    clearBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
-  }
-
-  if (attendBtn) {
-    attendBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
-  }
-
-  if (doneBtn) {
-    doneBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
-  }
+	currentUserRole = localStorage.getItem("userRole");
+	
+	const clearBtn = document.getElementById("clear-btn");
+	const attendBtn = document.getElementById("attend");
+	const doneBtn = document.getElementById("done-btn");
+	
+	if (clearBtn) {
+		clearBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
+	}
+	
+	if (attendBtn) {
+		attendBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
+	}
+	
+	if (doneBtn) {
+		doneBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
+	}
 }
 
 window.onload = function () {
-  if (localStorage.getItem("loggedInUser")) {
-    document.getElementById("login-screen").style.display = "none";
-    document.getElementById("main-content").style.display = "block";
-    applyRoleVisibility();
-  }
+	if (localStorage.getItem("loggedInUser")) {
+		document.getElementById("login-screen").style.display = "none";
+		document.getElementById("main-content").style.display = "block";
+		applyRoleVisibility();
+	}
 };
 
 
