@@ -4,7 +4,8 @@ const validUsers = {
 	"admin": { password: "c2tpYmlkaQ==", role: "teacher" },
 	"nzx.21106": {password: "Ym9va0AxMjEw", role: "teacher" },
 	"bh10601" : { password: "Y2xhc3Njb20yNTEwNg==", role: "student" },
-	"darsh" : {password: "ZGFyc2gxMDY=", role: "student" } 
+	"darsh" : {password: "ZGFyc2gxMDY=", role: "student" },
+	"johnny" : {password: "MTAyNDIwMTI=", role = "student" }
 };
 
 let currentUserRole = null;
