@@ -1,0 +1,103 @@
+body {
+	font-family: 'Inter', sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f5f5f5;
+}
+header {
+	background-color: #2d70b6;
+	color: white;
+	padding: 1rem 2rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+}
+header h1 {
+	margin: 0;
+	font-size: 1.8rem;
+}
+nav a {
+	color: white;
+	text-decoration: none;
+	margin: 0 1rem;
+	font-weight: bold;
+	font-size: 1rem;
+	padding: 6px 12px;
+	border-radius: 6px;
+	transition: background-color 0.3s;
+}
+nav a:hover {background-color: #195693;}
+#logout-btn {
+	background-color: #fff;
+	color: #2d70b6;
+	border: none;
+	padding: 6px 12px;
+	font-weight: bold;
+	cursor: pointer;
+	border-radius: 6px;
+}
+main {
+	padding: 20px;
+	max-width: 900px;
+	margin: 0 auto;
+	background: white;
+}
+h2 {
+	border-bottom: 2px solid #ddd;
+	padding-bottom: 4px;
+	margin-top: 40px;
+	font-size: 3rem;
+}
+footer {
+	background-color: #ddd;
+	text-align: center;
+	padding: 10px;
+	margin-top: 30px;
+}
+li {list-style-type: none;}
+button {
+	background-color: #002762;
+	color: white;
+	border-radius: 1rem;
+}
+input{border-radius: 0.5rem;}
+.mascot{clip-path: path("M 18.155956,28.965027 C 2.2522077,50.374065 1.04986,77.749662 0.27979641,103.04992 c -0.2495085,31.80868 -0.83690161,63.66241 0.65492383,95.44723 1.48753906,24.02896 6.12745656,50.93104 26.66643076,67.22791 21.180342,16.66782 50.119499,18.22774 76.417239,19.18753 34.2863,0.37371 68.6201,0.80769 102.88748,-0.4501 24.2994,-1.38787 51.15036,-4.82664 69.12943,-22.01913 18.99158,-18.15206 22.03679,-45.25226 23.24206,-69.58577 0.95012,-33.14691 0.83352,-66.33756 0.0609,-99.485436 C 298.12948,69.376756 295.30673,43.069934 277.75249,24.373803 258.99072,5.2716354 230.00407,1.9009633 204.00163,0.62285678 169.15026,-0.32840229 134.24826,-0.15088941 99.39441,0.54835538 70.423346,1.60355 36.889627,5.0654015 18.155956,28.965027 Z");}
+#login-logo {
+	height: 3rem;
+	border-radius: 1rem;
+	position: relative;
+	right: 0%;
+}
+#login-screen{
+	text-align: center;
+}
+.logini{
+	font-size: 3rem;
+}
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #0a0a0a;
+		color:white
+	}
+	header { background-color: #002762 }
+	footer {
+		background-color: #222222;
+		color: white
+	}
+	main {
+		background: black;
+		color: white;
+	}
+	button {
+		background-color: #2d70b6;
+		color: white;
+	}
+	#login-screen {
+		background: #111;
+		color: white;
+	}
+}
