@@ -200,20 +200,25 @@
     }
 
     function renderStocks() {
-      const sdiv = document.getElementById("stock-list");
-      sdiv.innerHTML = "";
-      stocks.forEach(stock => {
-        const arrow = stock.price > stock.last ? "⬆️" : stock.price < stock.last ? "⬇️" : "➡️";
-        const arrowClass = stock.price > stock.last ? "up" : stock.price < stock.last ? "down" : "";
-        sdiv.innerHTML += `
-          <div class="stock">
-            <strong>${stock.name}</strong>: $${stock.price}
-            <span class="stock-arrow ${arrowClass}">${arrow}</span><br>
-            High: $${stock.high} | Low: $${stock.low}
-          </div>
-        `;
-      });
-    }
+  const sdiv = document.getElementById("stock-list");
+  sdiv.innerHTML = "";
+  stocks.forEach((stock, i) => {
+    const arrow = stock.price > stock.last ? "⬆️" : stock.price < stock.last ? "⬇️" : "➡️";
+    const arrowClass = stock.price > stock.last ? "up" : stock.price < stock.last ? "down" : "";
+
+    sdiv.innerHTML += `
+      <div class="stock">
+        <strong>${stock.name}</strong>: $${stock.price}
+        <span class="stock-arrow ${arrowClass}">${arrow}</span><br>
+        High: $${stock.high} | Low: $${stock.low}<br>
+        You own: ${stockOwned}<br>
+        <button onclick="buyStock(${i})">Buy</button>
+        <button onclick="sellStock(${i})">Sell</button>
+      </div>
+    `;
+  });
+}
+
 
     setInterval(() => {
       aura += auraPerSecond / 10;
