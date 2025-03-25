@@ -161,9 +161,16 @@
     }
 
     function updateUI() {
-      document.getElementById("aura-display").textContent = `Aura: ${Math.floor(aura)} (APS: ${Math.round(auraPerSecond)})`;
-      renderShop(); renderUpgrades(); renderStocks();
-    }
+  document.getElementById("aura-display").textContent =
+    `Aura: ${Math.floor(aura)} (APS: ${Math.round(auraPerSecond)})`;
+
+  document.getElementById("click-btn").textContent = `+${auraPerClick} Aura`;
+
+  renderShop();
+  renderUpgrades();
+  renderStocks();
+}
+
 
     function renderShop() {
       const shop = document.getElementById("shop-list");
