@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Aura Clicker Game with Crypto Stocks</title>
+  <title>Aura Clicker Game</title>
   <style>
     body {
       font-family: 'Comic Sans MS', cursive;
@@ -12,14 +12,6 @@
       color: #333;
     }
     h1 { font-size: 2.5rem; }
-    .section {
-      background: white;
-      border-radius: 15px;
-      padding: 20px;
-      margin: 30px auto;
-      max-width: 750px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
     #aura-display {
       font-size: 2rem;
       margin: 20px;
@@ -33,6 +25,14 @@
       margin: 8px;
     }
     #click-btn { background-color: #ffeaa7; }
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 30px auto;
+      max-width: 750px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
     .item, .upgrade, .stock {
       background: #dfe6e9;
       margin: 10px 0;
@@ -60,22 +60,23 @@
   </style>
 </head>
 <body>
+
   <h1>🔥 Aura Clicker 🔥</h1>
   <div id="aura-display">Aura: 0</div>
   <button id="click-btn">+1 Aura</button>
 
-  <div class="section">
-    <h2>🛍️ Shop</h2>
+  <div class="card">
+    <h2>🛒 Shop</h2>
     <div id="shop-list"></div>
   </div>
 
-  <div class="section">
-    <h2>🧠 Upgrades (Buy Once)</h2>
+  <div class="card">
+    <h2>🧠 Upgrades</h2>
     <div id="upgrade-list"></div>
   </div>
 
-  <div class="section">
-    <h2>📈 Aura Stocks</h2>
+  <div class="card">
+    <h2>📈 Stocks</h2>
     <select id="stock-mode" onchange="renderStocks()">
       <option value="normal">Normal Stocks</option>
       <option value="crypto">Crypto Stocks</option>
@@ -84,3 +85,187 @@
   </div>
 
   <script>
+    let aura = 0, auraPerClick = 1, auraPerSecond = 0;
+    let cryptoUnlocked = false;
+
+    const generators = [
+      { name: "Person", amount: 0, baseCost: 10, auraGain: 1, scale: 1.06 },
+      { name: "Skibidi Toilet", amount: 0, baseCost: 60, auraGain: 5, scale: 1.04 },
+      { name: "Mewer", amount: 0, baseCost: 110, auraGain: 10, scale: 1.035 },
+      { name: "Auto Mewer", amount: 0, baseCost: 690, auraGain: 69, scale: 1.04 },
+      { name: "Sigma Mewer", amount: 0, baseCost: 1200, auraGain: 100, scale: 1.03 },
+      { name: "Skibidi Sigma", amount: 0, baseCost: 1869, auraGain: 169, scale: 1.025 },
+      { name: "Zhengxian Mewer", amount: 0, baseCost: 6969, auraGain: 500, scale: 1.025 },
+      { name: "Caden Mewer", amount: 0, baseCost: 90000, auraGain: 6969, scale: 1.02 },
+      { name: "Sigma Caden", amount: 0, baseCost: 106969, auraGain: 10000, scale: 1.015 }
+    ];
+
+    const upgrades = [
+      { name: "Grind SLS (x2 click)", cost: 100, effect: () => auraPerClick *= 2 },
+      { name: "Persons x2", cost: 150, effect: () => generators[0].auraGain *= 2 },
+      { name: "Xinyuan helps (x5 click)", cost: 400, effect: () => auraPerClick *= 5 },
+      { name: "Skibidi Toilets x2", cost: 300, effect: () => generators[1].auraGain *= 2 },
+      { name: "Click +15", cost: 200, effect: () => auraPerClick += 15 },
+      { name: "Mewers x1.5", cost: 400, effect: () => generators[2].auraGain *= 1.5 },
+      { name: "Ziheng helps (x1.5 click)", cost: 180, effect: () => auraPerClick *= 1.5 },
+      { name: "Johnny helps (x4 click)", cost: 350, effect: () => auraPerClick *= 4 },
+      { name: "Sigma skibidi x2", cost: 1000, effect: () => generators[5].auraGain *= 2 },
+      { name: "Sigma Caden x2", cost: 5000, effect: () => generators[8].auraGain *= 2 },
+      { name: "YUSU helps (x10 click)", cost: 2000, effect: () => auraPerClick *= 10 },
+      { name: "Yuansan helps (x10 click)", cost: 2000, effect: () => auraPerClick *= 10 },
+      { name: "Unlock Crypto Stocks 💎", cost: 10000, effect: () => cryptoUnlocked = true }
+    ];
+
+    const stocks = [{ name: "Mew Corp", price: 100, high: 100, low: 100, last: 100 }];
+    const cryptoStocks = [{ name: "MewCoin", price: 500, high: 500, low: 500, last: 500 }];
+    let stockOwned = [0], cryptoOwned = [0];
+
+    document.getElementById("click-btn").onclick = () => {
+      aura += auraPerClick;
+      updateUI();
+    };
+
+    function buyGen(i) {
+      const g = generators[i];
+      const cost = Math.round(g.baseCost * Math.pow(g.scale, g.amount));
+      if (aura >= cost) {
+        aura -= cost;
+        g.amount++;
+        updateAuraPerSecond();
+        updateUI();
+      }
+    }
+
+    function buyUpgrade(i) {
+      const u = upgrades[i];
+      if (!u.bought && aura >= u.cost) {
+        aura -= u.cost;
+        u.bought = true;
+        u.effect();
+        updateAuraPerSecond();
+        updateUI();
+      }
+    }
+
+    function updateAuraPerSecond() {
+      auraPerSecond = generators.reduce((sum, g) => sum + g.amount * g.auraGain, 0);
+    }
+
+    function updateUI() {
+      document.getElementById("aura-display").textContent = `Aura: ${Math.floor(aura)} (APS: ${Math.round(auraPerSecond)})`;
+      renderShop(); renderUpgrades(); renderStocks();
+    }
+
+    function renderShop() {
+      const shop = document.getElementById("shop-list");
+      shop.innerHTML = "";
+      generators.forEach((g, i) => {
+        const cost = Math.round(g.baseCost * Math.pow(g.scale, g.amount));
+        shop.innerHTML += `
+          <div class="item">
+            <div><strong>${g.name}</strong> (${g.amount})<br>+${g.auraGain}/s — Cost: ${cost}</div>
+            <button onclick="buyGen(${i})">Buy</button>
+          </div>`;
+      });
+    }
+
+    function renderUpgrades() {
+      const list = document.getElementById("upgrade-list");
+      list.innerHTML = "";
+      upgrades.forEach((u, i) => {
+        if (!u.bought) {
+          list.innerHTML += `
+            <div class="upgrade">
+              <div><strong>${u.name}</strong><br>Cost: ${u.cost}</div>
+              <button onclick="buyUpgrade(${i})">Buy</button>
+            </div>`;
+        }
+      });
+    }
+
+    function renderStocks() {
+      const mode = document.getElementById("stock-mode").value;
+      const stockList = document.getElementById("stock-list");
+      const list = mode === "normal" ? stocks : cryptoStocks;
+      const owned = mode === "normal" ? stockOwned : cryptoOwned;
+
+      if (mode === "crypto" && !cryptoUnlocked) {
+        stockList.innerHTML = "<p>Buy the crypto upgrade first!</p>";
+        return;
+      }
+
+      stockList.innerHTML = "";
+      list.forEach((s, i) => {
+        const arrow = s.price > s.last ? "⬆️" : s.price < s.last ? "⬇️" : "➡️";
+        stockList.innerHTML += `
+          <div class="stock">
+            <div>
+              <strong>${s.name}</strong>: $${s.price} <span class="stock-arrow">${arrow}</span><br>
+              High: $${s.high} | Low: $${s.low} | You own: ${owned[i] || 0}
+            </div>
+            <div>
+              <button onclick="${mode === 'normal' ? `buyStock(${i})` : `buyCrypto(${i})`}">Buy</button>
+              <button onclick="${mode === 'normal' ? `sellStock(${i})` : `sellCrypto(${i})`}">Sell</button>
+            </div>
+          </div>`;
+      });
+    }
+
+    function buyStock(i) {
+      const s = stocks[i];
+      if (aura >= s.price) {
+        aura -= s.price;
+        stockOwned[i] = (stockOwned[i] || 0) + 1;
+        updateUI();
+      }
+    }
+
+    function sellStock(i) {
+      if (stockOwned[i] > 0) {
+        aura += stocks[i].price;
+        stockOwned[i]--;
+        updateUI();
+      }
+    }
+
+    function buyCrypto(i) {
+      const s = cryptoStocks[i];
+      if (aura >= s.price) {
+        aura -= s.price;
+        cryptoOwned[i] = (cryptoOwned[i] || 0) + 1;
+        updateUI();
+      }
+    }
+
+    function sellCrypto(i) {
+      if (cryptoOwned[i] > 0) {
+        aura += cryptoStocks[i].price;
+        cryptoOwned[i]--;
+        updateUI();
+      }
+    }
+
+    setInterval(() => {
+      aura += auraPerSecond / 10;
+      updateUI();
+    }, 100);
+
+    setInterval(() => {
+      [stocks, cryptoStocks].forEach(list => {
+        list.forEach(s => {
+          s.last = s.price;
+          const change = Math.floor(Math.random() * 11 - 5);
+          s.price += change;
+          if (s.price < 1) s.price = 1;
+          if (s.price > s.high) s.high = s.price;
+          if (s.price < s.low) s.low = s.price;
+        });
+      });
+      renderStocks();
+    }, 2000);
+
+    updateAuraPerSecond();
+    updateUI();
+  </script>
+</body>
+</html>
