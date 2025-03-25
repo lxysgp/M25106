@@ -9,8 +9,16 @@
 			Your <a href="index.html"><img src="classweblogogris.png" alt="Class Logo" id="login-logo"></a> Account
 		</h2>
 		Note: this page is currently not finished, so nothing works.<br>
-		Name: <button>Change Name</button><br>
-		Password: <button>Change Password</button><br>
-		Your current role: student/teacher
+		Name: <span id="Name"></span> <button>Change Name</button><br>
+		Password: <button onclick="reveal()">👁️</button> <button>Change Password</button>
+		<div id="role"></div>
+		<script src="script.js"></script>
+		<script defer>
+			window.onload=function() {
+				document.getElementById("role").innerText="Role: " + localStorage.getItem("userRole");
+				document.getElementById("Name").innerText=localStorage.getItem("loggedInUser")
+			}
+			function reveal() {}
+		</script>
 	</body>
 </html>
