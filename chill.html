@@ -334,6 +334,12 @@ function renderLeaderboard() {
     document.getElementById("leaderboard-panel").appendChild(btn);
   }
 }
+    function clearLeaderboard() {
+  if (confirm("Are you sure you want to clear all leaderboard scores?")) {
+    localStorage.removeItem("auraLeaderboard");
+    renderLeaderboard();
+  }
+}
 
     function buyStock(i) {
       const s = stocks[i];
