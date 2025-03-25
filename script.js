@@ -10,9 +10,7 @@ const validUsers = {
 };
 
 let currentUserRole = null;
-
-let currentUserRole = null;
-let loggedInUsername = ""; // 🔒 Make username globally available
+let loggedInUsername = ""; //Make username globally available
 
 function login() {
 	const name = document.getElementById("username").value.toLowerCase();
@@ -20,12 +18,12 @@ function login() {
 	const user = validUsers[name];
 
 	if (user && atob(user.password) === pass) {
-		// ✅ Store in global + localStorage
+		//Store in global + localStorage
 		loggedInUsername = name;
 		currentUserRole = user.role;
 
 		localStorage.setItem("loggedInUser", name);           // for main login tracking
-		localStorage.setItem("classwebUsername", name);       // ✅ for chill.html or other pages
+		localStorage.setItem("classwebUsername", name);       //for chill.html or other pages
 		localStorage.setItem("userRole", user.role);
 
 		document.getElementById("login-screen").style.display = "none";
@@ -39,7 +37,7 @@ function login() {
 
 function logout() {
 	localStorage.removeItem("loggedInUser");
-	localStorage.removeItem("classwebUsername"); // ✅ remove for cross-page
+	localStorage.removeItem("classwebUsername"); //remove for cross-page
 	localStorage.removeItem("userRole");
 
 	loggedInUsername = "";
