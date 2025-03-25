@@ -71,46 +71,44 @@
       .card {background: #2e2734}
       h2 {color: #dfe6e9;}
     }
-
-.triple-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.third {
-  flex: 1 1 32%;
-  min-width: 250px;
-}
+    
+    .triple-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    
+    .third {
+      flex: 1 1 32%;
+      min-width: 250px;
+    }
     #leaderboard-panel {
-  position: fixed;
-  top: 250px;
-  right: 20px;
-  width: 200px;
-  max-height: 70vh;
-  overflow-y: auto;
-  background: #fffaf0;
-  border: 2px solid #ccc;
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  z-index: 999;
-}
-#leaderboard-panel h3 {
-  margin-top: 0;
-}
-#leaderboard {
-  list-style-type: decimal;
-  padding-left: 20px;
-  text-align: left;
-}
+      position: fixed;
+      top: 250px;
+      right: 20px;
+      width: 200px;
+      max-height: 70vh;
+      overflow-y: auto;
+      background: #fffaf0;
+      border: 2px solid #ccc;
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      z-index: 999;
+    }
+    #leaderboard-panel h3 {
+      margin-top: 0;
+    }
+    #leaderboard {
+      list-style-type: decimal;
+      padding-left: 20px;
+      text-align: left;
+    }
     #leaderboard-panel {
-  position: fixed;
-  top: 250px;}
-
-
-
+      position: fixed;
+      top: 250px;
+    }
   </style>
 </head>
   <div id="leaderboard-panel">
@@ -125,7 +123,7 @@
   <div id="aura-display">Aura: 0</div>
   <button id="click-btn">+1 Aura</button>
   <button onclick="submitScore()">📊 Submit Score</button>
- <div class="card triple-container">
+  <div class="card triple-container">
   <div class="third">
     <h2>🛒 Shop</h2>
     <div id="shop-list"></div>

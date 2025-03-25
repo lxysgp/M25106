@@ -29,7 +29,7 @@ function login() {
 		document.getElementById("login-screen").style.display = "none";
 		document.getElementById("main-content").style.display = "block";
 		applyRoleVisibility();
-		renderLeaderboard?.(); // Optional: refresh leaderboard if on main page
+		renderLeaderboard(); // Optional: refresh leaderboard if on main page
 	} else {
 		document.getElementById("login-msg").textContent = "Incorrect login.";
 	}
