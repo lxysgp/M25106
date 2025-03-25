@@ -297,11 +297,12 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
       });
     }
 function submitScore() {
-  const name = document.getElementById("username").value.trim();
+  const name = loggedInUsername; // 👈 Use global username
   if (!name) {
-    alert("Enter your name first!");
+    alert("Login first!");
     return;
   }
+
   const scores = JSON.parse(localStorage.getItem("auraLeaderboard") || "[]");
   const existing = scores.find(s => s.name === name);
   if (existing) {
@@ -309,6 +310,7 @@ function submitScore() {
   } else {
     scores.push({ name, aura: Math.floor(aura) });
   }
+
   localStorage.setItem("auraLeaderboard", JSON.stringify(scores));
   renderLeaderboard();
 }
