@@ -13,9 +13,16 @@
     }
     h1 { font-size: 2.5rem; }
     #aura-display {
-      font-size: 2rem;
-      margin: 20px;
-    }
+  font-size: 2rem;
+  margin: 0;
+  padding: 15px;
+  background: #fff5c0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 2px solid #ccc;
+}
+
     button {
       padding: 12px 20px;
       font-size: 1rem;
@@ -125,9 +132,22 @@
       { name: "Unlock Crypto Stocks 💎", cost: 10000, effect: () => cryptoUnlocked = true }
     ];
 
-    const stocks = [{ name: "Mew Corp", price: 100, high: 100, low: 100, last: 100 }];
-    const cryptoStocks = [{ name: "MewCoin", price: 500, high: 500, low: 500, last: 500 }];
-    let stockOwned = [0], cryptoOwned = [0];
+   const stocks = [
+  { name: "Mew Corp", price: 100, high: 100, low: 100, last: 100 },
+  { name: "AuraBank", price: 85, high: 85, low: 85, last: 85 },
+  { name: "Toilet Inc.", price: 120, high: 120, low: 120, last: 120 }
+];
+
+const cryptoStocks = [
+  { name: "MewCoin", price: 500, high: 500, low: 500, last: 500 },
+  { name: "XynCash", price: 800, high: 800, low: 800, last: 800 },
+  { name: "CadenETH", price: 1300, high: 1300, low: 1300, last: 1300 }
+];
+
+  
+    let stockOwned = Array(stocks.length).fill(0);
+let cryptoOwned = Array(cryptoStocks.length).fill(0);
+
 
     document.getElementById("click-btn").onclick = () => {
       aura += auraPerClick;
