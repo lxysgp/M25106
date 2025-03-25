@@ -91,19 +91,16 @@
   <div id="aura-display">Aura: 0</div>
   <button id="click-btn">+1 Aura</button>
 
- <div class="card flex-container">
-  <div class="half">
+ <div class="card triple-container">
+  <div class="third">
     <h2>🛒 Shop</h2>
     <div id="shop-list"></div>
   </div>
-  <div class="half">
+  <div class="third">
     <h2>🧠 Upgrades</h2>
     <div id="upgrade-list"></div>
   </div>
-</div>
-
-
-  <div class="card">
+  <div class="third">
     <h2>📈 Stocks</h2>
     <select id="stock-mode" onchange="renderStocks()">
       <option value="normal">Normal Stocks</option>
@@ -111,6 +108,8 @@
     </select>
     <div id="stock-list"></div>
   </div>
+</div>
+
   <a href="index.html"><img src="classweblogogris.png" alt="Class Logo" id="login-logo"></a>
   <script>
     let aura = 0, auraPerClick = 1, auraPerSecond = 0;
