@@ -33,16 +33,32 @@
       margin: 8px;
     }
     #click-btn { background-color: #ffeaa7; }
+
     .item, .upgrade, .stock {
       background: #dfe6e9;
-      margin: 10px;
+      margin: 10px 0;
       padding: 10px;
       border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
     }
+
+    .item div, .upgrade div {
+      text-align: left;
+      flex: 1;
+    }
+
     .item button, .upgrade button {
-      float: right;
       font-size: 0.9rem;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background-color: #55efc4;
+      border: none;
+      cursor: pointer;
     }
+
     .stock-arrow.up { color: green; }
     .stock-arrow.down { color: red; }
   </style>
@@ -122,11 +138,11 @@
     }
 
     function buyUpgrade(i) {
-      const upg = upgrades[i];
-      if (!upg.bought && aura >= upg.cost) {
-        aura -= upg.cost;
-        upg.bought = true;
-        upg.effect();
+      const u = upgrades[i];
+      if (!u.bought && aura >= u.cost) {
+        aura -= u.cost;
+        u.bought = true;
+        u.effect();
         updateAuraPerSecond();
         updateUI();
       }
@@ -150,22 +166,32 @@
         const cost = Math.round(g.baseCost * Math.pow(g.scale, g.amount));
         const div = document.createElement("div");
         div.className = "item";
-        div.innerHTML = `${g.name} (${g.amount}) — +${g.auraGain}/s<br>Cost: ${cost}
-          <button onclick="buyGen(${i})">Buy</button>`;
+        div.innerHTML = `
+          <div>
+            <strong>${g.name}</strong> (${g.amount})<br>
+            +${g.auraGain}/s — Cost: ${cost}
+          </div>
+          <button onclick="buyGen(${i})">Buy</button>
+        `;
         shop.appendChild(div);
       });
     }
 
     function renderUpgrades() {
-      const upgList = document.getElementById("upgrade-list");
-      upgList.innerHTML = "";
+      const list = document.getElementById("upgrade-list");
+      list.innerHTML = "";
       upgrades.forEach((u, i) => {
         if (!u.bought) {
           const div = document.createElement("div");
           div.className = "upgrade";
-          div.innerHTML = `${u.name} — Cost: ${u.cost}
-            <button onclick="buyUpgrade(${i})">Buy</button>`;
-          upgList.appendChild(div);
+          div.innerHTML = `
+            <div>
+              <strong>${u.name}</strong><br>
+              Cost: ${u.cost}
+            </div>
+            <button onclick="buyUpgrade(${i})">Buy</button>
+          `;
+          list.appendChild(div);
         }
       });
     }
@@ -178,7 +204,7 @@
         const arrowClass = stock.price > stock.last ? "up" : stock.price < stock.last ? "down" : "";
         sdiv.innerHTML += `
           <div class="stock">
-            ${stock.name}: $${stock.price}
+            <strong>${stock.name}</strong>: $${stock.price}
             <span class="stock-arrow ${arrowClass}">${arrow}</span><br>
             High: $${stock.high} | Low: $${stock.low}
           </div>
@@ -194,7 +220,7 @@
     setInterval(() => {
       stocks.forEach(stock => {
         stock.last = stock.price;
-        const change = Math.floor(Math.random() * 11 - 5); // -5 to +5
+        const change = Math.floor(Math.random() * 11 - 5);
         stock.price += change;
         if (stock.price < 1) stock.price = 1;
         if (stock.price > stock.high) stock.high = stock.price;
