@@ -323,6 +323,16 @@ function renderLeaderboard() {
     li.textContent = `${s.name} — ${s.aura}`;
     board.appendChild(li);
   });
+  if (currentUserRole === "teacher" && !document.getElementById("clear-lb")) {
+    const btn = document.createElement("button");
+    btn.id = "clear-lb";
+    btn.textContent = "🧹 Clear Leaderboard";
+    btn.style.background = "red";
+    btn.style.color = "white";
+    btn.style.marginTop = "10px";
+    btn.onclick = clearLeaderboard;
+    document.getElementById("leaderboard-panel").appendChild(btn);
+  }
 }
 
     function buyStock(i) {
