@@ -85,15 +85,45 @@
   flex: 1 1 32%;
   min-width: 250px;
 }
+    #leaderboard-panel {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  width: 200px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: #fffaf0;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+#leaderboard-panel h3 {
+  margin-top: 0;
+}
+#leaderboard {
+  list-style-type: decimal;
+  padding-left: 20px;
+  text-align: left;
+}
+
 
   </style>
 </head>
+  <div id="leaderboard-panel">
+  <h3>🏆 Leaderboard</h3>
+  <ol id="leaderboard"></ol>
+</div>
+  
+
 <body>
 
   <h1>🔥 Aura Clicker 🔥</h1>
   <div id="aura-display">Aura: 0</div>
   <button id="click-btn">+1 Aura</button>
-
+  <input id="username" placeholder="Your name" style="padding: 10px; border-radius: 8px; font-size: 1rem;">
+  <button onclick="submitScore()">📊 Submit Score</button>
  <div class="card triple-container">
   <div class="third">
     <h2>🛒 Shop</h2>
@@ -262,6 +292,34 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
           </div>`;
       });
     }
+function submitScore() {
+  const name = document.getElementById("username").value.trim();
+  if (!name) {
+    alert("Enter your name first!");
+    return;
+  }
+  const scores = JSON.parse(localStorage.getItem("auraLeaderboard") || "[]");
+  const existing = scores.find(s => s.name === name);
+  if (existing) {
+    existing.aura = Math.max(existing.aura, Math.floor(aura));
+  } else {
+    scores.push({ name, aura: Math.floor(aura) });
+  }
+  localStorage.setItem("auraLeaderboard", JSON.stringify(scores));
+  renderLeaderboard();
+}
+
+function renderLeaderboard() {
+  const scores = JSON.parse(localStorage.getItem("auraLeaderboard") || "[]");
+  scores.sort((a, b) => b.aura - a.aura);
+  const board = document.getElementById("leaderboard");
+  board.innerHTML = "";
+  scores.forEach((s, i) => {
+    const li = document.createElement("li");
+    li.textContent = `${s.name} — ${s.aura}`;
+    board.appendChild(li);
+  });
+}
 
     function buyStock(i) {
       const s = stocks[i];
@@ -318,6 +376,8 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
 
     updateAuraPerSecond();
     updateUI();
+    renderLeaderboard();
+
   </script>
 </body>
 </html>
