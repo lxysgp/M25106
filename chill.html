@@ -138,15 +138,18 @@
     }
 
     function buyUpgrade(i) {
-      const u = upgrades[i];
-      if (!u.bought && aura >= u.cost) {
-        aura -= u.cost;
-        u.bought = true;
-        u.effect();
-        updateAuraPerSecond();
-        updateUI();
-      }
-    }
+  const u = upgrades[i];
+  if (!u.bought && aura >= u.cost) {
+    aura -= u.cost;
+    u.bought = true;
+    u.effect(); // Run the actual effect
+    updateAuraPerSecond(); // Refresh aura/sec using new gains
+    renderShop(); // Update shop display with new aura/sec
+    renderUpgrades(); // Hide this upgrade
+    updateUI(); // Refresh aura display
+  }
+}
+
 
     function updateAuraPerSecond() {
       auraPerSecond = generators.reduce((sum, g) => sum + g.amount * g.auraGain, 0);
