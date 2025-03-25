@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Aura Clicker Game</title>
+  <title>Aura Clicker Game with Crypto Stocks</title>
   <style>
     body {
       font-family: 'Comic Sans MS', cursive;
@@ -33,7 +33,6 @@
       margin: 8px;
     }
     #click-btn { background-color: #ffeaa7; }
-
     .item, .upgrade, .stock {
       background: #dfe6e9;
       margin: 10px 0;
@@ -44,12 +43,10 @@
       align-items: center;
       flex-wrap: wrap;
     }
-
     .item div, .upgrade div {
       text-align: left;
       flex: 1;
     }
-
     .item button, .upgrade button {
       font-size: 0.9rem;
       padding: 6px 12px;
@@ -58,7 +55,6 @@
       border: none;
       cursor: pointer;
     }
-
     .stock-arrow.up { color: green; }
     .stock-arrow.down { color: red; }
   </style>
@@ -80,166 +76,11 @@
 
   <div class="section">
     <h2>📈 Aura Stocks</h2>
+    <select id="stock-mode" onchange="renderStocks()">
+      <option value="normal">Normal Stocks</option>
+      <option value="crypto">Crypto Stocks</option>
+    </select>
     <div id="stock-list"></div>
   </div>
 
   <script>
-    let aura = 0;
-    let auraPerClick = 1;
-    let auraPerSecond = 0;
-
-    const auraDisplay = document.getElementById("aura-display");
-
-    const generators = [
-      { name: "Person", amount: 0, baseCost: 10, auraGain: 1, scale: 1.06 },
-      { name: "Skibidi Toilet", amount: 0, baseCost: 60, auraGain: 5, scale: 1.04 },
-      { name: "Mewer", amount: 0, baseCost: 110, auraGain: 10, scale: 1.035 },
-      { name: "Auto Mewer", amount: 0, baseCost: 690, auraGain: 69, scale: 1.04 },
-      { name: "Sigma Mewer", amount: 0, baseCost: 1200, auraGain: 100, scale: 1.03 },
-      { name: "Skibidi Sigma", amount: 0, baseCost: 1869, auraGain: 169, scale: 1.025 },
-      { name: "Zhengxian Mewer", amount: 0, baseCost: 6969, auraGain: 500, scale: 1.025 },
-      { name: "Caden Mewer", amount: 0, baseCost: 90000, auraGain: 6969, scale: 1.02 },
-      { name: "Sigma Caden", amount: 0, baseCost: 106969, auraGain: 10000, scale: 1.015 }
-    ];
-
-    const upgrades = [
-      { name: "SLS Grinder (x2 click)", cost: 100, effect: () => auraPerClick *= 2 },
-      { name: "Persons x2", cost: 150, effect: () => generators[0].auraGain *= 2 },
-      { name: "Xinyuan (x5 click)", cost: 400, effect: () => auraPerClick *= 5 },
-      { name: "Skibidi Toilets x2", cost: 300, effect: () => generators[1].auraGain *= 2 },
-      { name: "Click +15", cost: 200, effect: () => auraPerClick += 15 },
-      { name: "Mewers x1.5", cost: 400, effect: () => generators[2].auraGain *= 1.5 },
-      { name: "Ziheng (x1.5 click)", cost: 180, effect: () => auraPerClick *= 1.5 },
-      { name: "Johnny (x4 click)", cost: 350, effect: () => auraPerClick *= 4 },
-      { name: "Skibidi Sigma x2", cost: 1000, effect: () => generators[5].auraGain *= 2 },
-      { name: "Sigma Caden x2", cost: 5000, effect: () => generators[8].auraGain *= 2 },
-      { name: "YUSU (x10 click)", cost: 2000, effect: () => auraPerClick *= 10 },
-      { name: "Yuansan (x10 click)", cost: 2000, effect: () => auraPerClick *= 10 }
-    ];
-
-    const stocks = [
-      { name: "Mew Corp", price: 69, high: 100, low: 100, last: 100 }
-      let stockOwned = 0;
-    ];
-
-    document.getElementById("click-btn").addEventListener("click", () => {
-      aura += auraPerClick;
-      updateUI();
-    });
-
-    function buyGen(i) {
-      const g = generators[i];
-      const cost = Math.round(g.baseCost * Math.pow(g.scale, g.amount));
-      if (aura >= cost) {
-        aura -= cost;
-        g.amount++;
-        updateAuraPerSecond();
-        updateUI();
-      }
-    }
-
-    function buyUpgrade(i) {
-  const u = upgrades[i];
-  if (!u.bought && aura >= u.cost) {
-    aura -= u.cost;
-    u.bought = true;
-    u.effect(); // Run the actual effect
-    updateAuraPerSecond(); // Refresh aura/sec using new gains
-    renderShop(); // Update shop display with new aura/sec
-    renderUpgrades(); // Hide this upgrade
-    updateUI(); // Refresh aura display
-  }
-}
-
-
-    function updateAuraPerSecond() {
-      auraPerSecond = generators.reduce((sum, g) => sum + g.amount * g.auraGain, 0);
-    }
-
-    function updateUI() {
-      auraDisplay.textContent = `Aura: ${Math.floor(aura)} (APS: ${Math.round(auraPerSecond)})`;
-      renderShop();
-      renderUpgrades();
-      renderStocks();
-    }
-
-    function renderShop() {
-      const shop = document.getElementById("shop-list");
-      shop.innerHTML = "";
-      generators.forEach((g, i) => {
-        const cost = Math.round(g.baseCost * Math.pow(g.scale, g.amount));
-        const div = document.createElement("div");
-        div.className = "item";
-        div.innerHTML = `
-          <div>
-            <strong>${g.name}</strong> (${g.amount})<br>
-            +${g.auraGain}/s — Cost: ${cost}
-          </div>
-          <button onclick="buyGen(${i})">Buy</button>
-        `;
-        shop.appendChild(div);
-      });
-    }
-
-    function renderUpgrades() {
-      const list = document.getElementById("upgrade-list");
-      list.innerHTML = "";
-      upgrades.forEach((u, i) => {
-        if (!u.bought) {
-          const div = document.createElement("div");
-          div.className = "upgrade";
-          div.innerHTML = `
-            <div>
-              <strong>${u.name}</strong><br>
-              Cost: ${u.cost}
-            </div>
-            <button onclick="buyUpgrade(${i})">Buy</button>
-          `;
-          list.appendChild(div);
-        }
-      });
-    }
-
-    function renderStocks() {
-  const sdiv = document.getElementById("stock-list");
-  sdiv.innerHTML = "";
-  stocks.forEach((stock, i) => {
-    const arrow = stock.price > stock.last ? "⬆️" : stock.price < stock.last ? "⬇️" : "➡️";
-    const arrowClass = stock.price > stock.last ? "up" : stock.price < stock.last ? "down" : "";
-
-    sdiv.innerHTML += `
-      <div class="stock">
-        <strong>${stock.name}</strong>: $${stock.price}
-        <span class="stock-arrow ${arrowClass}">${arrow}</span><br>
-        High: $${stock.high} | Low: $${stock.low}<br>
-        You own: ${stockOwned}<br>
-        <button onclick="buyStock(${i})">Buy</button>
-        <button onclick="sellStock(${i})">Sell</button>
-      </div>
-    `;
-  });
-}
-
-
-    setInterval(() => {
-      aura += auraPerSecond / 10;
-      updateUI();
-    }, 100);
-
-    setInterval(() => {
-      stocks.forEach(stock => {
-        stock.last = stock.price;
-        const change = Math.floor(Math.random() * 11 - 5);
-        stock.price += change;
-        if (stock.price < 1) stock.price = 1;
-        if (stock.price > stock.high) stock.high = stock.price;
-        if (stock.price < stock.low) stock.low = stock.price;
-      });
-      renderStocks();
-    }, 2000);
-
-    updateAuraPerSecond();
-    updateUI();
-  </script>
-</body>
-</html>
