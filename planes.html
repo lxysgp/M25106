@@ -1,6 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planes Game</title>
+  <style>
+    canvas {
+      border: 1px solid black;
+      display: block;
+      margin: 0 auto;
+    }
+    body {
+      background: #f0f0f0;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Planes Game</h1>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+  </main>
 
-
-var creator="Michael Da Boss";
+  <script>
+    var creator="M25106 Web Developers";
 
 //Game
 {
@@ -1695,7 +1721,7 @@ var draw= function() {
     image(special,25,1500+avatarScroll,(400-100)/5,(400-100)/5);
     textAlign(CENTER,CENTER);
     textSize(13);
-    text("You found the secret level! Congragulations and Merry Christmas!",200,1480+avatarScroll);
+    text("You found the secret level! Congragulations and M25106 is sigma!",200,1480+avatarScroll);
     text("There are no more secret levels. You can scroll back up now.",200,3000+avatarScroll);
     text("Wow, your still scrolling. There isn't anything down there.",200,5000+avatarScroll);
     text("You need to stop scrolling.",200,7000+avatarScroll);
@@ -1768,3 +1794,7 @@ var draw= function() {
     }
     }
 };
+    });
+  </script>
+</body>
+</html>
