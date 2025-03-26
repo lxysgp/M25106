@@ -278,6 +278,13 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
     }
 
     function updateUI() {
+      const elapsedMinutes = (Date.now() - startTime) / (1000 * 60);
+if (!cheatLocked && elapsedMinutes < MAX_MINUTES && aura > CHEAT_AURA_THRESHOLD) {
+  cheatLocked = true;
+  document.getElementById("main-content").style.display = "none";
+  document.getElementById("cheat-lock-screen").style.display = "block";
+}
+
   document.getElementById("aura-display").textContent =
     `Aura: ${Math.floor(aura)} (APS: ${Math.round(auraPerSecond)})`;
 
