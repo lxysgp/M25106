@@ -147,8 +147,9 @@
     <div id="stock-list"></div>
   </div>
 </div>
-
+  <button onclick="resetprogress()">Reset Your Progress</button>
   <a href="index.html"><img src="classweblogogris.png" alt="Class Logo" id="login-logo"></a>
+  <script src="script.js"></script>
   <script>
     let auraPerClick = 1, auraPerSecond = 0;
     let cryptoUnlocked = false;
@@ -280,7 +281,25 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
   renderUpgrades();
   renderStocks();
 }
-
+    function resetprogress() {
+      let confirmuser = prompt("Enter your username")
+      let confirmation = prompt("Enter your password to confirm progress reset!")
+      const a0001 = await hashSHA512(confirmation);
+  const a0002 = atob(a0001);
+  const a0003 = await hashSHA512(a0002);
+  const a0004 = atob(a0003);
+  const hashedPassword = await hashSHA512(a0004);
+      const usert = validUsers[username];
+      if (confirmuser === user) {
+        if (usert && confirmation === hashedPassword) {
+          score = 0;
+          auraPerClick = 1;
+          auraPerSecond = 0;
+          cryptoUnlocked = false;
+          lastClickTimes = [];
+          cheatAttempts = 0;
+        }
+      }}
 
     function renderShop() {
       const shop = document.getElementById("shop-list");
@@ -440,7 +459,9 @@ function renderLeaderboard() {
     updateAuraPerSecond();
     updateUI();
     renderLeaderboard();
-
+    window.onbeforeunload() {
+      localStorage.setItem("score", score);
+    }
   </script>
    <footer><p>Xinyuan is not responsible for this if you are caught by any teacher.</p></footer>
 </body>
