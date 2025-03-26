@@ -4,7 +4,7 @@ const validUsers = {
     role: "student"
   },
   "admin": {
-    password: "",
+    password: "s½\x1Bå×}y·ÛéþuwO]ã]öo½{ÑÏ]ÛNùÑ®üçgôÓ¯4\x7F®zçÇôß]\x1Eó]4ç§ºï­Üß\x87=kM\x1BÑïxÓNú\x7F\x9E8÷\x975ë×ÜÛ}6qÇ\x9Bß]´ßÝ»ÕÎ7ã¯yÓ·\\",
     role: "teacher"
   },
   "nzx.21106": {
@@ -39,7 +39,7 @@ let loggedInUsername = "";
 async function login() {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value;
-  const hashedPassword = await hashSHA512(password);
+  const hashedPassword = await atob(hashSHA512(password));
 
   const user = validUsers[username];
   if (user && user.password === hashedPassword) {
