@@ -12,28 +12,27 @@ const validUsers = {
 let currentUserRole = null;
 let loggedInUsername = ""; //Make username globally available
 
-function login() {
-	const name = document.getElementById("username").value.toLowerCase();
-	const pass = document.getElementById("password").value;
-	const user = validUsers[name];
+async function login() {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value;
 
-	if (user && atob(user.password) === pass) {
-		//Store in global + localStorage
-		loggedInUsername = name;
-		currentUserRole = user.role;
+  const hashedPassword = await hashSHA512(password);
 
-		localStorage.setItem("loggedInUser", name);           // for main login tracking
-		localStorage.setItem("classwebUsername", name);       //for chill.html or other pages
-		localStorage.setItem("userRole", user.role);
+  // Example: stored hashed password (replace this with real values)
+  const accounts = {
+    "xinyuan": "1d305a...yourSHAhash...",
+    "dong": "b8a72f...anotherHash..."
+  };
 
-		document.getElementById("login-screen").style.display = "none";
-		document.getElementById("main-content").style.display = "block";
-		applyRoleVisibility();
-		renderLeaderboard(); // Optional: refresh leaderboard if on main page
-	} else {
-		document.getElementById("login-msg").textContent = "Incorrect login.";
-	}
+  if (accounts[username] === hashedPassword) {
+    localStorage.setItem("loggedInUser", username);
+    document.getElementById("login-screen").style.display = "none";
+    document.getElementById("main-content").style.display = "block";
+  } else {
+    document.getElementById("login-msg").textContent = "❌ Incorrect username or password.";
+  }
 }
+
 
 function logout() {
 	localStorage.removeItem("loggedInUser");
@@ -76,6 +75,14 @@ window.onload = function () {
 	}
 };
 
+async function hashSHA512(text) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(text);
+  const hashBuffer = await crypto.subtle.digest('SHA-512', data);
+  return Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+}
 
 // --- Class attendance logic ---
 const classmates = [
