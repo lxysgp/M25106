@@ -16,7 +16,7 @@ const validUsers = {
     role: "student"
   },
   "darsh": {
-    password: "be7b1715541c5688c4e4501ee8ec14cff00713c0c88a1836dab57c0deca06c4a482681f4bd0f291c76e5ac1bb2faa4ec8fd1e8b472b04c23ae9d9ac6722c1a87",
+    password: "99888fe24f9eee62222aef726c6f59f0357574484ce587148043004ea5f5fcd2e5d44a140aff6243e295c6368fb7443b48d83aba813695ff4fb18383d4106558",
     role: "student"
   },
   "johnny": {
