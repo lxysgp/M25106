@@ -1,4 +1,4 @@
-// Obfuscated login system with logout and role-based access
+// Obfuscated ITS NOT OBFUSCATED login system with logout and role-based access
 const validUsers = {
 	"xinyuan": { password: "MTIzNA==", role: "student" },
 	"admin": { password: "c2tpYmlkaQ==", role: "teacher" },
