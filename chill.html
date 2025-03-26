@@ -209,8 +209,8 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
   // Check CPS
   if (lastClickTimes.length > MAX_CPS) {
     cheatAttempts++;
-    alert("⚠️ Too many clicks per second! Slow down...");
-    if (cheatAttempts >= 3) {
+    alert("⚠️ Too many clicks per second! Slow down otherwise the game will be disabled!");
+    if (cheatAttempts >= 2) {
       document.getElementById("click-btn").disabled = true;
       alert("🚫 Clicker disabled due to suspicious activity.");
     }
