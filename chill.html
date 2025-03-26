@@ -201,10 +201,38 @@ const cryptoStocks = [
 let cryptoOwned = Array(cryptoStocks.length).fill(0);
 
 
-    document.getElementById("click-btn").onclick = () => {
-      aura += auraPerClick;
-      updateUI();
-    };
+   document.getElementById("click-btn").onclick = () => {
+  const now = Date.now();
+  lastClickTimes.push(now);
+  lastClickTimes = lastClickTimes.filter(t => now - t < 1000); // last 1 sec
+
+  // Check CPS
+  if (lastClickTimes.length > MAX_CPS) {
+    cheatAttempts++;
+    alert("⚠️ Too many clicks per second! Slow down...");
+    if (cheatAttempts >= 3) {
+      document.getElementById("click-btn").disabled = true;
+      alert("🚫 Clicker disabled due to suspicious activity.");
+    }
+    return;
+  }
+
+  // Check for click power cheat
+  if (auraPerClick > MAX_LEGAL_CLICK_POWER) {
+    cheatAttempts++;
+    alert("⚠️ Invalid click power! Are you trying to cheat?");
+    if (cheatAttempts >= 3) {
+      document.getElementById("click-btn").disabled = true;
+      alert("🚫 Clicker disabled due to suspicious activity.");
+    }
+    return;
+  }
+
+  // All good
+  aura += auraPerClick;
+  updateUI();
+};
+
 
     function buyGen(i) {
       const g = generators[i];
