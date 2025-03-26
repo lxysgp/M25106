@@ -1,6 +1,6 @@
 const validUsers = {
   "xinyuan": {
-    password: "64816bdebdb511a519643ab992970c5fff322a38f9b5d2f46cda63ddc172295ba65c64a69d30ac4ad68f94157c919daadd0e89a5ed2000ff4a3b67586c493f91E"
+    password: "64816bdebdb511a519643ab992970c5fff322a38f9b5d2f46cda63ddc172295ba65c64a69d30ac4ad68f94157c919daadd0e89a5ed2000ff4a3b67586c493f91E",
     role: "student"
   },
   "admin": {
