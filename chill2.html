@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clicker Game</title>
+</head>
+<body>
+  <div id="clicker"></div>
+  <div id="score">Score: 0</div>
+  <script>
+    let score = localStorage.getItem("score");
+const clickerElement = document.getElementById('clicker');
+const scoreElement = document.getElementById('score');
+
+clickerElement.addEventListener('click', () => {
+  score++;
+  scoreElement.textContent = `Score: ${score}`;
+});let upgradeCost = 10;
+const upgradeButton = document.getElementById('upgradeButton');
+
+upgradeButton.addEventListener('click', () => {
+  if (score >= upgradeCost) {
+    score -= upgradeCost;
+    scoreElement.textContent = `Score: ${score}`;
+    // Add upgrade logic here (e.g., increase score per click)
+    // Example:
+    // scorePerClick += 1;
+  }
+});window.onbeforeunload() {
+    localStorage.setItem("score", score);
+}
+  </script>
+</body>
+</html>
