@@ -1,18 +1,18 @@
 const validUsers = {
   "xinyuan": {
-    password: "be7b1715541c5688c4e4501ee8ec14cff00713c0c88a1836dab57c0deca06c4a482681f4bd0f291c76e5ac1bb2faa4ec8fd1e8b472b04c23ae9d9ac6722c1a87",
+    password: "",
     role: "student"
   },
   "admin": {
-    password: "be7b1715541c5688c4e4501ee8ec14cff00713c0c88a1836dab57c0deca06c4a482681f4bd0f291c76e5ac1bb2faa4ec8fd1e8b472b04c23ae9d9ac6722c1a87",
+    password: "",
     role: "teacher"
   },
   "nzx.21106": {
-    password: "be7b1715541c5688c4e4501ee8ec14cff00713c0c88a1836dab57c0deca06c4a482681f4bd0f291c76e5ac1bb2faa4ec8fd1e8b472b04c23ae9d9ac6722c1a87",
+    password: "",
     role: "teacher"
   },
   "bh10601": {
-    password: "be7b1715541c5688c4e4501ee8ec14cff00713c0c88a1836dab57c0deca06c4a482681f4bd0f291c76e5ac1bb2faa4ec8fd1e8b472b04c23ae9d9ac6722c1a87",
+    password: "",
     role: "student"
   },
   "darsh": {
@@ -20,11 +20,11 @@ const validUsers = {
     role: "student"
   },
   "johnny": {
-    password: "be7b1715541c5688c4e4501ee8ec14cff00713c0c88a1836dab57c0deca06c4a482681f4bd0f291c76e5ac1bb2faa4ec8fd1e8b472b04c23ae9d9ac6722c1a87",
+    password: "",
     role: "student"
   },
   "haoyu": {
-    password: "be7b1715541c5688c4e4501ee8ec14cff00713c0c88a1836dab57c0deca06c4a482681f4bd0f291c76e5ac1bb2faa4ec8fd1e8b472b04c23ae9d9ac6722c1a87",
+    password: "",
     role: "student"
   },
 "jiahe" : {
