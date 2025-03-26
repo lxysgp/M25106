@@ -119,7 +119,6 @@
   <h1>🔥 Aura Clicker 🔥</h1>
   <div id="aura-display">Aura: 0</div>
   <button id="click-btn">+1 Aura</button>
-  <button onclick="submitScore()">📊 Submit Score</button>
   <div class="card triple-container">
   <div class="third">
     <h2>🛒 Shop</h2>
@@ -154,7 +153,10 @@
       { name: "Zhengxian Mewer", amount: 0, baseCost: 6969, auraGain: 500, scale: 1.025 },
       { name: "Caden Mewer", amount: 0, baseCost: 90000, auraGain: 6969, scale: 1.02 },
       { name: "Sigma Caden", amount: 0, baseCost: 106969, auraGain: 10000, scale: 1.015 },
-      { name: "Sigma Zhengxian", amount: 0, baseCost: 200000, auraGain: 16969, scale: 1.01}
+      { name: "Sigma Zhengxian", amount: 0, baseCost: 200000, auraGain: 16969, scale: 1.01},
+      { name: "Xuhui Mewer", amount: 0, baseCost: 10000000, auraGain: 69690, scale: 1.02},
+      { name: "Shiv", amount: 0, baseCost: 100000000, auraGain: 0.001, scale: 2},
+      { name: "Mutated Xuhui", amount: 0, baseCost: 500000000, auraGain: 3000000, scale: 1.015}
     ];
 
     const upgrades = [
@@ -292,7 +294,7 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
 function submitScore() {
   const name = localStorage.getItem("classwebUsername");
   if (!name) {
-    alert("Please login first!");
+    alert("Not working now!");
     return;
   }
 
