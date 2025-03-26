@@ -121,10 +121,6 @@
     }
   </script>
 </head>
-  <div id="leaderboard-panel">
-  <h3>🏆 Leaderboard</h3>
-  <ol id="leaderboard"></ol>
-</div>
 <body>
   <h1>🔥 Aura Clicker 🔥</h1>
   <div id="aura-display">Aura: 0</div>
@@ -280,27 +276,15 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
   renderShop();
   renderUpgrades();
   renderStocks();
-}
+};
     function resetprogress() {
-      let confirmuser = prompt("Enter your username")
-      let confirmation = prompt("Enter your password to confirm progress reset!")
-      const a0001 = await hashSHA512(confirmation);
-  const a0002 = atob(a0001);
-  const a0003 = await hashSHA512(a0002);
-  const a0004 = atob(a0003);
-  const hashedPassword = await hashSHA512(a0004);
-      const usert = validUsers[username];
-      if (confirmuser === user) {
-        if (usert && confirmation === hashedPassword) {
-          score = 0;
           auraPerClick = 1;
           auraPerSecond = 0;
           cryptoUnlocked = false;
           lastClickTimes = [];
           cheatAttempts = 0;
-        }
-      }}
-
+          score = 0
+        };
     function renderShop() {
       const shop = document.getElementById("shop-list");
       shop.innerHTML = "";
