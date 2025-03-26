@@ -4,19 +4,19 @@ const validUsers = {
     role: "student"
   },
   "admin": {
-    password: "",
+    password: "fa4f924b2042699bdaff488c9cd2155e172c4242fee1f1f84766231e7f75df60c2205e20580a0cdebeacce168ef92beca8529b06607e544cd23f324e4023152e",
     role: "teacher"
   },
   "nzx.21106": {
-    password: "",
+    password: "0e4871d83cc281edc94ad00b203268e4adccc7dc2b8da7e717051ef86c13aae7bbff78e1732e02a6654080085315f0aa8b4975f1e4511b542ae5a211078b797e",
     role: "teacher"
   },
-  "bh10601": {
+  "Bhatshreyas10601": {
     password: "",
     role: "student"
   },
   "darsh": {
-    password: "a163b7d63a68c53616ad2254c71d2a42090b2191675149f0efd06bd7e85cabe2f0b0c78e5d4c826cff06e062d8bf8e8b750435881acf7647817b93885d602dea",
+    password: "",
     role: "student"
   },
   "johnny": {
@@ -28,7 +28,7 @@ const validUsers = {
     role: "student"
   },
 "jiahe" : {
-    password: "5c0cb0b48926e2f1605ace6d30afb3a0cada6c7129a8a332b73a6b6849e2944affd599373f62868d466834b1bf804c0bd69e21531af7c3691bc167573b8d6910",
+    password: "",
     role: "student"
 }
 };
