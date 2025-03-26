@@ -110,17 +110,11 @@
       top: 250px;
     }
   </style>
-  <script>
-    const user = localStorage.getItem("loggedInUser");
-    let score = localStorage.getItem("score");
-    if (!user) {
-      document.location = "https://lxysgp.github.io/M25106/";
-    };
-    if (!score) {
-      score = 0
-    }
-  </script>
 </head>
+  <div id="leaderboard-panel">
+  <h3>🏆 Leaderboard</h3>
+  <ol id="leaderboard"></ol>
+</div>
 <body>
   <h1>🔥 Aura Clicker 🔥</h1>
   <div id="aura-display">Aura: 0</div>
@@ -143,14 +137,13 @@
     <div id="stock-list"></div>
   </div>
 </div>
-  <button onclick="resetprogress()">Reset Your Progress</button>
+
   <a href="index.html"><img src="classweblogogris.png" alt="Class Logo" id="login-logo"></a>
-  <script src="script.js"></script>
   <script>
-    let auraPerClick = 1, auraPerSecond = 0;
+    let aura = 0, auraPerClick = 1, auraPerSecond = 0;
     let cryptoUnlocked = false;
     let lastClickTimes = [];
-    const MAX_CPS = 35; // clicks per second
+    const MAX_CPS = 25; // clicks per second
     const MAX_LEGAL_CLICK_POWER = 3000;
     let cheatAttempts = 0;
 
@@ -217,7 +210,7 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
   if (lastClickTimes.length > MAX_CPS) {
     cheatAttempts++;
     alert("⚠️ Too many clicks per second! Slow down otherwise the game will be disabled!");
-    if (cheatAttempts >= 3) {
+    if (cheatAttempts >= 2) {
       document.getElementById("click-btn").disabled = true;
       alert("🚫 Clicker disabled due to suspicious activity.");
     }
@@ -236,7 +229,7 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
   }
 
   // All good
-  score += auraPerClick;
+  aura += auraPerClick;
   updateUI();
 };
 
@@ -244,8 +237,8 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
     function buyGen(i) {
       const g = generators[i];
       const cost = Math.round(g.baseCost * Math.pow(g.scale, g.amount));
-      if (score >= cost) {
-        score -= cost;
+      if (aura >= cost) {
+        aura -= cost;
         g.amount++;
         updateAuraPerSecond();
         updateUI();
@@ -254,8 +247,8 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
 
     function buyUpgrade(i) {
       const u = upgrades[i];
-      if (!u.bought && score >= u.cost) {
-        score -= u.cost;
+      if (!u.bought && aura >= u.cost) {
+        aura -= u.cost;
         u.bought = true;
         u.effect();
         updateAuraPerSecond();
@@ -269,22 +262,16 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
 
     function updateUI() {
   document.getElementById("aura-display").textContent =
-    `Aura: ${Math.floor(score)} (APS: ${Math.round(auraPerSecond)})`;
+    `Aura: ${Math.floor(aura)} (APS: ${Math.round(auraPerSecond)})`;
 
   document.getElementById("click-btn").textContent = `+${auraPerClick} Aura`;
 
   renderShop();
   renderUpgrades();
   renderStocks();
-};
-    function resetprogress() {
-          auraPerClick = 1;
-          auraPerSecond = 0;
-          cryptoUnlocked = false;
-          lastClickTimes = [];
-          cheatAttempts = 0;
-          score = 0
-        };
+}
+
+
     function renderShop() {
       const shop = document.getElementById("shop-list");
       shop.innerHTML = "";
@@ -350,9 +337,9 @@ function submitScore() {
   const existing = scores.find(s => s.name === name);
 
   if (existing) {
-    existing.score = Math.max(existing.score, Math.floor(score)); // Only keep best score
+    existing.aura = Math.max(existing.aura, Math.floor(aura)); // Only keep best score
   } else {
-    scores.push({ name, score: Math.floor(score) });
+    scores.push({ name, aura: Math.floor(aura) });
   }
 
   localStorage.setItem("auraLeaderboard", JSON.stringify(scores));
@@ -361,12 +348,12 @@ function submitScore() {
 
 function renderLeaderboard() {
   const scores = JSON.parse(localStorage.getItem("auraLeaderboard") || "[]");
-  scores.sort((a, b) => b.score - a.score);
+  scores.sort((a, b) => b.aura - a.aura);
   const board = document.getElementById("leaderboard");
   board.innerHTML = "";
   scores.forEach((s, i) => {
     const li = document.createElement("li");
-    li.textContent = `${s.name} — ${s.score}`;
+    li.textContent = `${s.name} — ${s.aura}`;
     board.appendChild(li);
   });
   if (currentUserRole === "teacher" && !document.getElementById("clear-lb")) {
@@ -389,8 +376,8 @@ function renderLeaderboard() {
 
     function buyStock(i) {
       const s = stocks[i];
-      if (score >= s.price) {
-        score -= s.price;
+      if (aura >= s.price) {
+        aura -= s.price;
         stockOwned[i] = (stockOwned[i] || 0) + 1;
         updateUI();
       }
@@ -398,7 +385,7 @@ function renderLeaderboard() {
 
     function sellStock(i) {
       if (stockOwned[i] > 0) {
-        score += stocks[i].price;
+        aura += stocks[i].price;
         stockOwned[i]--;
         updateUI();
       }
@@ -406,8 +393,8 @@ function renderLeaderboard() {
 
     function buyCrypto(i) {
       const s = cryptoStocks[i];
-      if (score >= s.price) {
-        score -= s.price;
+      if (aura >= s.price) {
+        aura -= s.price;
         cryptoOwned[i] = (cryptoOwned[i] || 0) + 1;
         updateUI();
       }
@@ -415,14 +402,14 @@ function renderLeaderboard() {
 
     function sellCrypto(i) {
       if (cryptoOwned[i] > 0) {
-        score += cryptoStocks[i].price;
+        aura += cryptoStocks[i].price;
         cryptoOwned[i]--;
         updateUI();
       }
     }
 
     setInterval(() => {
-      score += auraPerSecond / 10;
+      aura += auraPerSecond / 10;
       updateUI();
     }, 100);
 
@@ -443,9 +430,7 @@ function renderLeaderboard() {
     updateAuraPerSecond();
     updateUI();
     renderLeaderboard();
-    window.onbeforeunload() {
-      localStorage.setItem("score", score);
-    }
+
   </script>
    <footer><p>Xinyuan is not responsible for this if you are caught by any teacher.</p></footer>
 </body>
