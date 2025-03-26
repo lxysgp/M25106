@@ -4,7 +4,8 @@ const validUsers = {
 	"admin": { password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "teacher" },
 	"nzx.21106": {password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "teacher" },
 	"bh10601" : { password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "student" },
-	"darsh" : {password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "student" }	"johnny" : {password: "MTAyNDIwMTI=", role: "student" },
+	"darsh" : {password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "student" },
+	"johnny" : {password: "MTAyNDIwMTI=", role: "student" },
 	"haoyu" : {password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "student" }
 };
 
