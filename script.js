@@ -15,17 +15,12 @@ let loggedInUsername = ""; //Make username globally available
 async function login() {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value;
-
   const hashedPassword = await hashSHA512(password);
 
-  // Example: stored hashed password (replace this with real values)
-  const accounts = {
-    "xinyuan": "1d305a...yourSHAhash...",
-    "dong": "b8a72f...anotherHash..."
-  };
-
-  if (accounts[username] === hashedPassword) {
+  if (users[username] && users[username].password === hashedPassword) {
+    const role = users[username].role;
     localStorage.setItem("loggedInUser", username);
+    localStorage.setItem("role", role);
     document.getElementById("login-screen").style.display = "none";
     document.getElementById("main-content").style.display = "block";
   } else {
