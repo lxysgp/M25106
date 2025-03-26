@@ -43,7 +43,7 @@ async function login() {
   const notyethashedPassword = atob(notfullyhashedPassword);
   const notHashedPassword = await hashSHA512(notyethashedPassword);
   const almosthashedPassword = atob(notHashedPassword);
-  const hashedPassword = await hashSHA512(almosthashedPassword)
+  const hashedPassword = await hashSHA512(almosthashedPassword);
 	
 
   const user = validUsers[username];
