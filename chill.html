@@ -111,13 +111,6 @@
     }
   </style>
 </head>
-       <div id="cheat-lock-screen" style="display:none; text-align:center; padding:40px;">
-  <h2>🚨 Game Locked: Suspicious Activity Detected</h2>
-  <p>Enter password to unlock:</p>
-  <input type="password" id="unlock-pw" style="padding:10px; font-size:1rem;">
-  <button onclick="attemptUnlock()" style="padding:10px 20px;">Unlock</button>
-  <p id="unlock-msg" style="color:red;"></p>
-</div>
   <div id="leaderboard-panel">
   <h3>🏆 Leaderboard</h3>
   <ol id="leaderboard"></ol>
@@ -135,8 +128,6 @@
     <h2>🧠 Upgrades</h2>
     <div id="upgrade-list"></div>
   </div>
-   
-
   <div class="third">
     <h2>📈 Stocks</h2>
     <select id="stock-mode" onchange="renderStocks()">
@@ -155,14 +146,6 @@
     const MAX_CPS = 25; // clicks per second
     const MAX_LEGAL_CLICK_POWER = 3000;
     let cheatAttempts = 0;
-    let aura = 0, auraPerClick = 1, auraPerSecond = 0;
-let startTime = Date.now();
-let cheatLocked = false;
-const CHEAT_AURA_THRESHOLD = 1e13;
-const MAX_MINUTES = 5;
-
-// hashed unlock password: "unblockme"
-const UNLOCK_PASSWORD_HASH = "c8ee557f8cf62ea01f11d2626a8e623dbe0f5a2811684ff0f8f493bfb3437e663a18762c048c1b7d9fa717be6b6f6f1ebcc5ef079be31410aa7ae7091555d9cc";
 
 
     const generators = [
@@ -251,7 +234,6 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
 };
 
 
-
     function buyGen(i) {
       const g = generators[i];
       const cost = Math.round(g.baseCost * Math.pow(g.scale, g.amount));
@@ -279,13 +261,6 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
     }
 
     function updateUI() {
-      const elapsedMinutes = (Date.now() - startTime) / (1000 * 60);
-if (!cheatLocked && elapsedMinutes < MAX_MINUTES && aura > CHEAT_AURA_THRESHOLD) {
-  cheatLocked = true;
-  document.getElementById("main-content").style.display = "none";
-  document.getElementById("cheat-lock-screen").style.display = "block";
-}
-
   document.getElementById("aura-display").textContent =
     `Aura: ${Math.floor(aura)} (APS: ${Math.round(auraPerSecond)})`;
 
