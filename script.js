@@ -8,7 +8,7 @@ const validUsers = {
     role: "teacher"
   },
   "nzx.21106": {
-    password: "",
+    password: "ca96d2566c090886ea6950377f7e85bbb1d45c66a958d66ef31080fbd43280664ddf4facfa05d16416dcc8eff2e7f1564988cce6cab72a4b1f69c7321ae8e385",
     role: "teacher"
   },
   "bh10601": {
@@ -30,7 +30,20 @@ const validUsers = {
 "jiahe" : {
     password: "",
     role: "student"
+},
+"Chatdanai" : {
+    password: "05877d44a007953059cd1cc639266eb1c5b3a01d5ca8ccb9e2097c71ec054e79e38042cabd3ffe9405864a2b5f31b79ebc8d4f0870bf1e48e497044fc3250812",
+    role: "student"
+},
+"" : {
+    password: "",
+    role: "student"
+},
+"" : {
+    password: "",
+    role: "student"
 }
+
 };
 
 let currentUserRole = null;
