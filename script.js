@@ -28,7 +28,7 @@ const validUsers = {
     role: "student"
   },
 "jiahe" : {
-    password: "242dccbd15e40f8f78cb6fc54cb9894713b7682afd1305d5230e26f2fda96fd764061713e4954e22457b37f25c328e8342c2bf6b55844610cd0756fd02271aef",
+    password: "5c0cb0b48926e2f1605ace6d30afb3a0cada6c7129a8a332b73a6b6849e2944affd599373f62868d466834b1bf804c0bd69e21531af7c3691bc167573b8d6910",
     role: "student"
 }
 };
