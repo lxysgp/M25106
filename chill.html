@@ -111,6 +111,13 @@
     }
   </style>
 </head>
+       <div id="cheat-lock-screen" style="display:none; text-align:center; padding:40px;">
+  <h2>🚨 Game Locked: Suspicious Activity Detected</h2>
+  <p>Enter password to unlock:</p>
+  <input type="password" id="unlock-pw" style="padding:10px; font-size:1rem;">
+  <button onclick="attemptUnlock()" style="padding:10px 20px;">Unlock</button>
+  <p id="unlock-msg" style="color:red;"></p>
+</div>
   <div id="leaderboard-panel">
   <h3>🏆 Leaderboard</h3>
   <ol id="leaderboard"></ol>
@@ -128,13 +135,7 @@
     <h2>🧠 Upgrades</h2>
     <div id="upgrade-list"></div>
   </div>
-        <div id="cheat-lock-screen" style="display:none; text-align:center; padding:40px;">
-  <h2>🚨 Game Locked: Suspicious Activity Detected</h2>
-  <p>Enter password to unlock:</p>
-  <input type="password" id="unlock-pw" style="padding:10px; font-size:1rem;">
-  <button onclick="attemptUnlock()" style="padding:10px 20px;">Unlock</button>
-  <p id="unlock-msg" style="color:red;"></p>
-</div>
+   
 
   <div class="third">
     <h2>📈 Stocks</h2>
