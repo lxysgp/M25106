@@ -1,45 +1,95 @@
-// Obfuscated ITS NOT OBFUSCATED login system with logout and role-based access
 const validUsers = {
-	"xinyuan": { password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "student" },
-	"admin": { password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "teacher" },
-	"nzx.21106": {password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "teacher" },
-	"bh10601" : { password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "student" },
-	"darsh" : {password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "student" }	"johnny" : {password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "student" },
-	"haoyu" : {password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "student" }
+  "xinyuan": {
+    password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659",
+    role: "student"
+  },
+  "admin": {
+    password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659",
+    role: "teacher"
+  },
+  "nzx.21106": {
+    password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659",
+    role: "teacher"
+  },
+  "bh10601": {
+    password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659",
+    role: "student"
+  },
+  "darsh": {
+    password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659",
+    role: "student"
+  },
+  "johnny": {
+    password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659",
+    role: "student"
+  },
+  "haoyu": {
+    password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659",
+    role: "student"
+  }
 };
 
 let currentUserRole = null;
-let loggedInUsername = ""; //Make username globally available
+let loggedInUsername = "";
 
 async function login() {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value;
   const hashedPassword = await hashSHA512(password);
 
-  if (users[username] && users[username].password === hashedPassword) {
-    const role = users[username].role;
+  const user = validUsers[username];
+  if (user && user.password === hashedPassword) {
+    currentUserRole = user.role;
+    loggedInUsername = username;
     localStorage.setItem("loggedInUser", username);
-    localStorage.setItem("role", role);
+    localStorage.setItem("userRole", currentUserRole);
     document.getElementById("login-screen").style.display = "none";
     document.getElementById("main-content").style.display = "block";
+    applyRoleVisibility();
   } else {
     document.getElementById("login-msg").textContent = "❌ Incorrect username or password.";
   }
 }
 
-
 function logout() {
-	localStorage.removeItem("loggedInUser");
-	localStorage.removeItem("classwebUsername"); //remove for cross-page
-	localStorage.removeItem("userRole");
-
-	loggedInUsername = "";
-	currentUserRole = null;
-
-	document.getElementById("main-content").style.display = "none";
-	document.getElementById("login-screen").style.display = "block";
+  localStorage.removeItem("loggedInUser");
+  localStorage.removeItem("userRole");
+  currentUserRole = null;
+  loggedInUsername = "";
+  document.getElementById("main-content").style.display = "none";
+  document.getElementById("login-screen").style.display = "block";
 }
 
+function applyRoleVisibility() {
+  const clearBtn = document.getElementById("clear-btn");
+  const attendBtn = document.getElementById("attend");
+  const doneBtn = document.getElementById("done-btn");
+
+  if (clearBtn) clearBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
+  if (attendBtn) attendBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
+  if (doneBtn) doneBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
+}
+
+window.onload = function () {
+  const savedUser = localStorage.getItem("loggedInUser");
+  const savedRole = localStorage.getItem("userRole");
+  if (savedUser && savedRole) {
+    loggedInUsername = savedUser;
+    currentUserRole = savedRole;
+    document.getElementById("login-screen").style.display = "none";
+    document.getElementById("main-content").style.display = "block";
+    applyRoleVisibility();
+  }
+};
+
+async function hashSHA512(text) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(text);
+  const hashBuffer = await crypto.subtle.digest("SHA-512", data);
+  return Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+}
 
 function applyRoleVisibility() {
 	currentUserRole = localStorage.getItem("userRole");
@@ -61,22 +111,7 @@ function applyRoleVisibility() {
 	}
 }
 
-window.onload = function () {
-	if (localStorage.getItem("loggedInUser")) {
-		document.getElementById("login-screen").style.display = "none";
-		document.getElementById("main-content").style.display = "block";
-		applyRoleVisibility();
-	}
-};
 
-async function hashSHA512(text) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(text);
-  const hashBuffer = await crypto.subtle.digest('SHA-512', data);
-  return Array.from(new Uint8Array(hashBuffer))
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('');
-}
 
 // --- Class attendance logic ---
 const classmates = [
