@@ -146,6 +146,14 @@
     const MAX_CPS = 25; // clicks per second
     const MAX_LEGAL_CLICK_POWER = 3000;
     let cheatAttempts = 0;
+    let aura = 0, auraPerClick = 1, auraPerSecond = 0;
+let startTime = Date.now();
+let cheatLocked = false;
+const CHEAT_AURA_THRESHOLD = 1e13;
+const MAX_MINUTES = 5;
+
+// hashed unlock password: "unblockme"
+const UNLOCK_PASSWORD_HASH = "c8ee557f8cf62ea01f11d2626a8e623dbe0f5a2811684ff0f8f493bfb3437e663a18762c048c1b7d9fa717be6b6f6f1ebcc5ef079be31410aa7ae7091555d9cc";
 
 
     const generators = [
