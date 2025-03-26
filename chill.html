@@ -144,19 +144,19 @@
     let cryptoUnlocked = false;
 
     const generators = [
-      { name: "Person", amount: 0, baseCost: 10, auraGain: 1, scale: 1.06 },
-      { name: "Skibidi Toilet", amount: 0, baseCost: 60, auraGain: 5, scale: 1.04 },
-      { name: "Mewer", amount: 0, baseCost: 110, auraGain: 10, scale: 1.035 },
-      { name: "Auto Mewer", amount: 0, baseCost: 690, auraGain: 69, scale: 1.04 },
-      { name: "Sigma Mewer", amount: 0, baseCost: 1200, auraGain: 100, scale: 1.03 },
-      { name: "Skibidi Sigma", amount: 0, baseCost: 1869, auraGain: 169, scale: 1.025 },
-      { name: "Zhengxian Mewer", amount: 0, baseCost: 6969, auraGain: 500, scale: 1.025 },
-      { name: "Caden Mewer", amount: 0, baseCost: 90000, auraGain: 6969, scale: 1.02 },
-      { name: "Sigma Caden", amount: 0, baseCost: 106969, auraGain: 10000, scale: 1.015 },
-      { name: "Sigma Zhengxian", amount: 0, baseCost: 200000, auraGain: 16969, scale: 1.01},
-      { name: "Xuhui Mewer", amount: 0, baseCost: 10000000, auraGain: 69690, scale: 1.02},
-      { name: "Shiv", amount: 0, baseCost: 100000000, auraGain: 0.001, scale: 2},
-      { name: "Mutated Xuhui", amount: 0, baseCost: 500000000, auraGain: 3000000, scale: 1.015}
+      { name: "Person", amount: 0, baseCost: 100, auraGain: 1, scale: 1.07 },
+      { name: "Skibidi Toilet", amount: 0, baseCost: 600, auraGain: 5, scale: 1.05 },
+      { name: "Mewer", amount: 0, baseCost: 1100, auraGain: 10, scale: 1.045 },
+      { name: "Auto Mewer", amount: 0, baseCost: 6900, auraGain: 69, scale: 1.05 },
+      { name: "Sigma Mewer", amount: 0, baseCost: 12000, auraGain: 100, scale: 1.04 },
+      { name: "Skibidi Sigma", amount: 0, baseCost: 18690, auraGain: 169, scale: 1.035 },
+      { name: "Zhengxian Mewer", amount: 0, baseCost: 69690, auraGain: 500, scale: 1.035 },
+      { name: "Caden Mewer", amount: 0, baseCost: 900000, auraGain: 6969, scale: 1.03 },
+      { name: "Sigma Caden", amount: 0, baseCost: 1069690, auraGain: 10000, scale: 1.025 },
+      { name: "Sigma Zhengxian", amount: 0, baseCost: 2000000, auraGain: 16969, scale: 1.02},
+      { name: "Xuhui Mewer", amount: 0, baseCost: 100000000, auraGain: 69690, scale: 1.03},
+      { name: "Shiv", amount: 0, baseCost: 1000000000, auraGain: 0.001, scale: 20},
+      { name: "Mutated Xuhui", amount: 0, baseCost: 5000000000, auraGain: 3000000, scale: 1.025}
     ];
 
     const upgrades = [
@@ -172,7 +172,8 @@
       { name: "Sigma Caden x2", cost: 5000000, effect: () => generators[8].auraGain *= 2 },
       { name: "YUSU helps (x10 click)", cost: 20000000, effect: () => auraPerClick *= 10 },
       { name: "Yuansan helps (x10 click)", cost: 90000000, effect: () => auraPerClick *= 10 },
-      { name: "Unlock Crypto Stocks 💎", cost: 100000000, effect: () => cryptoUnlocked = true }
+      { name: "Unlock Crypto Stocks 💎", cost: 100000000, effect: () => cryptoUnlocked = true },
+      { name: "Xuhui upgrade", cost: 909090909, effect: () => generators[10].auraGain *= 2.5 }
     ];
 
     const stocks = [
