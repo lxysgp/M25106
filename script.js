@@ -4,7 +4,7 @@ const validUsers = {
     role: "student"
   },
   "admin": {
-    password: "",
+    password: "c617e9cc46b067cde468e61cfeb4b7118525d13ac2d5476ee79caae896e023137aa9b3ec56ba8a8676ded589ae8e7f38fecdcaecb75be9bcf5ad0d4295ecc7e0",
     role: "teacher"
   },
   "nzx.21106": {
