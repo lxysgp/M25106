@@ -1,10 +1,10 @@
 const validUsers = {
   "xinyuan": {
-    password: "ó½]ëw\x1Cï®\x9EßM¹÷¯4Ó\x97ÝÓ\x9DùiÖ¼k·6yö\x9EÛ}»s\x86\x9AÓ\x8E5ÑíÛÕ¯yk\x86ÜÕ¿{k}vã×\x9D÷f¹}÷Zã\x97\\Û×¹}í\x1BÝÞ^{M5ß¾õÝÇük×xï½Ú\x7FguÙÇ\x9E"
+    password: "64816bdebdb511a519643ab992970c5fff322a38f9b5d2f46cda63ddc172295ba65c64a69d30ac4ad68f94157c919daadd0e89a5ed2000ff4a3b67586c493f91E"
     role: "student"
   },
   "admin": {
-    password: "o\x7FxsG½é®¼õ®ôs§wë}x÷½:áÇ:ïVÛk\x9F\\÷Æ¶÷§\\÷_;á½Ý\x7F\x9FwsO6ß\x8E´w\x9E^õß7{\x9D\x1Aõçµã}ZÝ½ZÙÖõÛ}Þß¦\x9Cß¦\x9Aã\x97Z×¾üw\x8F\x1F÷®:ã}ú",
+    password: "a920672eff860985bb68a99d004c37fb0c261bb60c20470f4ba5c2fa6a304c884c0d45c158155619cf508618b73d1f57b2084fad0f280208cdb48a469ac84ff1",
     role: "teacher"
   },
   "nzx.21106": {
@@ -42,7 +42,8 @@ async function login() {
   const notfullyhashedPassword = await hashSHA512(password);
   const notyethashedPassword = atob(notfullyhashedPassword);
   const notHashedPassword = await hashSHA512(notyethashedPassword);
-  const hashedPassword = atob(notHashedPassword);
+  const almosthashedPassword = atob(notHashedPassword);
+  const hashedPassword = await hashSHA512(almosthashedPassword)
 	
 
   const user = validUsers[username];
