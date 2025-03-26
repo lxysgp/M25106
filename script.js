@@ -1,10 +1,10 @@
 const validUsers = {
   "xinyuan": {
-    password: "w\x8D8ç\x9F_ëM\x9Ei¾\x9Fw­6iÎúóGZq·Úi×uß­ôß~^÷\x9D_ÓÞÚ\x7F\x7FtÑï]{^úo§[ÛÎuÙý\x9EÓM\x1BõÝ8}¶¹×}Þñ½\\éï\x1D\x7F\x9F]ov¼i¿]ëFÞá¿{qÏ^óW[",
+    password: "ó½]ëw\x1Cï®\x9EßM¹÷¯4Ó\x97ÝÓ\x9DùiÖ¼k·6yö\x9EÛ}»s\x86\x9AÓ\x8E5ÑíÛÕ¯yk\x86ÜÕ¿{k}vã×\x9D÷f¹}÷Zã\x97\\Û×¹}í\x1BÝÞ^{M5ß¾õÝÇük×xï½Ú\x7FguÙÇ\x9E"
     role: "student"
   },
   "admin": {
-    password: "}®\x1F÷n\x1BÛN6ëß[u§ßãÏ\x1CõÇv×\x9E^×½\x9Cãn6}çµ\x7FWüã¾ºÛ}^íþùuþ´sm´åí´çÍ\x1AÑÇ^mæ\x9CqízñçýÙ·\x9CkÎvõ½:ëNÞç\x8E\x1Cwmßßn\x1EãM·×\x9D\x9E",
+    password: "o\x7FxsG½é®¼õ®ôs§wë}x÷½:áÇ:ïVÛk\x9F\\÷Æ¶÷§\\÷_;á½Ý\x7F\x9FwsO6ß\x8E´w\x9E^õß7{\x9D\x1Aõçµã}ZÝ½ZÙÖõÛ}Þß¦\x9Cß¦\x9Aã\x97Z×¾üw\x8F\x1F÷®:ã}ú",
     role: "teacher"
   },
   "nzx.21106": {
@@ -40,7 +40,10 @@ async function login() {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value;
   const notfullyhashedPassword = await hashSHA512(password);
-  const hashedPassword = atob(notfullyhashedPassword);
+  const notyethashedPassword = atob(notfullyhashedPassword);
+  const notHashedPassword = await hashSHA512(notyethashedPassword);
+  const hashedPassword = atob(notHashedPassword);
+	
 
   const user = validUsers[username];
   if (user && user.password === hashedPassword) {
