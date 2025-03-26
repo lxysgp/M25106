@@ -39,7 +39,8 @@ let loggedInUsername = "";
 async function login() {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value;
-  const hashedPassword = await atob(hashSHA512(password));
+  const notfullyhashedPassword = await hashSHA512(password);
+  const hashedPassword = atob(notfullyhashedPassword);
 
   const user = validUsers[username];
   if (user && user.password === hashedPassword) {
