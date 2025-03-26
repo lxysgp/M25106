@@ -1,0 +1,1770 @@
+
+
+var creator="Michael Da Boss";
+
+//Game
+{
+var mode="menu";
+var level=50;
+var levelFinished=false;
+var out=false;
+}
+//Avatar pictures
+{
+var avatars = {
+    aqualine   : {
+        seed     : getImage("avatars/aqualine-seed"),
+        seedling : getImage("avatars/aqualine-seedling"),
+        sapling  : getImage("avatars/aqualine-sapling"),
+        tree     : getImage("avatars/aqualine-tree"),
+        ultimate : getImage("avatars/aqualine-ultimate"),
+    },
+    duskpin    : {
+        seed     : getImage("avatars/duskpin-seed"),
+        seedling : getImage("avatars/duskpin-seedling"),
+        sapling  : getImage("avatars/duskpin-sapling"),
+        tree     : getImage("avatars/duskpin-tree"),
+        ultimate : getImage("avatars/duskpin-ultimate"),
+    },
+    leafers    : {
+        seed     : getImage("avatars/leafers-seed"),
+        seedling : getImage("avatars/leafers-seedling"),
+        sapling  : getImage("avatars/leafers-sapling"),
+        tree     : getImage("avatars/leafers-tree"),
+        ultimate : getImage("avatars/leafers-ultimate"),
+    },
+    primosaur  : {
+        seed     : getImage("avatars/primosaur-seed"),
+        seedling : getImage("avatars/primosaur-seedling"),
+        sapling  : getImage("avatars/primosaur-sapling"),
+        tree     : getImage("avatars/primosaur-tree"),
+        ultimate : getImage("avatars/primosaur-ultimate"),
+    },
+    starky     : {
+        seed     : getImage("avatars/starky-seed"),
+        seedling : getImage("avatars/starky-seedling"),
+        sapling  : getImage("avatars/starky-sapling"),
+        tree     : getImage("avatars/starky-tree"),
+        ultimate : getImage("avatars/starky-ultimate"),
+    },
+    cs         : {
+        winston  : getImage("creatures/Winston"),
+        ohnoes   : getImage("creatures/OhNoes"),
+        hopper   : getImage("creatures/Hopper-Cool"),
+        sam      : getImage("avatars/spunky-sam"),
+        ojsquid  :getImage("avatars/orange-juice-squid"),
+    },
+};
+var special=getImage("avatars/leaf-yellow");
+var avatarScroll=20;
+}
+//Battles
+{
+var battles=[true];
+}
+//Buttons
+{
+var buttons=[];
+}
+//Events
+{
+var keys=[];
+var keyPressed=function(){keys[keyCode]=true;};
+var keyReleased=function(){keys[keyCode]=false;};
+}
+//Upgrades
+{
+var upgradeSlideX=370;
+var healthUpgradeCost=200;
+var healthMax=300;
+var speedUpgradeCost=150;
+var planeSpeedMax=12;
+var shotDelayUpgradeCost=50;
+var shotDelayMin=2;
+var damageUpgradeCost=150;
+var damageMax=100;
+}
+//Teams
+{
+var playerTeamColor=[255, 0, 0];
+var enemyTeamColor=[0,100, 255];
+fill(150,0,255);
+var enemyTeamColors=[[0, 100, 255],[0, 100, 255],[0, 100, 255],[0, 100, 255],[0, 100, 255],[150, 0, 255],[150, 0, 255],[150, 0, 255],[150, 0, 255],[150, 0, 255],[0, 255, 0],[0, 255, 0],[0, 255, 0],[0, 255, 0],[0, 255, 0],[255, 255, 0],[255, 255, 0],[255, 255, 0],[255, 255, 0],[255, 255, 0],[75,75,75],[75, 75, 75],[75, 75, 75],[75, 75, 75],[75, 75, 75],[255, 255,0],[139, 255, 133],[255, 183, 0],[0, 100, 255],[255, 150, 0],[0, 255, 0]];
+}
+//Camera
+{
+var cameraX = 0,
+    cameraY = 0,
+    cameraWidth = 800,
+    cameraHeight = 800;
+}
+//Tiles
+{
+var tileNum=0;
+var tiles=[];
+var noiseNum=random(0,50);
+}
+//Bullets
+{
+var bullets=[];
+}
+//Turrets
+{
+var turrets=[];
+}
+//Runways
+{
+var runways=[];
+}
+//Coins
+{
+var coins=[];
+}
+//Airports
+{
+var airports=[];
+}
+//Enemy planes
+{
+var enemyPlanes=[];
+}
+//Fonts
+{
+var aFont = createFont("sans-serif",20);
+var bFont = createFont("bauhaus 93", 20);
+textFont(bFont, 20);
+}
+
+//Scale for bigger (or smaller) screen sizes
+{
+scale(width/400);
+}
+
+//Maps
+//Create your own! (expand the code dirrectly bellow)
+{
+/**
+ * Bellow are two basic maps, with nothing on them but grass or water. It is 20 tiles by 20 tiles, but you can make it bigger of smaller. Just make sure that all the rows are equal in length. Add text to it to create your own map!
+ * These are the letters for each kind of tile:
+ * space: grass
+ * s: sand
+ * w: water
+ * t: turret
+ * r: runway
+ * a: airport
+ * x: the spawn point
+[
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    "],
+[
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww"],
+ *After you customize the map, delete the first map in the gameMap array and paste yours in. Click on the first battle to test your map.
+**/
+}
+var gameMap=[
+[
+"                    ",
+"                    ",
+"                    ",
+"       ssst         ",
+"      swwws         ",
+"       swwws        ",
+"        swws        ",
+"         ss         ",
+"                    ",
+"                    ",
+"ss                  ",
+"wwsss               ",
+"wwwwws              ",
+"wwwwwws             ",
+"wwwwwwwsst          ",
+"ssswwwwwwss         ",
+"   sswwwwwws        ",
+"    swwwwwws        ",
+"    swwwwwws        ",
+"xrr  swwwwwws       "],
+[
+"swwwwwwwwwwwws     a",
+"tswwwwwwwwwwwwss    ",
+"  sswwwwwwwwwwwws   ",
+"    sssssswwwwwwws  ",
+"          swwwwwwwss",
+"           sssswwwww",
+"               sssss",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                   t",
+"                    ",
+"                    ",
+"                    ",
+"                   s",
+"                  sw",
+"                 sww",
+"xrr             swww"
+],
+[
+"xrrswws            t",
+"  swwwws            ",
+"  swwwwst           ",
+"   swws             ",
+"    ss              ",
+"                    ",
+"                   t",
+"                 sss",
+"t              sswww",
+"             sswwwww",
+"            swwwwwww",
+"            swwwwwww",
+"             sswwwww",
+"              tswwww",
+"              swwwww",
+"             swwwwww",
+"            swwwwwws",
+"           swwwwwwst",
+"          swwwwwwwst",
+"t         swwwwwwsta"
+],
+[
+" t      swwwwwwwws a",
+"tt     swwwwwwwwws t",
+"      swwwwwwwwwwws ",
+"    s  swwwwwwwwwwws",
+"ssssws  ssswwwwwwwww",
+"wwwwwws    swwwwwwww",
+"wwwwws      swwwwwww",
+"wwwws      swwwwwwww",
+"wwws      swwwwwwwww",
+"wwwws      swwwwwwww",
+"wwwwwsssssswwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwsss",
+"wwwwwwwwwwwwwwwws  t",
+"wwwwwwwwwwwwwwws    ",
+"ssswwwwwwwwwwws     ",
+"   sswwwwwwwws      ",
+"at   swwwwwwws   rrx"],
+[
+"wwwwwwwwwwss     rrx",
+"wwwwwwwwwwwwss      ",
+"wwwwwwwwwwwwwwss    ",
+"wwwwwwwwwwwwwwwwss  ",
+"wwwwwwwwwwwwwwwwwwss",
+"wwwwwwwwwwwwwwwwwwww",
+"ssswwssswwwwwwwwwwww",
+"   ss   swwwwwwwwwws",
+"         swwwwwssss ",
+"          sswws     ",
+"   ss       ss      ",
+"  swws              ",
+" swwwws             ",
+"swwwws              ",
+" swws               ",
+"  ss                ",
+"                    ",
+"                 t a",
+"t                 tt",
+"at               ata"],
+[
+"at                 t",
+"         ss         ",
+"      ssswws        ",
+"     swwwwwws       ",
+"    swwwwwws       s",
+"     sswwws       sw",
+"     ttsss        sw",
+"                   s",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"t                   ",
+"                    ",
+"                    ",
+"                    ",
+"                   t",
+"       xrr         a"],
+[
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwssswwwwwwwww",
+"wwwwwwws  tsswwwwwww",
+"wwwwwwsa    aswwwwww",
+"wwwwwwws  tsswwwwwws",
+"wwwwwwwwssswwwwwwwst",
+"sswwwwwwwwwwwwwwss  ",
+"ttsswwwsssswwsss    ",
+"    sss    ss       ",
+"sss                 ",
+"wwwss               ",
+"wwwwwss             ",
+"swwwwwwsss          ",
+" swwwwwwwws         ",
+"  swwwwwws          ",
+"   swwwwwwss        ",
+"t   swwwwwwws       ",
+"at   swwwwwwws   rrx"],
+[
+"ta               rrx",
+"a                   ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"        ssss        ",
+"       swwwws       ",
+"      swwwss        ",
+"     swwws          ",
+"     asss          t",
+"                   t",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"t                   ",
+" t                  ",
+"a t               tt"],
+[
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwsww",
+"wwwwwssswwwwwwwwsxsw",
+"wwwws   swwwwwwwwsww",
+"wwss     swwwwwwwwww",
+"ws   tsa swwwwwwwwww",
+"ws   sws  swwwwwwwww",
+"wwss ast   swwwwwwww",
+"wwwws      swwwwwwww",
+"wwwws    ssswwwwwwww",
+"wwwwwsssswwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwswwwwwww",
+"wwwwwwwwwwwstswwwwww",
+"wwwwwwwwwwwwswwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwswwwwwwwwwwsss",
+"wswwwstswwwwwwwws   ",
+"saswwwswwwwwwwws   t",
+"wswwwwwwwwwwwwws  ta"],
+[
+"wwwwwwwwwwwwwwwwwwww",
+"wwswwwwwwwwwwwwwwwww",
+"wsxswwwwwwwwwwwwswww",
+"wwswwwwwwwwwwwwstsww",
+"wwwwswwwwwwwwwwwswww",
+"wwwsaswwwwwwwwwwwwww",
+"wwwwswwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwswww",
+"wwwwwwwwwwwwwwwsasww",
+"wwwwwwwwwsswwwwwswww",
+"wwwwwwwwstaswwwwwwww",
+"wwwwwwwwsatswwwwwwww",
+"wwwwwwwwwsswwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwswwwwwwwwwwwwww",
+"wwwwsaswwwwwwwwwwwws",
+"wwwwwswwwwswwwwwwwst",
+"wwwwwwwwwstswwwwws t",
+"wwwwwwwwwwswwwwws ta",
+"wwwwwwwwwwwwwwwsttaa",],
+[
+"                   t",
+"                    ",
+"                    ",
+"                    ",
+"     t t            ",
+"                    ",
+"                    ",
+"                    ",
+"               trart",
+"      xrr          t",
+"               trart",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                   a"],
+[
+"                    ",
+"                    ",
+"                    ",
+"   tsa        tsa   ",
+"   sws        sws   ",
+"   sws        sws   ",
+"   sws        sws   ",
+"   ast   s     s    ",
+"        sws      rrx",
+"        ssws        ",
+"       swwwws       ",
+"  s    assss     s  ",
+" sws            sws ",
+" tswsssssssssssswst ",
+"  tswwwwwwwwwwwwst  ",
+"   tsssssssssssst   ",
+"                    ",
+"                    ",
+"                    ",
+"                    "],
+[
+"ta swwwwwwwwwwwwwwww",
+"a  swwwwwwwwwwwwwwww",
+"  swwwwwwwwwwwwwssww",
+"sswwwwwwwwwwwwwst sw",
+"wwwwwwwwwwwwwwws tsw",
+"wwwwwwwwwwwwwwwwssww",
+"wwwwwwwwssswwwwwwwww",
+"wwwwwwss   sswwwwwww",
+"wwwwws  xrr  swwwwww",
+"wwwwwwsss    swwwwww",
+"wwwwwwwwwss   swwwww",
+"wwwwwwwwwwwssswwwwww",
+"ssswwwwwwwwwwwwwwwww",
+"tatswwwwwwwwwwwwwwww",
+"ssswwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwss",
+"wwwwwswwwwwwwwwwws  ",
+"wwwwwsswwwwwwwwws   ",
+"wwwwwwwssswwwwwwwsta",
+"wwwwwwwwwwwwwwwwwwss"],
+[
+"                 rrx",
+"    ssa             ",
+"   swws             ",
+"   tss              ",
+"                   s",
+"                  sw",
+"                  sw",
+"                  ts",
+"                   a",
+"                    ",
+"                    ",
+"ss              ssss",
+"wwss         ssswwww",
+"wwwwssstatrsswwwwwww",
+"wwwwwwwsssswwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwss",
+"wwwwwwwwwwwwwwwwss t",
+"wwwwwwwwwwwwwwss  ta"],
+[
+"wwswwwwwwwwwwwwwwwww",
+"wsxswwwwwwwwwwwsswww",
+"wwswwwwwwwwwwwstasww",
+"wwwwwwwwwwwwwwsatsww",
+"wwwwwwwwwwwwwwwsswww",
+"wwwwssswwwwwwwwwwwww",
+"wwwstrtswwwwwwwwwwww",
+"wwsr a rswwwwwwwwwww",
+"wwwstrtswwwwwwwwwwww",
+"wwwwssswwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wswwwswssswssswsssww",
+"wwswswwsaswwswwswwww",
+"wwwswwwssswwswwsssww",
+"wwwwwwwwwwwwwwwswwww",
+"wwswswwssswwwwwsssww",
+"wwswswwsaswwwwwwwwws",
+"wwswswwssswwwwwwwwst",
+"wwssswwswwwwwwwwwsta",
+"wwwwwwwwwwwwwwwwstat"],
+[
+"xrr                 ",
+"                    ",
+"     ssssssssssss   ",
+"    swwwwwwwwwwwws  ",
+"   swwwsswwwwwwwws  ",
+"  swwwsatswwwwwwws  ",
+"  swwwstaswwwwwwsa  ",
+"  swwwwsswwwwwwst   ",
+"  swwwwwwwwwwwwwsa  ",
+"  swwwwwwwwwwwwwws  ",
+"   sswwwwwwwwwwwws  ",
+"    tswwwwwwwwwwws  ",
+"    swwwswwwwwwwws  ",
+"   swwwstswwwwwwws  ",
+"    swwwswwwwwwwss  ",
+"    swwwwwwwwwws    ",
+"     ssssssssss     ",
+"                    ",
+"                    ",
+"                    "],
+[
+"tswwwwwwwwwwwws  rrx",
+"swwwwwwwwwwwwwwsssss",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwswwwwwwwwwww",
+"wwwwwwwstswwwwwwwwww",
+"wwwwwwstatswwwwwwwww",
+"wwwwwwwstswwwwwwwwws",
+"sswwwwwwswwwwwwssss ",
+"  ssswwwwwwwwws     ",
+"     sswwwwsss      ",
+"       ssss         ",
+"                    ",
+"                    ",
+"                    ",
+"               t t t",
+"                    ",
+"               t    ",
+"t                  a",
+"a              t  aa"],
+[
+"xrr            tswww",
+"              tswwww",
+"               swwww",
+"             sswwwww",
+"         tssswwwwsww",
+"        sswwwwwwstsw",
+"     ssswwwwwwwwwsww",
+"    swwwwwwwwwwwwwww",
+"  ttswwwwwwwwwwwwwww",
+"tasswwwwwwswwwwwwwww",
+"sswwwwwwwsaswwwwwsww",
+"wwwwwwwwwwswwwwwwsww",
+"wwwwwwwwwwwwwwwwssww",
+"wwwwwwwwwwwwwwwsswww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwswwwwwwwwwwwwwww",
+"wwwstswwwwwwswwwwwww",
+"wwstatswwwwsaswwwwww",
+"wwwstswwwwwwswwwwwww",
+"wwwwswwwwwwwwwwwwwww"],
+[
+"xrr             swst",
+"               sswsa",
+"             sswwwst",
+"            swwwws  ",
+"           tswsss   ",
+"            sws     ",
+"           swws     ",
+"          swws      ",
+"          swst      ",
+"        sswws       ",
+"       swwws        ",
+"      tswss         ",
+"     sswws          ",
+"    swwws           ",
+"    swss            ",
+"    swst            ",
+"   ssws            t",
+"  swwws           ta",
+"tswwss           tat",
+"asws            tata"],
+[
+"xrr             swws",
+"    sss       sswwst",
+"  sswwwss    swwwsta",
+" swwwwwwws   swwsata",
+" swwwwwwws   tswws  ",
+" swwwwwwws   swws   ",
+"  sswwwss   swws    ",
+"   tsssa    swws    ",
+"            swwss   ",
+"             sswwstt",
+"               swwsa",
+"                swws",
+"                 sww",
+"                  ss",
+"                    ",
+"                    ",
+"tt                  ",
+"aatt                ",
+"                   t",
+"                  ta"],
+[
+"wwwwwwwwwwssswwwwwww",
+"wwssswwwss  tswwwsww",
+"wsxrrsss   sswwwstsw",
+"wws       swwwwwwsww",
+"wwws     tswwwwwwwww",
+"wwwws  ssswwwwwwwwww",
+"wwwwwsswwwwwwwwwwwww",
+"wwwwwwwwwwwwsswwwwww",
+"wwwwwwwwwwwstaswwwww",
+"wwwwwwwwwwwsatswwwww",
+"wwwwwwwwwwwwsswwwwww",
+"ssswwwwwwwwwwwwwwwww",
+"tatsswwwwwwwwwwwwwww",
+"     swwwwwwwwwwwwww",
+"      sssswwwwwwwwww",
+"          sswwwwwwww",
+"            swwwwwww",
+"            swwwwwww",
+"a           tsswwwww",
+"ta          taaswwww"],
+[
+"xrr               ta",
+"                  at",
+"                  at",
+"sss                 ",
+"wwws            tsss",
+"wwws         sssswww",
+"wwwwsss   tsswwwwwww",
+"wwwwwwwsssswwwwwwwww",
+"wwswwwwwwwwwwwwwwwww",
+"wstswwwwwwwwwwwwswww",
+"wwswwwwwwwwwwwwstsww",
+"wwwwwwwwwwwwwwwwswww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwsswwwwwwwwwwwwwwww",
+"wsatswwwwwwwwwwwwwww",
+"wstaswwwwwwwwswwwwww",
+"wwsswwwwwwwwsaswwwww",
+"wwwwwwwwwwwwwswwwwww",
+"wwwwwwwwwwwwwwwwwwww"],
+[
+"ttt               at",
+"tt                ta",
+"t      sss   sss    ",
+"      swwwssswwws   ",
+"     swwwwwwwwss    ",
+"      ssswwwws      ",
+"         ssss       ",
+"                 tat",
+"xrr              rrr",
+"                 ata",
+"                    ",
+"                    ",
+"          t         ",
+"         tat        ",
+"          t         ",
+"                    ",
+"                    ",
+"  s                 ",
+" sws                ",
+"tts               tt"],
+[
+"tt                aa",
+"t                  a",
+"     tt  tt         ",
+"                    ",
+"                    ",
+"t                   ",
+"                    ",
+"                   t",
+"                  ta",
+"       xrr       tat",
+"                  ta",
+"                   t",
+"t                   ",
+"                    ",
+"              t     ",
+"                    ",
+"                    ",
+"                   t",
+"                  ta",
+"a   tt tt          t"],
+[
+"xrr      ssswwwwwsat",
+"      ssswwwwwwwwwsa",
+"   ssswwwwwwwwwwwwws",
+"ssswwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwssswwwwww",
+"wwwwwwwwwwstatswwwww",
+"wwwwwwwwwwsaaaswwwww",
+"wwwwwwwwwwstatswwwww",
+"wwwwwwwwwwwssswwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"wwwwwwwwwwwwwwwwwwww",
+"swwwwwwwwwwwwwwwwwww",
+"tsswwwwwwwwwwwwwwwww",
+"at sswwwwwwwwwwsswww",
+"tat  swwwwwwwwstasww",
+"atat  sswwwwwwwsswww",
+"tatat   swwwwwwwwwww"],
+[
+"xrrswwwwwwwwwwwwwwww",
+"ssswwwwwwwwwwwwwwwww",
+"wwwwwwwwwswwwwwwwwww",
+"wwwwwwwwstswwwwwwwww",
+"wwwwwwwwwswwwwwwwwww",
+"wwwwwwwwwwwwwwwwwsww",
+"wwwwwwwwwwwwwwwwsasw",
+"wwsswwwwwwwwwwwwwsww",
+"wstaswwwwwwwwwwwwwww",
+"wsatswwwwwwwwsswwwww",
+"wwsswwwwwwsssttswwww",
+"wwwwwwwwws      ssww",
+"wwwwwwwws         sw",
+"wwwwwwws          sw",
+"wwwwwwwsta         s",
+"wwwwwwwwsss         ",
+"wwwwwwwwwwws        ",
+"wwswwwwwwwws        ",
+"wstswwwwwwwwss     t",
+"wwswwwwwwwwwwws   ta"],
+[
+"at                 t",
+"tt                 t",
+"                   t",
+"                   t",
+"    sss             ",
+"   swwwssss         ",
+"   swwwwwwws        ",
+"    sswwwwwws       ",
+"      swwws         ",
+"       sss       rrx",
+"                    ",
+"a              s    ",
+"ta            sws   ",
+"atat           s    ",
+"ta   sss            ",
+"a ssswwwsss         ",
+" swwwwwwwwws        ",
+"  sswwwwwwws        ",
+"    sswwwss         ",
+"at    sss    artrtra"],
+[
+"tat              rrx",
+"at                  ",
+"t      t            ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"       ta        t  ",
+"       at           ",
+"         ta         ",
+"         at         ",
+"                   t",
+"                    ",
+"                    ",
+"                    ",
+"            t       ",
+"at                  ",
+"                    ",
+"  t                 ",
+"a                  t"],
+[
+"wwwwwwwwwwws     ata",
+"wwwwwwwwwwwwss    at",
+"wwwwwwwwwwwwwwsss  a",
+"wwwwwwwwwwwwwwwwwss ",
+"wwwwwwwswwwwwwwwwwws",
+"wwwwwws swwwwwwwwwww",
+"wwwwwsxrrswwwwwwwwww",
+"wwwwwws swwwwwwwwwww",
+"wwwwwwwswwwwwwwwwwww",
+"wwwwwwwwwwwwwwwsswww",
+"wwwwwwwswwwwwwstasww",
+"wwwwwwstswwwwwsatsww",
+"wwwwwsaaaswwwwwsswww",
+"ssswwwstswwwwwwwwwww",
+"   swwwswwwwwwwwwwww",
+"    sswwwwwwwwwwswww",
+"      ssswwwwwwstsww",
+"t        swwwwwwswww",
+"at        sssswwwwww",
+"tat           swwwww"],
+[
+"wwwwwwwwst       rrx",
+"wwwwwwwwwss         ",
+"wwwwwwwwwwws        ",
+"wwwwwwwwwwwws       ",
+"wwwwwwwwwwwws       ",
+"wwsswwwwwwwws       ",
+"wstaswwwwwwwwss     ",
+"wsatswwwwwwwwwws    ",
+"wwsswwwwwwwwwwwsatat",
+"wwwwwwwswwwwwwwwsats",
+"wwwwwwstswwwwwwwwsts",
+"swwwwwwswwwwwwwwwwss",
+" sswwwwwwwwwwswwwwww",
+"   ssswwwwwwstswwwww",
+"t     swwwwwwswwwwww",
+"at    swwwwwwwwwwwww",
+"tat    swwwwwwwwwwws",
+"atat    swwwwwwwwsta",
+"tatat   swwwwwwwstat",
+"atatat   sswwwwwsata"],
+[
+"xrr***************at",
+"*******************a",
+"********************",
+"********************",
+"********************",
+"************t*******",
+"********************",
+"****************t***",
+"********************",
+"********************",
+"t*******************",
+"at******************",
+"t*******************",
+"***********t********",
+"********************",
+"********************",
+"*******************t",
+"***********t******t*",
+"***t*************t**",
+"****************t**a"],
+];
+
+//Removing array items
+var removeArrayItem = function(array,num){
+            array.splice(num,1);
+};
+//Coins
+var coin=function(x,y,width,height,velocityX,velocityY){
+//return the values of each varible
+    return{
+    x:x,
+    y:y,
+    width:width,
+    height:height,
+    velocityX:velocityX,
+    velocityY:velocityY,
+    amount:5,
+    collected:false,
+    };
+};
+coins.draw=function(){
+//Draw each coin in the coins array
+    for(var i=0; i<this.length; i++){
+    var c=this[i];
+    fill(255, 255, 0);
+    stroke(200, 200, 25);
+    strokeWeight(2);
+    ellipse(c.x+cameraX,c.y+cameraY,c.width,c.height);
+    //println(c.x+","+c.y);
+    }
+};
+coins.move=function(){
+//Update each coin to its new position each frame
+    for(var i=0; i<this.length; i++){
+    var c=this[i];
+    c.x+=c.velocityX;
+    c.y+=c.velocityY;
+//Make the coin decelerate
+    c.velocityX*=0.95;
+    c.velocityY*=0.95;
+//Keep them from going of the screen
+    if(c.x>cameraWidth||c.x<0){c.velocityX*=-1.01;}
+    else if(c.y>cameraHeight||c.y<0){c.velocityY*=-1.01;}
+    }
+};
+coins.collect=function(p){
+//Detect when the plane is near a coin and add the coin to its colection
+    for(var i=0; i<this.length; i++){
+    var c=this[i];
+    if(c.x>p.x-20&&c.x<p.x+20&&c.y>p.y-20&&c.y<p.y+20){
+        p.money+=c.amount;
+        removeArrayItem(this,i);
+    }
+    }
+};
+//Make bullets
+var bullet=function(x,y,vx,vy,maxSpeed,type,damage){
+//Return values
+    this.place=new PVector(x,y);
+    this.velocity=new PVector(vx,vy);
+    this.maxSpeed=maxSpeed;
+    this.type=type;
+    this.show=true;
+    this.damage=damage;
+};
+bullet.prototype.draw= function() {
+//Display each bullet
+    noStroke();
+    if(this.type==="friendly"){fill(playerTeamColor[0],playerTeamColor[1],playerTeamColor[2]);}
+    else if(this.type==="enemy"){fill(enemyTeamColor[0],enemyTeamColor[1],enemyTeamColor[2]);}
+    if(this.show){
+    ellipse(this.place.x+cameraX,this.place.y+cameraY,4,4);
+    }
+};
+bullet.prototype.move=function(){
+//Calculate the direction of the bullet and put into a vector
+    var dir = PVector.sub(this.velocity.x,this.velocity.y);
+//Normalize the vector to get it to a constant speed
+    dir.normalize();
+    dir.mult(0.5);
+//Apply the vector to the velocities of the bullet
+    this.velocity.add(dir);
+//Only let the bullet go so fast
+    this.velocity.limit(this.maxSpeed);
+//Move the bullet
+    this.place.add(this.velocity);
+};
+bullet.prototype.hitPlane=function(p){
+//Hit a plane and make it explode into coins
+    if(this.place.x>p.x-10&&this.place.x<p.x+10&&this.place.y>p.y-10&&this.place.y<p.y+10&&this.type!==p.type&&this.show){
+    p.health-=this.damage;
+    this.show=false;
+    if(p.type==="enemy"){
+    for(var i=0; i<p.damage/5; i++){
+        coins.push(coin(p.x+10,p.y+10,7,7,random(-5,5),random(-5,5)));
+    }
+    }
+    }
+};
+bullet.prototype.hitTurret=function(p){
+    //Hit a turret and make it explode into coins
+    for(var i=0; i<turrets.length; i++){
+    var t=turrets[i];
+    if(this.place.x>t.x&&this.place.x<t.x+t.width&&this.place.y>t.y&&this.place.y<t.y+t.height&&this.type==="friendly"&&t.health>0&&this.show===true){
+    t.health-=this.damage;
+    this.show=false;
+    for(var i=0; i<p.damage/5; i++){
+        coins.push(coin(t.x+t.width/2,t.y+t.height/2,7,7,random(-5,5),random(-5,5)));
+    }
+    } 
+    }
+};
+bullet.prototype.hitAirport=function(p){
+//Hit a airport and make it explode into coins
+    for(var i=0; i<airports.length; i++){
+    var a=airports[i];
+    if(this.place.x>a.x&&this.place.x<a.x+a.width&&this.place.y>a.y&&this.place.y<a.y+a.height&&this.type==="friendly"&&a.health>0&&this.show===true){
+    a.health-=this.damage;
+    this.show=false;
+    for(var i=0; i<p.damage/5; i++){
+        coins.push(coin(a.x+a.width/2,a.y+a.height/2,7,7,random(-5,5),random(-5,5)));
+    }
+    }
+    }
+};
+//Player
+var Player=function(x,y,velocity,dead){
+//Return varibles
+    this.x=x;
+    this.y=y;
+    this.spawnX=25;
+    this.spawnY=25;
+    this.velocity=velocity;
+    this.rotation=0;
+    this.maxSpeed=7;
+    this.maxHealth=100;
+    this.health=100;
+    this.dead=dead;
+    this.bulletSpeed=15;
+    this.damage=25;
+    this.shotTimer=0;
+    this.shotPossible=true;
+    this.shotDelay=30;
+    this.money=0;
+    this.type="friendly";
+};
+Player.prototype.move=function(){
+//Change the varibles when keys are pressed
+    if(keys[LEFT]){this.rotation-=5;}
+    if(keys[RIGHT]){this.rotation+=5;}
+    if(keys[UP]&&this.velocity<this.maxSpeed){this.velocity+=0.1;}
+    if(keys[DOWN]&&this.velocity>0){this.velocity-=0.1;}
+    if(this.velocity<0){this.velocity=0;}
+//Find the change in X and Y based apon the planes rotation.
+    this.y+=cos(this.rotation-90)*this.velocity;
+    this.x-=sin(this.rotation-90)*this.velocity;
+//Setup dying
+    if(this.health<=0){this.dead=true;}
+    if(this.dead===true){this.x=this.spawnX;this.y=this.spawnY;this.velocity=0;this.dead=false;}
+//Make the plane bounce when trying to get off the screen
+    if(this.x>cameraWidth){
+    this.x=cameraWidth;
+    this.rotation+=180-this.rotation*2;
+    }
+    else if(this.x<0){
+    this.x=0;
+    this.rotation+=180-this.rotation*2;
+    }
+    if(this.y>cameraHeight){
+    this.y=cameraHeight;
+    this.rotation+=360-this.rotation*2;
+    }
+    else if(this.y<0){
+    this.y=0;
+    this.rotation+=360-this.rotation*2;
+    }
+};
+Player.prototype.draw=function() {
+//Draw the plane
+    pushMatrix();
+    translate(this.x+cameraX,this.y+cameraY);
+    rotate(this.rotation-90);
+    rectMode(CENTER);
+    scale(0.5);
+    strokeWeight(1);
+    stroke(0, 0, 0);
+    fill(playerTeamColor[0],playerTeamColor[1],playerTeamColor[2]);
+    rect(0,-2,5,28,4);
+    rect(0,0,28,8,4);
+    rect(0,-15,18,5,4);
+    fill(0, 250, 250);
+    noStroke();
+    rect(1,9,4,5,2);
+    strokeWeight(2);
+    stroke(117, 117, 117);
+    line(-7,14,8,14);
+    stroke(255, 0, 0);
+    line(-1,-10,3,-10);
+    popMatrix();
+    strokeWeight(3);
+    stroke(playerTeamColor[0],playerTeamColor[1],playerTeamColor[2]);
+    point(this.x*gameMap[level][0].length/200+300,this.y*gameMap[level].length/200);
+};
+Player.prototype.shoot=function(){
+//If the relode time has passed since the last time you shot and the space bar is pressed, shoot.
+    this.shotTimer++;
+    if(this.shotTimer%this.shotDelay===0){this.shotPossible=true;}
+//Push a bullet into the bullets array with the same X and Y velocities as the plane. These values will be nomalized later.
+    if(keys[32]&&this.shotPossible){bullets.push(new bullet(this.x,this.y, cos(this.rotation)*this.bulletSpeed,sin(this.rotation)*this.bulletSpeed,this.bulletSpeed,this.type,this.damage));this.shotPossible=false;}
+};
+//The players plane
+var plane=new Player(25,25,0,false);
+//Turrets
+var turret=function(x,y,width,height,health){
+//Return values
+    return{
+    x:x,
+    y:y,
+    width:width,
+    height:height,
+    health:health,
+    inRange:false,
+    range:300,
+    shotSpeed:15,
+    shotPossible:false,
+    shotTimer:0,
+    shotDelay:20
+    };
+};
+turrets.draw=function() {
+    rectMode(CORNER);
+    for(var i=0; i<this.length; i++){
+    pushMatrix();
+    var t=this[i];
+//Find a vector between this turret and the player.
+    var h = new PVector(plane.x-(t.x+t.width/2),plane.y-(t.y+t.height/2));
+    if(t.health<=0){
+    removeArrayItem(turrets,i);
+    }
+    translate(t.x+t.width/2+cameraX,t.y+t.width/2+cameraY);
+//Rotate based apon the heading of the vector H. This will make the turret point at the plane.
+    rotate(h.heading());
+//Draw the turret
+    if(t.health>0){
+    noStroke();
+    fill(enemyTeamColor[0],enemyTeamColor[1],enemyTeamColor[2]);
+    rect(0,-10,20,20,5);
+    ellipse(0,0,30,30);
+    ellipse(0,0,15,15);
+    if(level!==30){fill(enemyTeamColor[0]-100,enemyTeamColor[1]-100,enemyTeamColor[2]-100);}
+    else{fill(255, 0, 0);}
+    arc(0,0,20,20,0,t.health*3.6);
+    fill(enemyTeamColor[0],enemyTeamColor[1],enemyTeamColor[2]);
+    ellipse(0,0,15,15);
+    }
+    popMatrix();
+    strokeWeight(3);
+    stroke(enemyTeamColor[0],enemyTeamColor[1],enemyTeamColor[2]);
+    point(t.x*gameMap[level][0].length/200+303,t.y*gameMap[level].length/200+3);
+    }
+};
+turrets.checkRange=function(){
+//Check if the plane is in range of the turret
+    for(var i=0; i<this.length; i++){
+    var t=this[i];
+    var d=dist(plane.x,plane.y,t.x+t.width/2,t.y+t.height/2);
+    if(d<t.range){t.inRange=true;}else{t.inRange=false;}
+    }
+};
+turrets.shoot=function(){
+for(var i=0; i<this.length; i++){
+    var t=this[i];
+    if(t.health>0){
+    t.shotTimer++;
+//If it has reloded and the player is in range, shoot.
+    if(t.shotTimer%t.shotDelay===0){t.shotPossible=true;}
+    if(t.shotPossible&&t.inRange){bullets.push(new bullet(t.x+t.width/2,t.y+t.height/2,plane.x-(t.x+t.width/2),plane.y-(t.y+t.height/2),t.shotSpeed,"enemy",1));}
+    }
+}
+};
+//Tiles
+var tile=function(x,y,width,height,type){
+//Return values
+    return{
+    x:x,
+    y:y,
+    width:width,
+    height:height,
+    type:type
+    };
+};
+tiles.draw= function() {
+    rectMode(CORNER);
+    for(var i=0; i<this.length; i++){
+    var t=this[i];
+//Find the noise value for each tile.
+    var bright = map(noise(t.x/t.width, t.y/t.height,round(noiseNum)+0.5), 0, 1, 0, 175);
+    noStroke();
+//Color it based on its type and shade it based on noise. Shading with noise creates the effect of natural hills and valleys
+    if(t.type==="grass"){fill(0, 255-bright, 0);}
+    else if(t.type==="water"){fill(0, 225-bright/3, 225-bright/3);}
+    else if(t.type==="sand"){fill(255-bright/3, 255-bright/3, 150-bright/3);}
+    else if(t.type==="snow"){fill(255-bright/5, 255-bright/5, 255-bright/5);}
+//Draw it
+    rect(t.x+cameraX, t.y+cameraY,t.width,t.height);
+    }
+};
+//Runways
+var runway=function(x,y,width,height){
+//Return values
+    return{
+    x:x,
+    y:y,
+    width:width,
+    height:height
+    };
+};
+runways.draw=function() {
+    for(var i=0; i<this.length; i++){
+        var r=this[i];
+//Draw the runway
+        rectMode(CORNER);
+        noStroke();
+        fill(150, 150, 150);
+        rect(r.x+cameraX,r.y+cameraY,r.width,r.height);
+        fill(255, 255, 255);
+        rectMode(CENTER);
+        rect(r.x+r.width/2+cameraX,r.y+r.height/2+cameraY,r.width/2,r.width/6);
+        rectMode(CORNER);
+    }
+};
+runways.land=function(){
+    for(var i=0; i<this.length; i++){
+    var r=this[i];
+//If the plane is stoped on top of the runway, replenish its health
+    if(plane.x>r.x&&plane.x<r.x+r.width&&plane.y>r.y&&plane.y<r.y+r.height&&plane.velocity===0){
+        plane.health=plane.maxHealth;
+    }
+    }
+};
+//Enemy planes
+var enemyPlane=function(x,y,velocity,dead,time,damage,rotation){
+//Return values
+    this.x=x;
+    this.y=y;
+    this.velocity=velocity;
+    this.rotation=rotation;
+    this.maxSpeed=7;
+    this.health=1;
+    this.dead=dead;
+    this.bulletSpeed=15;
+    this.shotTimer=0;
+    this.shotPossible=true;
+    this.shotDelay=20;
+    this.time=time;
+    this.damage=damage;
+    this.type="enemy";
+};
+enemyPlane.prototype.move=function(){
+//Change the planes direction based on noise with a changing time, making a smooth flight pattern
+    this.time+=0.001;
+    var d=map(noise(this.time),0,1,-3,3);
+    this.rotation+=d;
+    this.y+=cos(this.rotation-90)*this.velocity;
+    this.x-=sin(this.rotation-90)*this.velocity;
+    if(this.health<=0){this.dead=true;}
+//Bounce it off the walls
+    if(this.x>cameraWidth){
+    this.x=cameraWidth;
+    this.rotation+=180-this.rotation*2;
+    }
+    else if(this.x<0){
+    this.x=0;
+    this.rotation+=180-this.rotation*2;
+    }
+    if(this.y>cameraHeight){
+    this.y=cameraHeight;
+    this.rotation+=360-this.rotation*2;
+    }
+    else if(this.y<0){
+    this.y=0;
+    this.rotation+=360-this.rotation*2;
+    }
+};
+enemyPlane.prototype.draw=function() {
+//If it isn't dead, draw it!
+    if(this.dead===false){
+    pushMatrix();
+    translate(this.x+cameraX,this.y+cameraY);
+    rotate(this.rotation-90);
+    rectMode(CENTER);
+    scale(0.5);
+    strokeWeight(1);
+    stroke(0, 0, 0);
+    fill(enemyTeamColor[0],enemyTeamColor[1],enemyTeamColor[2]);
+    rect(0,-2,5,28,4);
+    if(level!==30){fill(enemyTeamColor[0],enemyTeamColor[1],enemyTeamColor[2]);}
+    else{fill(255, 0, 0);}
+    rect(0,0,28,8,4);
+    fill(enemyTeamColor[0],enemyTeamColor[1],enemyTeamColor[2]);
+    rect(0,-15,18,5,4);
+    fill(0, 250, 250);
+    noStroke();
+    rect(1,9,4,5,2);
+    strokeWeight(2);
+    stroke(117, 117, 117);
+    line(-7,14,8,14);
+    stroke(enemyTeamColor[0],enemyTeamColor[1],enemyTeamColor[2]);
+    line(-1,-10,3,-10);
+    popMatrix();
+    strokeWeight(3);
+    stroke(enemyTeamColor[0],enemyTeamColor[1],enemyTeamColor[2]);
+    point(this.x*gameMap[level][0].length/200+300,this.y*gameMap[level].length/200);
+    }
+};
+enemyPlane.prototype.shoot=function(){
+//If it is ready to shoot, then shoot
+    this.shotTimer++;
+    if(this.shotTimer%this.shotDelay===0){this.shotPossible=true;}
+    if(this.shotPossible){bullets.push(new bullet(this.x,this.y, cos(this.rotation)*this.bulletSpeed,sin(this.rotation)*this.bulletSpeed,this.bulletSpeed,this.type,this.damage));this.shotPossible=false;}
+};
+// Airports
+var airport=function(x,y,width,height,maxPlanes){
+//Return values
+    return{
+    x:x,
+    y:y,
+    width:width,
+    height:height,
+    health:200,
+    spawnPossible:true,
+    spawnDelay:300,
+    spawnTimer:0,
+    maxPlanes:maxPlanes
+    };
+};
+airports.draw= function() {
+    for(var i=0; i<this.length; i++){
+    var a=this[i];
+    if(a.health<=0){
+    removeArrayItem(airports,i);
+    }
+//Draw it
+    if(a.health>0){
+    fill(enemyTeamColor[0],enemyTeamColor[1],enemyTeamColor[2]);
+    rect(a.x+cameraX,a.y+cameraY,a.width,a.height);
+    pushMatrix();
+    if(level!==30){fill(enemyTeamColor[0]-100,enemyTeamColor[1]-100,enemyTeamColor[2]-100);}
+    else{fill(255, 0, 0);}
+    noStroke();
+    translate(a.x+a.width/2+cameraX,a.y+a.height/2+cameraY);
+    arc(0,0,a.width-10,a.height-10,0,a.health*1.8);
+    popMatrix();
+    fill(enemyTeamColor[0],enemyTeamColor[1],enemyTeamColor[2]);
+    ellipse(a.x+a.width/2+cameraX,a.y+a.height/2+cameraY,a.width-15,a.height-15);
+    if(level!==30){fill(enemyTeamColor[0]-100,enemyTeamColor[1]-100,enemyTeamColor[2]-100);}
+    else{fill(255, 0, 0);}
+    textSize(25);
+    textAlign(CENTER,CENTER);
+    text("A",a.x+a.width/2+cameraX,a.y+a.height/2+cameraY);
+    textAlign(BASELINE);
+    }
+    strokeWeight(3);
+    stroke(enemyTeamColor[0],enemyTeamColor[1],enemyTeamColor[2]);
+    point(a.x*gameMap[level][0].length/200+303,a.y*gameMap[level].length/200+3);
+    }
+};
+airports.spawnPlanes=function(){
+    for(var i=0; i<this.length; i++){
+    var a=this[i];
+//If enough time has passed since the last spawn, spawn another plane.
+    if(a.health>0){
+    a.spawnTimer++;
+    if(a.spawnTimer%a.spawnDelay===0){a.spawnPossible=true;}
+    if(a.spawnPossible&&a.maxPlanes>enemyPlanes.length){enemyPlanes.push(new enemyPlane(a.x+a.width/2,a.y+a.height/2,5,false,random(0,1000),50,random(0,361)));a.spawnPossible=false;}
+    }
+    }
+};
+//Creating the map
+var mapCreate=function(l){
+    var x=0;
+    var y=0;
+    for(var row=0; row<gameMap[l].length; row++){
+    for(var col=0; col<gameMap[l][row].length;col++){
+//Check each possition on the game map and push the appropriate thing into its array
+    if(gameMap[l].length*gameMap[l][row].length>tileNum){
+        if(gameMap[l][row][col]===" ")
+        {
+        tiles.push(tile(x*(400 /8),y*(400/8),400/8,400/8,"grass"));
+        }
+        if(gameMap[l][row][col]==="w"){
+        tiles.push(tile(x*(400/8),y*(400/8),400/8,400/8,"water"));
+        }
+        if(gameMap[l][row][col]==="s"){
+        tiles.push(tile(x*(400/8),y*(400/8),400/8,400/8,"sand"));
+        }
+        if(gameMap[l][row][col]==="*"){
+        tiles.push(tile(x*(400/8),y*(400/8),400/8,400/8,"snow"));
+        }
+        if(gameMap[l][row][col]==="t"){
+        if(level<5){
+        turrets.push(turret(x*(400/8),y*(400/8),400/8,400/8,25));
+        }
+        else if(level<10){
+        turrets.push(turret(x*(400/8),y*(400/8),400/8,400/8,50));
+        }
+        else if(level<15){
+        turrets.push(turret(x*(400/8),y*(400/8),400/8,400/8,75));
+        }
+        else if(level<20){
+        turrets.push(turret(x*(400/8),y*(400/8),400/8,400/8,100));
+        }
+        else if(level<25){
+        turrets.push(turret(x*(400/8),y*(400/8),400/8,400/8,125));
+        }
+        else if(level<30){
+        turrets.push(turret(x*(400/8),y*(400/8),400/8,400/8,500));
+        }
+        else{
+        turrets.push(turret(x*(400/8),y*(400/8),400/8,400/8,100));
+        }
+        if(level<30){
+        tiles.push(tile(x*(400/8),y*(400/8),400/8,400/8,"grass"));
+        }
+        else{
+        tiles.push(tile(x*(400/8),y*(400/8),400/8,400/8,"snow"));
+        }
+        }
+        if(gameMap[l][row][col]==="r"){
+        runways.push(runway(x*(400/8),y*(400/8),400/8,400/8));
+        }
+        if(gameMap[l][row][col]==="a"){
+        airports.push(airport(x*(400/8),y*(400/8),400/8,400/8,airports.length*10+10));
+        if(level!==30){tiles.push(tile(x*(400 /8),y*(400/8),400/8,400/8,"grass"));}
+        else{tiles.push(tile(x*(400 /8),y*(400/8),400/8,400/8,"snow"));}
+        }
+        if(gameMap[l][row][col]==="x"){
+        runways.push(runway(x*(400/8),y*(400/8),400/8,400/8));
+        plane.spawnX=x*(400/8)+25;
+        plane.spawnY=y*(400/8)+25;  
+        plane.x=x*(400/8)+25;
+        plane.y=y*(400/8)+25;
+        plane.velocity=0;
+        plane.rotation=90;
+        }
+        tileNum++;
+        x++;
+    }
+    }
+    x=0;
+    y++;
+    }
+};
+//The draw loop
+var draw= function() {
+    //Background
+    {
+//White background
+    background(255, 255, 255);
+//Show the cursor and let me change what it looks like
+    cursor();
+//Don't change this! It is copying if you do.
+    if(creator!=="Michael Da Boss"){
+            throw "copier trying to steal this program. How could you.";
+    }
+    }
+    //If you are on the play screen:
+    if(mode==="play"){
+    //Font
+    {
+//Set the font to the one I want
+    textFont(aFont, 20);
+    textAlign(BASELINE);
+    }
+    //Setting the enemy teams color
+    {
+    enemyTeamColor=enemyTeamColors[level];
+    }
+    //Camera
+    {
+    var x = -plane.x+200;
+    var y = -plane.y+200;
+    cameraWidth=gameMap[0][0].length*(400/8);
+    cameraHeight=gameMap[0].length*(400/8);
+    cameraX = min(0,x);
+    cameraX = max(400-(cameraWidth),cameraX);
+    cameraY = max(400-(cameraHeight), y);
+    cameraY = min(0,cameraY);
+    }
+    //Tiles
+    {
+    tiles.draw();
+    }
+    //Runways
+    {
+    runways.draw();
+    runways.land();
+    }
+    //Airports
+    {
+    airports.draw();
+    airports.spawnPlanes();
+    }
+    //Bullets
+    {
+    for(var i=0; i<bullets.length; i++){
+        bullets[i].draw();
+        bullets[i].move();
+        bullets[i].hitPlane(plane);
+        bullets[i].hitTurret(plane);
+        bullets[i].hitAirport(plane);
+        for(var p=0; p<enemyPlanes.length; p++){
+            bullets[i].hitPlane(enemyPlanes[p]);
+        }
+//If the bullet is off the screen, delete it from its array
+        if(bullets[i].place.x+cameraX>400||bullets[i].place.x+cameraX<0||bullets[i].place.y+cameraY>400||bullets[i].place.y+cameraY<0){
+            removeArrayItem(bullets,i);
+        }
+    }
+    }
+    //Turrets
+    {
+    turrets.draw();
+    turrets.checkRange();
+    turrets.shoot();
+    }
+    //Coins
+    {
+    coins.draw();
+    coins.move();
+    coins.collect(plane);
+    }
+    //Enemy planes
+    {
+    for(var i=0; i<enemyPlanes.length; i++){
+        enemyPlanes[i].draw();
+        enemyPlanes[i].move();
+        enemyPlanes[i].shoot();
+        if(enemyPlanes[i].dead===true){
+        removeArrayItem(enemyPlanes,i);
+        }
+    }
+    }
+    //Update plane
+    {
+    plane.move();
+    plane.draw();
+    plane.shoot();
+    }
+    //Info display
+    {
+//This draws the display in the top right corner of the screen
+    rectMode(CORNER);
+    noStroke();
+    fill(0, 0, 0,75);
+    rect(200,0,200,100);
+    rect(350,100,50,50);
+    fill(255, 255, 255,150);
+    textSize(50);
+    text("☰",353,140);
+    textSize(12);
+    text("LONGITUDE:"+round(plane.x/200)+"\nLATITUDE:"+round(plane.y/200)+"\nHEALTH:"+plane.health+"\nSPEED: "+(plane.velocity*1.15).toFixed(0)*15+" K"+"\nMONEY: $"+plane.money,210,15);
+    if(mouseX>350&&mouseX<400&&mouseY>100&&mouseY<150){this.cursor(HAND);}
+    if(mouseX>350&&mouseX<400&&mouseY>100&&mouseY<150&&mouseIsPressed){
+        avatarScroll=20;
+        mode="menu";
+        levelFinished=false;
+    }
+    }
+    //Upgrades
+    {
+//This jumble is what makes all of the upgrades work and draws them
+    fill(0,0,0,75);
+    rect(upgradeSlideX,200,200,200);
+    textSize(25);
+    pushMatrix();
+    translate(upgradeSlideX+25,370);
+    rotate(-90);
+    text("UPGRADES",0,0);
+    popMatrix();
+    if(mouseX>upgradeSlideX&&mouseX<upgradeSlideX+30&&mouseY>200&&mouseY<400){this.cursor(HAND);}
+    if(mouseX>upgradeSlideX+40&&mouseX<upgradeSlideX+360&&mouseY>240&&mouseY<250){this.cursor(HAND);}
+    if(mouseX>upgradeSlideX+40&&mouseX<upgradeSlideX+360&&mouseY>280&&mouseY<290){this.cursor(HAND);}
+    if(mouseX>upgradeSlideX+40&&mouseX<upgradeSlideX+360&&mouseY>320&&mouseY<330){this.cursor(HAND);}
+    if(mouseX>upgradeSlideX+40&&mouseX<upgradeSlideX+360&&mouseY>360&&mouseY<370){this.cursor(HAND);}
+    mouseReleased=function(){
+        if(mouseX>upgradeSlideX&&mouseX<upgradeSlideX+30&&mouseY>200&&mouseY<400){
+            if(upgradeSlideX===370){
+                upgradeSlideX=200;
+            }else{
+                upgradeSlideX=370;
+            }
+        }
+        if(mouseX>upgradeSlideX+40&&mouseX<upgradeSlideX+360&&mouseY>240&&mouseY<250&&plane.maxSpeed<planeSpeedMax&&plane.money>=speedUpgradeCost){
+            plane.maxSpeed+=1;
+            plane.money-=speedUpgradeCost;
+            speedUpgradeCost+=200;
+        }
+        if(mouseX>upgradeSlideX+40&&mouseX<upgradeSlideX+360&&mouseY>280&&mouseY<290&&plane.maxHealth<healthMax&&plane.money>=healthUpgradeCost){
+            plane.maxHealth+=25;
+            plane.money-=healthUpgradeCost;
+            healthUpgradeCost+=200;
+        }
+        if(mouseX>upgradeSlideX+40&&mouseX<upgradeSlideX+360&&mouseY>320&&mouseY<330&&plane.shotDelay>shotDelayMin&&plane.money>=shotDelayUpgradeCost){
+            plane.shotDelay-=2;
+            plane.money-=shotDelayUpgradeCost;
+            shotDelayUpgradeCost+=50;
+        }
+        if(mouseX>upgradeSlideX+40&&mouseX<upgradeSlideX+360&&mouseY>360&&mouseY<370&&plane.damage<damageMax&&plane.money>=damageUpgradeCost){
+            plane.damage+=25;
+            plane.money-=damageUpgradeCost;
+            damageUpgradeCost+=200;
+        }
+    };
+    textSize(12);
+    fill(0,0,0,100);
+    text("MAX SPEED: "+(plane.maxSpeed*1.15).toFixed(0)*15+" KNOTS",upgradeSlideX+30,227);
+    text("MAX HEALTH: "+plane.maxHealth,upgradeSlideX+30,267);
+    text("SHOT DELAY: "+plane.shotDelay,upgradeSlideX+30,307);
+    text("DAMAGE: "+plane.damage,upgradeSlideX+30,347);
+    fill(0, 0, 255,200);
+    text("UPGRADE FOR: $"+speedUpgradeCost,upgradeSlideX+40,247);
+    text("UPGRADE FOR: $"+healthUpgradeCost,upgradeSlideX+40,287);
+    text("UPGRADE FOR: $"+shotDelayUpgradeCost,upgradeSlideX+40,327);
+    text("UPGRADE FOR: $"+damageUpgradeCost,upgradeSlideX+40,367);
+    }
+    //Create the map
+    {
+//Create the game map
+    mapCreate(level);
+    }
+    //Winning
+    {
+//If you have defeated all enemies, allow you to continue back to the menu and do the next level
+    if(enemyPlanes.length===0&&airports.length===0&&turrets.length===0){
+        levelFinished=true;
+    }
+    if(levelFinished&&mouseX>300&&mouseX<400&&mouseY>0&&mouseY<100){
+        this.cursor(HAND);
+    }
+    if(levelFinished){
+        textSize(15);
+        fill(255, 255, 255,150);
+        text("        MISSION\n     COMPLETE",287,20);
+        textSize(10);
+        text(" CLICK HERE\nTO CONTINUE",314,60);
+    }
+    if(levelFinished===true&&mouseX>300&&mouseX<400&&mouseY>0&&mouseY<100&&mouseIsPressed){
+        battles[level+1]=true;
+        avatarScroll=20;
+        mode="menu";
+        levelFinished=false;
+    }
+    }
+    }
+    //If you are on the menu screen:
+    if(mode==="menu"){
+    //Font
+    {
+//Set the font I want
+    textFont(bFont, 20);
+    textAlign(BASELINE);
+    }
+    //Buttons
+    {
+//These are all of the buttons on the first screen used to access each battle
+    pushMatrix();
+    fill(0,0,0,25);
+    translate(380,130);
+    rotate(90);
+    text("CLICK AND DRAG TO SCROLL",0,0);
+    popMatrix();
+//Make it so that if you click and drag it scrolls
+    if(mouseIsPressed){
+    avatarScroll+=mouseY-pmouseY;
+    }
+    pushMatrix();
+    translate(0,avatarScroll);
+//Draw the rectangles
+    var x=0;
+    var y=115;
+    for(var i=0; i<6; i++){
+        for(var r=0; r<5; r++){
+        noStroke();
+        fill(0, 0, 0,75);
+        rect(r*((400-100)/5+10)+25,115+i*70,(400-100)/5,(400-100)/5);
+        }
+    }
+//Draw the avatars
+    for(var p in avatars) {
+            for(var a in avatars[p]) {
+                image(avatars[p][a],x+25,y, (400-100)/5, (400-100)/5);
+                x+=70;
+            }
+            x = 0;
+            y += 70;
+    }
+//Draw the locks on locked levels
+    for(var i=0; i<6; i++){
+        for(var r=0; r<5; r++){
+            if(battles[i*5+r]!==true){
+            noStroke();
+            fill(0, 0, 0,150);
+            rect(r*((400-100)/5+10)+40,135+i*70,(400-100)/10,(400-100)/10);
+            stroke(0,0,0,150);
+            strokeWeight(5);
+            fill(0,0,0,0);
+            pushMatrix();
+            translate(r*((400-100)/5+10)+40+(400-100)/5/4,115+i*70+((400-100)/5/3));
+            rotate(-90);
+            arc(0,0,(400-100)/5/4,(400-100)/5/4,-90,90);
+            popMatrix();
+        }
+//If you click on a battle it takes you there
+        if(mouseX>r*((400-100)/5+10)+25&&mouseX<r*((400-100)/5+10)+25+(400-100)/5&&mouseY>115+i*65+avatarScroll&&mouseY<115+i*65+(400-100)/5+avatarScroll&&battles[i*5+r]===true){
+        this.cursor(HAND);
+        }
+        if(mouseX>r*((400-100)/5+10)+25&&mouseX<r*((400-100)/5+10)+25+(400-100)/5&&mouseY>115+i*65+avatarScroll&&mouseY<115+i*65+(400-100)/5+avatarScroll&&battles[i*5+r]===true&&mouseIsPressed){
+            level=i*5+r;
+            bullets.length=0;
+            runways.length=0;
+            enemyPlanes.length=0;
+            airports.length=0;
+            tiles.length=0;
+            turrets.length=0;
+            bullets.length=0;
+            coins.length=0;
+            mode="play";
+            tileNum=0;
+            plane.x=plane.spawnX;
+            plane.y=plane.spawnY;
+            levelFinished=false;
+            }
+        }
+    }
+//Shhhhh... the following code is secret
+    popMatrix();
+    noStroke();
+    fill(0, 0, 0,75);
+    rect(25,1500+avatarScroll,(400-100)/5,(400-100)/5);
+    image(special,25,1500+avatarScroll,(400-100)/5,(400-100)/5);
+    textAlign(CENTER,CENTER);
+    textSize(13);
+    text("You found the secret level! Congragulations and Merry Christmas!",200,1480+avatarScroll);
+    text("There are no more secret levels. You can scroll back up now.",200,3000+avatarScroll);
+    text("Wow, your still scrolling. There isn't anything down there.",200,5000+avatarScroll);
+    text("You need to stop scrolling.",200,7000+avatarScroll);
+    text("Or you can keep going, I don't care.",200,9000+avatarScroll);
+    text("Ok, just stop.",200,11000+avatarScroll);
+    text("STOP NOW!",200,15000+avatarScroll);
+    text("GO BACK UP!",200,17000+avatarScroll);
+    text("Now some unicode: ♆ ☺ ☯ ☝",200,19000+avatarScroll);
+    text("GO ☝☝☝☝☝☝☝☝☝☝☝☝☝",200,21000+avatarScroll);
+    text("I'm done.",200,23000+avatarScroll);
+    textAlign(BASELINE);
+    if(mouseX>25&&mouseX<25+(400-100)/5&&mouseY-avatarScroll>1500&&mouseY-avatarScroll<1560){
+        this.cursor(HAND);
+    }
+    if(mouseX>25&&mouseX<25+(400-100)/5&&mouseY-avatarScroll>1500&&mouseY-avatarScroll<1560&&mouseIsPressed){
+            level=30;
+            bullets.length=0;
+            runways.length=0;
+            enemyPlanes.length=0;
+            airports.length=0;
+            tiles.length=0;
+            turrets.length=0;
+            bullets.length=0;
+            coins.length=0;
+            mode="play";
+            tileNum=0;
+            plane.x=plane.spawnX;
+            plane.y=plane.spawnY;
+    }
+//Ok, back to the regular non-secret code
+    }
+    //Text
+    {
+//Most of the text on the home screen
+    textSize(75);
+    fill(0, 0, 0,150);
+    textAlign(CENTER,CENTER);
+    text("PLANES!",200,20+avatarScroll);
+    textSize(20);
+    text("HOW TO PLAY",200,avatarScroll+70);
+    textSize(15);
+    text("By:"+creator,200,540+avatarScroll);
+    textSize(15);
+    text("CHOOSE YOUR BATTLE:",200,100+avatarScroll);
+    if(mouseX>140&&mouseX<260&&mouseY-avatarScroll>60&&mouseY-avatarScroll<75){
+        this.cursor(HAND);
+    }
+    if(mouseX>140&&mouseX<260&&mouseY-avatarScroll>60&&mouseY-avatarScroll<75&&mouseIsPressed){
+        mode="How to play";
+    }
+    }
+    }
+    //If you are on the how to play screen:
+    if(mode==="How to play"){
+    //Text
+    {
+//The instructions
+    textSize(50);
+    text("HOW TO PLAY",200,30);
+    textSize(15);
+    text("Use the left and right arrow keys to turn the plane. The up arrow key makes the plane go faster, and the down arrow key makes it go slower. Use the space key to shoot. If you are low on health, stop on top of a runway to replenish it. To finish the level, destroy all enemys (turrets, airports, and enemy planes) and then press the button in the top right corner. Collect coins and then click on the upgrade bar to upgrade your plane. There are three enemy types: turrets, airports, and planes. Turrets shoot quickly, but do little damage. Airports don't do damage but they spawn enemy planes. Enemy planes shoot slowly but do alot of damage. There are thirty levels plus one more secret level. Have fun and dont forget to vote up!",0,-50,400,485);
+    textSize(30);
+    text("BACK",200,370);
+    if(mouseX>165&&mouseX<240&&mouseY>360&&mouseY<380){
+        this.cursor(HAND);
+    }
+    if(mouseX>165&&mouseX<240&&mouseY>360&&mouseY<380&&mouseIsPressed){
+        mode="menu";
+    }
+    }
+    }
+};
