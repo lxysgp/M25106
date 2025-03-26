@@ -12,7 +12,7 @@ const validUsers = {
     role: "teacher"
   },
   "Bhatshreyas10601": {
-    password: "",
+    password: "0315d36e475c42b1b866c93ad3677601bba8098eae46414ecf5108f6655bbfded232c73984e6bd40656ccd92d3caee3e68ec36deed4e700ed2b2da1ca003ea23",
     role: "student"
   },
   "darsh": {
@@ -30,7 +30,16 @@ const validUsers = {
 "jiahe" : {
     password: "",
     role: "student"
+},
+"Chatdanai" : {
+    password: "88ebc74ad673de65fe5a23e4506b02d49e4fd90c0b32656ee5ae5e16275e1995e16aa21658d7236cd9572db820d27c9b49e4036eb73f5a871a8d7c0072cfa44f",
+    role: "student"
+},
+"nutella" : {
+    password: "d9e6762dd1c8eaf6d61b3c6192fc408d4d6d5f1176d0c29169bc24e71c3f274ad27fcd5811b313d681f7e55ec02d73d499c95455b6b5bb503acf574fba8ffe85",
+    role:"teacher"
 }
+
 };
 
 let currentUserRole = null;
