@@ -1,107 +1,107 @@
 const validUsers = {
-  "xinyuan": {
-    password: "",
-    role: "student"
-  },
-  "admin": {
-    password: "fa4f924b2042699bdaff488c9cd2155e172c4242fee1f1f84766231e7f75df60c2205e20580a0cdebeacce168ef92beca8529b06607e544cd23f324e4023152e",
-    role: "teacher"
-  },
-  "nzx.21106": {
-    password: "0e4871d83cc281edc94ad00b203268e4adccc7dc2b8da7e717051ef86c13aae7bbff78e1732e02a6654080085315f0aa8b4975f1e4511b542ae5a211078b797e",
-    role: "teacher"
-  },
-  "Bhatshreyas10601": {
-    password: "0315d36e475c42b1b866c93ad3677601bba8098eae46414ecf5108f6655bbfded232c73984e6bd40656ccd92d3caee3e68ec36deed4e700ed2b2da1ca003ea23",
-    role: "student"
-  },
-  "darsh": {
-    password: "",
-    role: "student"
-  },
-  "johnny": {
-    password: "",
-    role: "student"
-  },
-  "haoyu": {
-    password: "",
-    role: "student"
-  },
-"jiahe" : {
-    password: "",
-    role: "student"
-},
-"Chatdanai" : {
-    password: "88ebc74ad673de65fe5a23e4506b02d49e4fd90c0b32656ee5ae5e16275e1995e16aa21658d7236cd9572db820d27c9b49e4036eb73f5a871a8d7c0072cfa44f",
-    role: "student"
-},
-"nutella" : {
-    password: "d9e6762dd1c8eaf6d61b3c6192fc408d4d6d5f1176d0c29169bc24e71c3f274ad27fcd5811b313d681f7e55ec02d73d499c95455b6b5bb503acf574fba8ffe85",
-    role:"teacher"
-}
-
+	"xinyuan": {
+		password: "",
+		role: "student"
+	},
+	"admin": {
+		password: "fa4f924b2042699bdaff488c9cd2155e172c4242fee1f1f84766231e7f75df60c2205e20580a0cdebeacce168ef92beca8529b06607e544cd23f324e4023152e",
+		role: "teacher"
+	},
+	"nzx.21106": {
+		password: "0e4871d83cc281edc94ad00b203268e4adccc7dc2b8da7e717051ef86c13aae7bbff78e1732e02a6654080085315f0aa8b4975f1e4511b542ae5a211078b797e",
+		role: "teacher"
+	},
+	"Bhatshreyas10601": {
+		password: "0315d36e475c42b1b866c93ad3677601bba8098eae46414ecf5108f6655bbfded232c73984e6bd40656ccd92d3caee3e68ec36deed4e700ed2b2da1ca003ea23",
+		role: "student"
+	},
+	"darsh": {
+		password: "",
+		role: "student"
+	},
+	"johnny": {
+		password: "",
+		role: "student"
+	},
+	"haoyu": {
+		password: "",
+		role: "student"
+	},
+	"jiahe" : {
+		password: "",
+		role: "student"
+	},
+	"Chatdanai" : {
+		password: "88ebc74ad673de65fe5a23e4506b02d49e4fd90c0b32656ee5ae5e16275e1995e16aa21658d7236cd9572db820d27c9b49e4036eb73f5a871a8d7c0072cfa44f",
+		role: "student"
+	},
+	"nutella" : {
+		password: "d9e6762dd1c8eaf6d61b3c6192fc408d4d6d5f1176d0c29169bc24e71c3f274ad27fcd5811b313d681f7e55ec02d73d499c95455b6b5bb503acf574fba8ffe85",
+		role:"teacher"
+	}
+	
 };
 
 let currentUserRole = null;
 let loggedInUsername = "";
 
 async function login() {
-  const username = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value;
-  const hashedPassword = await hashSHA512(password);
-
-  const user = validUsers[username];
-  if (user && user.password === hashedPassword) {
-    currentUserRole = user.role;
-    loggedInUsername = username;
-    localStorage.setItem("loggedInUser", username);
-    localStorage.setItem("userRole", currentUserRole);
-    document.getElementById("login-screen").style.display = "none";
-    document.getElementById("main-content").style.display = "block";
-    applyRoleVisibility();
-  } else {
-    document.getElementById("login-msg").textContent = "❌ Incorrect username or password.";
-  }
+	const username = document.getElementById("username").value.trim();
+	const password = document.getElementById("password").value;
+	const hashedPassword = await hashSHA512(password);
+	
+	const user = validUsers[username];
+	if (user && user.password === hashedPassword) {
+		currentUserRole = user.role;
+		loggedInUsername = username;
+		localStorage.setItem("loggedInUser", username);
+		localStorage.setItem("userRole", currentUserRole);
+		document.getElementById("login-screen").style.display = "none";
+		document.getElementById("main-content").style.display = "block";
+		applyRoleVisibility();
+	} else {
+		document.getElementById("login-msg").textContent = "❌ Incorrect username or password.";
+	}
 }
 
 function logout() {
-  localStorage.removeItem("loggedInUser");
-  localStorage.removeItem("userRole");
-  currentUserRole = null;
-  loggedInUsername = "";
-  document.getElementById("main-content").style.display = "none";
-  document.getElementById("login-screen").style.display = "block";
+	localStorage.removeItem("loggedInUser");
+	localStorage.removeItem("userRole");
+	currentUserRole = null;
+	loggedInUsername = "";
+	document.getElementById("main-content").style.display = "none";
+	document.getElementById("login-screen").style.display = "block";
 }
 
 function applyRoleVisibility() {
-  const clearBtn = document.getElementById("clear-btn");
-  const attendBtn = document.getElementById("attend");
-  const doneBtn = document.getElementById("done-btn");
-
-  if (clearBtn) clearBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
-  if (attendBtn) attendBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
-  if (doneBtn) doneBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
+	const clearBtn = document.getElementById("clear-btn");
+	const attendBtn = document.getElementById("attend");
+	const doneBtn = document.getElementById("done-btn");
+	
+	if (clearBtn) clearBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
+	if (attendBtn) attendBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
+	if (doneBtn) doneBtn.style.display = currentUserRole === "teacher" ? "inline-block" : "none";
 }
 
 window.onload = function () {
-  const savedUser = localStorage.getItem("loggedInUser");
-  const savedRole = localStorage.getItem("userRole");
-  if (savedUser && savedRole) {
-    loggedInUsername = savedUser;
-    currentUserRole = savedRole;
-    document.getElementById("login-screen").style.display = "none";
-    document.getElementById("main-content").style.display = "block";
-    applyRoleVisibility();
-  }
+	const savedUser = localStorage.getItem("loggedInUser");
+	const savedRole = localStorage.getItem("userRole");
+	if (savedUser && savedRole) {
+		loggedInUsername = savedUser;
+		currentUserRole = savedRole;
+		document.getElementById("login-screen").style.display = "none";
+		document.getElementById("main-content").style.display = "block";
+		applyRoleVisibility();
+	}
 };
 
 async function hashSHA512(text) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(text);
-  const hashBuffer = await crypto.subtle.digest("SHA-512", data);
-  return Array.from(new Uint8Array(hashBuffer))
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('');
+	const encoder = new TextEncoder();
+	const data = encoder.encode(text);
+	const hashBuffer = await crypto.subtle.digest("SHA-512", data);
+	return Array.from(new Uint8Array(hashBuffer))
+	.map(b => b.toString(16).padStart(2, '0'))
+	.join('');
 }
 
 function applyRoleVisibility() {
