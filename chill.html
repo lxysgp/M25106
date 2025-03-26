@@ -240,6 +240,14 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
   aura += auraPerClick;
   updateUI();
 };
+    <div id="cheat-lock-screen" style="display:none; text-align:center; padding:40px;">
+  <h2>🚨 Game Locked: Suspicious Activity Detected</h2>
+  <p>Enter password to unlock:</p>
+  <input type="password" id="unlock-pw" style="padding:10px; font-size:1rem;">
+  <button onclick="attemptUnlock()" style="padding:10px 20px;">Unlock</button>
+  <p id="unlock-msg" style="color:red;"></p>
+</div>
+
 
 
     function buyGen(i) {
