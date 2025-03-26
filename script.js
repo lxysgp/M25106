@@ -1,14 +1,14 @@
 const validUsers = {
   "xinyuan": {
-    password: "64816bdebdb511a519643ab992970c5fff322a38f9b5d2f46cda63ddc172295ba65c64a69d30ac4ad68f94157c919daadd0e89a5ed2000ff4a3b67586c493f91E",
+    password: "",
     role: "student"
   },
   "admin": {
-    password: "a920672eff860985bb68a99d004c37fb0c261bb60c20470f4ba5c2fa6a304c884c0d45c158155619cf508618b73d1f57b2084fad0f280208cdb48a469ac84ff1",
+    password: "",
     role: "teacher"
   },
   "nzx.21106": {
-    password: "ca96d2566c090886ea6950377f7e85bbb1d45c66a958d66ef31080fbd43280664ddf4facfa05d16416dcc8eff2e7f1564988cce6cab72a4b1f69c7321ae8e385",
+    password: "",
     role: "teacher"
   },
   "bh10601": {
@@ -16,7 +16,7 @@ const validUsers = {
     role: "student"
   },
   "darsh": {
-    password: "",
+    password: "a163b7d63a68c53616ad2254c71d2a42090b2191675149f0efd06bd7e85cabe2f0b0c78e5d4c826cff06e062d8bf8e8b750435881acf7647817b93885d602dea",
     role: "student"
   },
   "johnny": {
@@ -28,22 +28,9 @@ const validUsers = {
     role: "student"
   },
 "jiahe" : {
-    password: "",
-    role: "student"
-},
-"Chatdanai" : {
-    password: "05877d44a007953059cd1cc639266eb1c5b3a01d5ca8ccb9e2097c71ec054e79e38042cabd3ffe9405864a2b5f31b79ebc8d4f0870bf1e48e497044fc3250812",
-    role: "student"
-},
-"" : {
-    password: "",
-    role: "student"
-},
-"" : {
-    password: "",
+    password: "5c0cb0b48926e2f1605ace6d30afb3a0cada6c7129a8a332b73a6b6849e2944affd599373f62868d466834b1bf804c0bd69e21531af7c3691bc167573b8d6910",
     role: "student"
 }
-
 };
 
 let currentUserRole = null;
@@ -52,12 +39,7 @@ let loggedInUsername = "";
 async function login() {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value;
-  const notfullyhashedPassword = await hashSHA512(password);
-  const notyethashedPassword = atob(notfullyhashedPassword);
-  const notHashedPassword = await hashSHA512(notyethashedPassword);
-  const almosthashedPassword = atob(notHashedPassword);
-  const hashedPassword = await hashSHA512(almosthashedPassword);
-	
+  const hashedPassword = await hashSHA512(password);
 
   const user = validUsers[username];
   if (user && user.password === hashedPassword) {
