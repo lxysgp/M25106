@@ -1,12 +1,11 @@
 // Obfuscated ITS NOT OBFUSCATED login system with logout and role-based access
 const validUsers = {
-	"xinyuan": { password: "MTIzNA==", role: "student" },
-	"admin": { password: "c2tpYmlkaQ==", role: "teacher" },
-	"nzx.21106": {password: "Ym9va0AxMjEw", role: "teacher" },
-	"bh10601" : { password: "Y2xhc3Njb20yNTEwNg==", role: "student" },
-	"darsh" : {password: "ZGFyc2gxMDY=", role: "student" },
-	"johnny" : {password: "MTAyNDIwMTI=", role: "student" },
-	"haoyu" : {password: "SHkhMjUxMDE0NQ==", role: "student" }
+	"xinyuan": { password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "student" },
+	"admin": { password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "teacher" },
+	"nzx.21106": {password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "teacher" },
+	"bh10601" : { password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "student" },
+	"darsh" : {password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "student" }	"johnny" : {password: "MTAyNDIwMTI=", role: "student" },
+	"haoyu" : {password: "68b2dba462783ce4072a24d59e69b1531456751f68b52fe990cc68fcc4b9deb44a24b49a762a191562f8ac3a42b30970c3d6d3f30f2d050811d656d67d992659", role: "student" }
 };
 
 let currentUserRole = null;
