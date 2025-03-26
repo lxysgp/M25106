@@ -4,7 +4,7 @@ const validUsers = {
     role: "student"
   },
   "admin": {
-    password: "s½\x1Bå×}y·ÛéþuwO]ã]öo½{ÑÏ]ÛNùÑ®üçgôÓ¯4\x7F®zçÇôß]\x1Eó]4ç§ºï­Üß\x87=kM\x1BÑïxÓNú\x7F\x9E8÷\x975ë×ÜÛ}6qÇ\x9Bß]´ßÝ»ÕÎ7ã¯yÓ·\\",
+    password: "}®\x1F÷n\x1BÛN6ëß[u§ßãÏ\x1CõÇv×\x9E^×½\x9Cãn6}çµ\x7FWüã¾ºÛ}^íþùuþ´sm´åí´çÍ\x1AÑÇ^mæ\x9CqízñçýÙ·\x9CkÎvõ½:ëNÞç\x8E\x1Cwmßßn\x1EãM·×\x9D\x9E",
     role: "teacher"
   },
   "nzx.21106": {
