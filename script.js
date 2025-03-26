@@ -1,6 +1,6 @@
 const validUsers = {
   "xinyuan": {
-    password: "",
+    password: "w\x8D8ç\x9F_ëM\x9Ei¾\x9Fw­6iÎúóGZq·Úi×uß­ôß~^÷\x9D_ÓÞÚ\x7F\x7FtÑï]{^úo§[ÛÎuÙý\x9EÓM\x1BõÝ8}¶¹×}Þñ½\\éï\x1D\x7F\x9F]ov¼i¿]ëFÞá¿{qÏ^óW[",
     role: "student"
   },
   "admin": {
