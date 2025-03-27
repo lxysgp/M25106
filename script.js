@@ -48,8 +48,12 @@ const validUsers = {
 		password: "d9e6762dd1c8eaf6d61b3c6192fc408d4d6d5f1176d0c29169bc24e71c3f274ad27fcd5811b313d681f7e55ec02d73d499c95455b6b5bb503acf574fba8ffe85",
 		role:"teacher",
 		dev: true
+	},
+	"test9" : {
+		password: "0b3d1be846a4812b7043157e6e95d720341bff4dc1e437dd26ba96cec8735c9c74ebcf770cb0fe45dd3e4d04cd59b026240d540db03abf10b1f6e2f4dafcadce",
+		role:"student",
+		dev: true
 	}
-	
 };
 
 let currentUserRole = null;
