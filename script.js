@@ -1,43 +1,53 @@
 const validUsers = {
 	"xinyuan": {
 		password: "",
-		role: "student"
+		role: "student",
+		dev: true
 	},
 	"admin": {
 		password: "fa4f924b2042699bdaff488c9cd2155e172c4242fee1f1f84766231e7f75df60c2205e20580a0cdebeacce168ef92beca8529b06607e544cd23f324e4023152e",
-		role: "teacher"
+		role: "teacher",
+		dev: true
 	},
 	"nzx.21106": {
 		password: "0e4871d83cc281edc94ad00b203268e4adccc7dc2b8da7e717051ef86c13aae7bbff78e1732e02a6654080085315f0aa8b4975f1e4511b542ae5a211078b797e",
-		role: "teacher"
+		role: "teacher",
+		dev: true
 	},
 	"Bhatshreyas10601": {
 		password: "0315d36e475c42b1b866c93ad3677601bba8098eae46414ecf5108f6655bbfded232c73984e6bd40656ccd92d3caee3e68ec36deed4e700ed2b2da1ca003ea23",
-		role: "student"
+		role: "student",
+		dev: true
 	},
 	"darsh": {
 		password: "",
-		role: "student"
+		role: "student",
+		dev: true
 	},
 	"johnny": {
 		password: "",
-		role: "student"
+		role: "student",
+		dev: true
 	},
 	"haoyu": {
 		password: "",
-		role: "student"
+		role: "student",
+		dev: true
 	},
 	"jiahe" : {
 		password: "",
-		role: "student"
+		role: "student",
+		dev: true
 	},
 	"Chatdanai" : {
 		password: "88ebc74ad673de65fe5a23e4506b02d49e4fd90c0b32656ee5ae5e16275e1995e16aa21658d7236cd9572db820d27c9b49e4036eb73f5a871a8d7c0072cfa44f",
-		role: "student"
+		role: "student",
+		dev: true
 	},
 	"nutella" : {
 		password: "d9e6762dd1c8eaf6d61b3c6192fc408d4d6d5f1176d0c29169bc24e71c3f274ad27fcd5811b313d681f7e55ec02d73d499c95455b6b5bb503acf574fba8ffe85",
-		role:"teacher"
+		role:"teacher",
+		dev: true
 	}
 	
 };
