@@ -133,6 +133,13 @@
     </select>
     <div id="stock-list"></div>
   </div>
+    <div class="card" id="prestige-card">
+  <h2>🏅 Prestige</h2>
+  <button onclick="prestige('bronze')">🥉 Bronze Prestige (Cost: 1M Aura)</button>
+  <button onclick="prestige('silver')">🥈 Silver Prestige (Cost: 1B Aura)</button>
+  <button onclick="prestige('gold')">🥇 Gold Prestige (Cost: 1T Aura)</button>
+</div>
+
 </div>
 
   <a href="index.html"><img src="classweblogogris.png" alt="Class Logo" id="login-logo"></a>
@@ -143,6 +150,12 @@
     const MAX_CPS = 25; // clicks per second
     const MAX_LEGAL_CLICK_POWER = 30000;
     let cheatAttempts = 0;
+    let cheatAttempts = 0;
+let lastAuraCheck = aura;
+    let prestigeLevel = localStorage.getItem('prestigeLevel') || 'none';
+let prestigeMultiplier = parseFloat(localStorage.getItem('prestigeMultiplier') || 1);
+
+
 
 
     const generators = [
@@ -228,7 +241,8 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
   }
 
   // All good
-  aura += auraPerClick;
+  aura += auraPerClick * prestigeMultiplier;
+
   updateUI();
 };
 
@@ -256,12 +270,13 @@ let cryptoOwned = Array(cryptoStocks.length).fill(0);
     }
 
     function updateAuraPerSecond() {
-      auraPerSecond = generators.reduce((sum, g) => sum + g.amount * g.auraGain, 0);
-    }
+  auraPerSecond = generators.reduce((sum, g) => sum + g.amount * g.auraGain, 0) * prestigeMultiplier;
+}
+
 
     function updateUI() {
-  document.getElementById("aura-display").textContent =
-    `Aura: ${Math.floor(aura)} (APS: ${Math.round(auraPerSecond)})`;
+ document.getElementById("aura-display").textContent =
+  `Aura: ${Math.floor(aura)} (APS: ${Math.round(auraPerSecond)}) | Prestige: ${prestigeLevel.toUpperCase()}`;
 
   document.getElementById("click-btn").textContent = `+${auraPerClick} Aura`;
 
@@ -425,7 +440,44 @@ function renderLeaderboard() {
       });
       renderStocks();
     }, 2000);
+function detectCheat() {
+  if (Math.abs(aura - lastAuraCheck) > auraPerSecond * 20 + auraPerClick * MAX_CPS * 5) {
+    cheatAttempts++;
+    alert("⚠️ Cheating detected! Game reset imminent if continued.");
+    if (cheatAttempts > 2) {
+      localStorage.clear(); 
+      location.reload();
+    }
+  }
+  lastAuraCheck = aura;
+}
 
+setInterval(detectCheat, 5000);
+function prestige(level) {
+  let costs = {bronze: 1e6, silver: 1e9, gold: 1e12};
+  let multipliers = {bronze: 2, silver: 5, gold: 10};
+
+  if (aura >= costs[level]) {
+    if (confirm(`Prestige to ${level}? This will RESET aura, upgrades, and generators, but permanently boost your aura gains by x${multipliers[level]}.`)) {
+      aura = 0;
+      auraPerClick = 1;
+      auraPerSecond = 0;
+      generators.forEach(g => g.amount = 0);
+      upgrades.forEach(u => u.bought = false);
+      cryptoUnlocked = false;
+      prestigeMultiplier = multipliers[level];
+      prestigeLevel = level;
+      localStorage.setItem('prestigeMultiplier', prestigeMultiplier);
+      localStorage.setItem('prestigeLevel', prestigeLevel);
+      updateAuraPerSecond();
+      updateUI();
+    }
+  } else {
+    alert(`Not enough aura! You need ${costs[level]} aura for ${level} prestige.`);
+  }
+}
+prestigeMultiplier = parseFloat(localStorage.getItem('prestigeMultiplier') || 1);
+prestigeLevel = localStorage.getItem('prestigeLevel') || 'none';
     updateAuraPerSecond();
     updateUI();
     renderLeaderboard();
