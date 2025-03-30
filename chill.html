@@ -478,6 +478,22 @@ function prestige(level) {
 }
 prestigeMultiplier = parseFloat(localStorage.getItem('prestigeMultiplier') || 1);
 prestigeLevel = localStorage.getItem('prestigeLevel') || 'none';
+    function loadGame() {
+  aura = parseFloat(localStorage.getItem('aura') || 0);
+  generators = JSON.parse(localStorage.getItem('generators')) || generators;
+  upgrades = JSON.parse(localStorage.getItem('upgrades')) || upgrades;
+  cryptoUnlocked = localStorage.getItem('cryptoUnlocked') === 'true';
+
+  prestigeMultiplier = parseFloat(localStorage.getItem('prestigeMultiplier') || 1);
+  prestigeLevel = localStorage.getItem('prestigeLevel') || 'none';
+
+  updateAuraPerSecond();
+  updateUI();
+  renderLeaderboard();
+}
+
+loadGame(); // clearly called on startup
+
     updateAuraPerSecond();
     updateUI();
     renderLeaderboard();
