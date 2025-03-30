@@ -428,7 +428,19 @@ function renderLeaderboard() {
       });
       renderStocks();
     }, 2000);
+function detectCheat() {
+  if (Math.abs(aura - lastAuraCheck) > auraPerSecond * 20 + auraPerClick * MAX_CPS * 5) {
+    cheatAttempts++;
+    alert("⚠️ Cheating detected! Game reset imminent if continued.");
+    if (cheatAttempts > 2) {
+      localStorage.clear(); 
+      location.reload();
+    }
+  }
+  lastAuraCheck = aura;
+}
 
+setInterval(detectCheat, 5000);
     updateAuraPerSecond();
     updateUI();
     renderLeaderboard();
