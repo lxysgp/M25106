@@ -207,6 +207,7 @@
 				alert("⚠️ Too many clicks per second! Slow down otherwise the game will be disabled!");
 				if (cheatAttempts >= 2) {
 					document.getElementById("click-btn").disabled = true;
+					document.getElementById("click-btn").style.backgroundColor = "rgba(255, 234, 167,0.5)";
 					alert("🚫 Clicker disabled due to suspicious activity.");
 				}
 				return;
