@@ -25,12 +25,25 @@
 			box-shadow: 0em 0em 1em;
 		}
 		button {
+			background-color: #7DDA58;
+			color: black;
 			padding: 12px 20px;
 			font-size: 1rem;
 			border: none;
 			border-radius: 10px;
 			cursor: pointer;
 			margin: 8px;
+			box-shadow: 0 0 8px black;
+			transition: all 0.1s;
+		}
+
+		button:hover {
+		transform: scale(1.15);
+		background-color: #67B549;
+		}
+		button:active {
+		transform: scale(0.85)
+		background-color: #3AB707;
 		}
 		#click-btn {
 			background-color: #ffeaa7;
@@ -152,7 +165,7 @@
 		let aura = 0, auraPerClick = 1, auraPerSecond = 0;
 		let cryptoUnlocked = false;
 		let lastClickTimes = [];
-		const MAX_CPS = 25; // clicks per second
+		const MAX_CPS = 40; // clicks per second
 		const MAX_LEGAL_CLICK_POWER = 30000;
 		let cheatAttempts = 0;
 		
@@ -171,7 +184,7 @@
 		{ name: "Xuhui Mewer", amount: 0, baseCost: 100000000, auraGain: 69690, scale: 1.03},
 		{ name: "Shiv", amount: 0, baseCost: 1000000000, auraGain: 0.001, scale: 20},
 		{ name: "Mutated Xuhui", amount: 0, baseCost: 5000000000, auraGain: 3000000, scale: 1.025},
-		{ name: "Geometry Darsh", amount: 0, baseCost: 99999999999, auraGain: 10000000, scale: 1.025}
+		{ name: "Geometry Darsh", amount: 0, baseCost: 999999999, auraGain: 10000000, scale: 1.025}
 		];
 		
 		const upgrades = [
@@ -191,6 +204,7 @@
 		{ name: "Xuhui upgrade", cost: 90909090909, effect: () => generators[10].auraGain *= 2.5} ,
 		{name: ":Shreyas Helps", cost: 90909090969, effect: () => auraPerClick *= 5 },
 		{name: "Uno Reverse", cost: 694206942069, effect: () => auraPerClick *= 9999},
+		{name: "Mental stability", cost: 83294783798, effect: () => auraPerClick **=8}
 		];
 		
 		const stocks = [
