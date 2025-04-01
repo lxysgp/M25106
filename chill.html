@@ -5,7 +5,7 @@
 	<title>Aura Clicker Game</title>
 	<style>
 		body {
-			font-family: 'Comic Sans MS', san-serif;
+			font-family: 'Bahnschrift' ,'Comic Sans MS', san-serif;
 			background: linear-gradient(to right, #fbc2eb, #a6c1ee);
 			text-align: center;
 			padding: 30px;
@@ -174,7 +174,8 @@
 		{name: "Xuhui upgrade", cost: 90909090909, effect: () => generators[10].auraGain *= 2.5} ,
 		{name: ":Shreyas Helps", cost: 90909090969, effect: () => auraPerClick *= 5},
 		{name: "Uno Reverse", cost: 694206942069, effect: () => auraPerClick *= 9999},
-		{name: "Mental stability", cost: 83294783798, effect: () => auraPerClick **=8}
+		{name: "Mental stability", cost: 83294783798, effect: () => auraPerClick *=8},
+		{name: "Darsh Helps", cost: 1000000000, effect: ()=> auraPerClick **=2}
 		];
 		
 		const stocks = [
