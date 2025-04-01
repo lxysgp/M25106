@@ -11,7 +11,7 @@
 			padding: 30px;
 			color: #333;
 		}
-		h1 { font-size: 2.5rem; }
+		h1 {font-size: 2.5rem;}
 		#aura-display {
 			font-size: 2rem;
 			margin: 0;
@@ -38,12 +38,12 @@
 		}
 
 		button:hover {
-		transform: scale(1.15);
-		background-color: #67B549;
+			transform: scale(1.15);
+			background-color: #67B549;
 		}
 		button:active {
-		transform: scale(0.85);
-		background-color: #3AB707;
+			transform: scale(0.85);
+			background-color: #3AB707;
 		}
 		#click-btn {
 			background-color: #ffeaa7;
@@ -80,8 +80,8 @@
 			border: none;
 			cursor: pointer;
 		}
-		.stock-arrow.up { color: green; }
-		.stock-arrow.down { color: red; }
+		.stock-arrow.up {color: green;}
+		.stock-arrow.down {color: red;}
 		#login-logo {
 			border-radius: 1em;
 			width: 82vw;
@@ -165,60 +165,60 @@
 		let aura = 0, auraPerClick = 1, auraPerSecond = 0;
 		let cryptoUnlocked = false;
 		let lastClickTimes = [];
-		const MAX_CPS = 40; // clicks per second
+		const MAX_CPS = 40;// clicks per second
 		const MAX_LEGAL_CLICK_POWER = 30000;
 		let cheatAttempts = 0;
 		
 		
 		const generators = [
-		{ name: "Person", amount: 0, baseCost: 100, auraGain: 1, scale: 1.07 },
-		{ name: "Skibidi Toilet", amount: 0, baseCost: 600, auraGain: 5, scale: 1.05 },
-		{ name: "Mewer", amount: 0, baseCost: 1100, auraGain: 10, scale: 1.045 },
-		{ name: "Auto Mewer", amount: 0, baseCost: 6900, auraGain: 69, scale: 1.05 },
-		{ name: "Sigma Mewer", amount: 0, baseCost: 12000, auraGain: 100, scale: 1.04 },
-		{ name: "Skibidi Sigma", amount: 0, baseCost: 18690, auraGain: 169, scale: 1.035 },
-		{ name: "Zhengxian Mewer", amount: 0, baseCost: 69690, auraGain: 500, scale: 1.035 },
-		{ name: "Caden Mewer", amount: 0, baseCost: 900000, auraGain: 6969, scale: 1.03 },
-		{ name: "Sigma Caden", amount: 0, baseCost: 1069690, auraGain: 10000, scale: 1.025 },
-		{ name: "Sigma Zhengxian", amount: 0, baseCost: 2000000, auraGain: 16969, scale: 1.02},
-		{ name: "Xuhui Mewer", amount: 0, baseCost: 100000000, auraGain: 69690, scale: 1.03},
-		{ name: "Shiv", amount: 0, baseCost: 1000000000, auraGain: 0.001, scale: 20},
-		{ name: "Mutated Xuhui", amount: 0, baseCost: 5000000000, auraGain: 3000000, scale: 1.025},
-		{ name: "Geometry Darsh", amount: 0, baseCost: 999999999, auraGain: 10000000, scale: 1.025}
+		{name: "Person", amount: 0, baseCost: 100, auraGain: 1, scale: 1.07},
+		{name: "Skibidi Toilet", amount: 0, baseCost: 600, auraGain: 5, scale: 1.05},
+		{name: "Mewer", amount: 0, baseCost: 1100, auraGain: 10, scale: 1.045},
+		{name: "Auto Mewer", amount: 0, baseCost: 6900, auraGain: 69, scale: 1.05},
+		{name: "Sigma Mewer", amount: 0, baseCost: 12000, auraGain: 100, scale: 1.04},
+		{name: "Skibidi Sigma", amount: 0, baseCost: 18690, auraGain: 169, scale: 1.035},
+		{name: "Zhengxian Mewer", amount: 0, baseCost: 69690, auraGain: 500, scale: 1.035},
+		{name: "Caden Mewer", amount: 0, baseCost: 900000, auraGain: 6969, scale: 1.03},
+		{name: "Sigma Caden", amount: 0, baseCost: 1069690, auraGain: 10000, scale: 1.025},
+		{name: "Sigma Zhengxian", amount: 0, baseCost: 2000000, auraGain: 16969, scale: 1.02},
+		{name: "Xuhui Mewer", amount: 0, baseCost: 100000000, auraGain: 69690, scale: 1.03},
+		{name: "Shiv", amount: 0, baseCost: 1000000000, auraGain: 0.001, scale: 20},
+		{name: "Mutated Xuhui", amount: 0, baseCost: 5000000000, auraGain: 3000000, scale: 1.025},
+		{name: "Geometry Darsh", amount: 0, baseCost: 999999999, auraGain: 10000000, scale: 1.025}
 		];
 		
 		const upgrades = [
-		{ name: "Grind SLS (x2 click)", cost: 1000, effect: () => auraPerClick *= 2 },
-		{ name: "Persons x2", cost: 1500, effect: () => generators[0].auraGain *= 2 },
-		{ name: "Xinyuan helps (x5 click)", cost: 4000, effect: () => auraPerClick *= 5 },
-		{ name: "Skibidi Toilets x2", cost: 30000, effect: () => generators[1].auraGain *= 2 },
-		{ name: "Click +15", cost: 50000, effect: () => auraPerClick += 15 },
-		{ name: "Mewers x1.5", cost: 60000, effect: () => generators[2].auraGain *= 1.5 },
-		{ name: "Ziheng helps (x1.5 click)", cost: 500000, effect: () => auraPerClick *= 1.5 },
-		{ name: "Johnny helps (x4 click)", cost: 10000000, effect: () => auraPerClick *= 4 },
-		{ name: "Sigma skibidi x2", cost: 10000000, effect: () => generators[5].auraGain *= 2 },
-		{ name: "Sigma Caden x2", cost: 500000000, effect: () => generators[8].auraGain *= 2 },
-		{ name: "YUSU helps (x10 click)", cost: 2000000000, effect: () => auraPerClick *= 10 },
-		{ name: "Yuansan helps (x10 click)", cost: 9000000000, effect: () => auraPerClick *= 10 },
-		{ name: "Unlock Crypto Stocks 💎", cost: 10000000000, effect: () => cryptoUnlocked = true },
-		{ name: "Xuhui upgrade", cost: 90909090909, effect: () => generators[10].auraGain *= 2.5} ,
-		{name: ":Shreyas Helps", cost: 90909090969, effect: () => auraPerClick *= 5 },
+		{name: "Grind SLS (x2 click)", cost: 1000, effect: () => auraPerClick *= 2},
+		{name: "Persons x2", cost: 1500, effect: () => generators[0].auraGain *= 2},
+		{name: "Xinyuan helps (x5 click)", cost: 4000, effect: () => auraPerClick *= 5},
+		{name: "Skibidi Toilets x2", cost: 30000, effect: () => generators[1].auraGain *= 2},
+		{name: "Click +15", cost: 50000, effect: () => auraPerClick += 15},
+		{name: "Mewers x1.5", cost: 60000, effect: () => generators[2].auraGain *= 1.5},
+		{name: "Ziheng helps (x1.5 click)", cost: 500000, effect: () => auraPerClick *= 1.5},
+		{name: "Johnny helps (x4 click)", cost: 10000000, effect: () => auraPerClick *= 4},
+		{name: "Sigma skibidi x2", cost: 10000000, effect: () => generators[5].auraGain *= 2},
+		{name: "Sigma Caden x2", cost: 500000000, effect: () => generators[8].auraGain *= 2},
+		{name: "YUSU helps (x10 click)", cost: 2000000000, effect: () => auraPerClick *= 10},
+		{name: "Yuansan helps (x10 click)", cost: 9000000000, effect: () => auraPerClick *= 10},
+		{name: "Unlock Crypto Stocks 💎", cost: 10000000000, effect: () => cryptoUnlocked = true},
+		{name: "Xuhui upgrade", cost: 90909090909, effect: () => generators[10].auraGain *= 2.5} ,
+		{name: ":Shreyas Helps", cost: 90909090969, effect: () => auraPerClick *= 5},
 		{name: "Uno Reverse", cost: 694206942069, effect: () => auraPerClick *= 9999},
 		{name: "Mental stability", cost: 83294783798, effect: () => auraPerClick **=8}
 		];
 		
 		const stocks = [
-		{ name: "Mew Corp", price: 100, high: 100, low: 100, last: 100 },
-		{ name: "Johnny stocks", price: 2, high: 2, low: 2, last: 2 },
-		{ name: "AuraBank", price: 85, high: 85, low: 85, last: 85 },
-		{ name: "Toilet Inc.", price: 120, high: 120, low: 120, last: 120 },
-		{ name: "M25106 Penny", price: 15, high: 15, low: 15, last: 15} 
+		{name: "Mew Corp", price: 100, high: 100, low: 100, last: 100},
+		{name: "Johnny stocks", price: 2, high: 2, low: 2, last: 2},
+		{name: "AuraBank", price: 85, high: 85, low: 85, last: 85},
+		{name: "Toilet Inc.", price: 120, high: 120, low: 120, last: 120},
+		{name: "M25106 Penny", price: 15, high: 15, low: 15, last: 15} 
 		];
 		
 		const cryptoStocks = [
-		{ name: "MewCoin", price: 500000, high: 5000, low: 500, last: 500 },
-		{ name: "XynCash", price: 800000, high: 80000, low: 800, last: 800 },
-		{ name: "CadenETH", price: 1300000, high: 130000, low: 1300, last: 1300 }
+		{name: "MewCoin", price: 500000, high: 5000, low: 500, last: 500},
+		{name: "XynCash", price: 800000, high: 80000, low: 800, last: 800},
+		{name: "CadenETH", price: 1300000, high: 130000, low: 1300, last: 1300}
 		];
 		
 		
@@ -229,7 +229,7 @@
 		document.getElementById("click-btn").onclick = () => {
 			const now = Date.now();
 			lastClickTimes.push(now);
-			lastClickTimes = lastClickTimes.filter(t => now - t < 1000); // last 1 sec
+			lastClickTimes = lastClickTimes.filter(t => now - t < 1000);// last 1 sec
 			
 			// Check CPS
 			if (lastClickTimes.length > MAX_CPS) {
@@ -362,9 +362,9 @@
 			const existing = scores.find(s => s.name === name);
 			
 			if (existing) {
-				existing.aura = Math.max(existing.aura, Math.floor(aura)); // Only keep best score
+				existing.aura = Math.max(existing.aura, Math.floor(aura));// Only keep best score
 			} else {
-				scores.push({ name, aura: Math.floor(aura) });
+				scores.push({name, aura: Math.floor(aura)});
 			}
 			
 			localStorage.setItem("auraLeaderboard", JSON.stringify(scores));
@@ -456,7 +456,7 @@
 				cheatAttempts++;
 				alert("⚠️ Cheating detected! Game reset imminent if continued.");
 				if (cheatAttempts > 2) {
-					localStorage.clear(); 
+					localStorage.clear();
 					location.reload();
 				}
 			}
