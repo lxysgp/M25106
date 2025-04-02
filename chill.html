@@ -187,10 +187,8 @@
 		{name: "CadenETH", price: 1300000, high: 130000, low: 1300, last: 1300}
 		];
 		
-		
 		let stockOwned = Array(stocks.length).fill(0);
 		let cryptoOwned = Array(cryptoStocks.length).fill(0);
-		
 		
 		document.getElementById("click-btn").onclick = () => {
 			const now = Date.now();
@@ -392,6 +390,7 @@
 		updateUI();
 		renderLeaderboard();
 		
+		window.addEventListener("keydown", localStorage("aura",aura))
 	</script>
 	<footer><p>Xinyuan is not responsible for this if you are caught by any teacher.</p></footer>
 </body>
