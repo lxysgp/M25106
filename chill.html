@@ -85,6 +85,7 @@
 		@media (prefers-color-scheme: dark) {
 			.card {background: #2e2734}
 			h2 {color: #dfe6e9;}
+			#buycrypto {color: white;}
 		}
 		
 		.triple-container {
@@ -297,7 +298,7 @@
 			const owned = mode === "normal" ? stockOwned : cryptoOwned;
 			
 			if (mode === "crypto" && !cryptoUnlocked) {
-				stockList.innerHTML = "<p>Buy the crypto upgrade first!</p>";
+				stockList.innerHTML = "<p id='buycrypto'>Buy the crypto upgrade first!</p>";
 				return;
 			}
 			
