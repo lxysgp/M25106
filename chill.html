@@ -323,54 +323,7 @@
           </div>`;
 			});
 		}
-		function submitScore() {
-			const name = localStorage.getItem("classwebUsername");
-			if (!name) {
-				alert("Not working now!");
-				return;
-			}
-			
-			const scores = JSON.parse(localStorage.getItem("auraLeaderboard") || "[]");
-			const existing = scores.find(s => s.name === name);
-			
-			if (existing) {
-				existing.aura = Math.max(existing.aura, Math.floor(aura));// Only keep best score
-			} else {
-				scores.push({name, aura: Math.floor(aura)});
-			}
-			
-			localStorage.setItem("auraLeaderboard", JSON.stringify(scores));
-			renderLeaderboard();
-		}
-		
-		function renderLeaderboard() {
-			const scores = JSON.parse(localStorage.getItem("auraLeaderboard") || "[]");
-			scores.sort((a, b) => b.aura - a.aura);
-			const board = document.getElementById("leaderboard");
-			board.innerHTML = "";
-			scores.forEach((s, i) => {
-				const li = document.createElement("li");
-				li.textContent = `${s.name} — ${s.aura}`;
-				board.appendChild(li);
-			});
-			if (currentUserRole === "teacher" && !document.getElementById("clear-lb")) {
-				const btn = document.createElement("button");
-				btn.id = "clear-lb";
-				btn.textContent = "🧹 Clear Leaderboard";
-				btn.style.background = "red";
-				btn.style.color = "white";
-				btn.style.marginTop = "10px";
-				btn.onclick = clearLeaderboard;
-				document.getElementById("leaderboard-panel").appendChild(btn);
-			}
-		}
-		function clearLeaderboard() {
-			if (confirm("Are you sure you want to clear all leaderboard scores?")) {
-				localStorage.removeItem("auraLeaderboard");
-				renderLeaderboard();
-			}
-		}
-		
+
 		function buyStock(i) {
 			const s = stocks[i];
 			if (aura >= s.price) {
@@ -407,7 +360,11 @@
 		
 		setInterval(() => {
 			aura += auraPerSecond / 10;
-			updateUI();
+			document.getElementById("aura-display").textContent =
+			`Aura: ${Math.floor(aura)} (APS: ${Math.round(auraPerSecond)})`;
+			
+			document.getElementById("click-btn").textContent = `+${auraPerClick} Aura`;
+			renderStocks();
 		}, 100);
 		
 		setInterval(() => {
