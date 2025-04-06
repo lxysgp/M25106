@@ -398,6 +398,27 @@
 		
 		window.addEventListener("keydown", localStorage("aura",aura))
 	</script>
+
+	<script type="module">
+		// Import the functions you need from the SDKs you need
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+		// TODO: Add SDKs for Firebase products that you want to use
+		// https://firebase.google.com/docs/web/setup#available-libraries
+		// copied from firebase website fr
+		// Your web app's Firebase configuration
+		const firebaseConfig = {
+			apiKey: "AIzaSyCKQ53EEdgEyp1Wm0QdVdO973RD6wPUBw8",
+			authDomain: "notavirus-14c2c.firebaseapp.com",
+			projectId: "notavirus-14c2c",
+			storageBucket: "notavirus-14c2c.firebasestorage.app",
+			messagingSenderId: "615642848881",
+			appId: "1:615642848881:web:22a9082e7836649d8905d0"
+		};
+	
+		// Initialize Firebase
+		const app = initializeApp(firebaseConfig);
+	</script>
+
 	<footer><p>Xinyuan is not responsible for this if you are caught by any teacher.</p></footer>
 </body>
 </html>
